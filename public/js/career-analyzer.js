@@ -1,0 +1,1066 @@
+
+    // --- SUPABASE CONFIGURATION ---
+    // TODO: Replace these with your actual Supabase Project URL and Anon Key
+    const SUPABASE_URL = "https://tjqsmkaiajdpotmafqvw.supabase.co";
+    const SUPABASE_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcXNta2FpYWpkcG90bWFmcXZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5ODA3NDIsImV4cCI6MjA3MTU1Njc0Mn0.9710q9W5EFfCagj340AizUSKiOXYApy0xkTFszFjO8o";
+
+    let supabaseClient = null;
+    let isLocalMode = false;
+
+    // --- AUTH STATE LOGIC (Fixed) ---
+    async function checkUserSession() {
+      if (!supabaseClient) {
+        console.warn("Supabase client not ready, cannot check session.");
+        return;
+      }
+
+      try {
+        // 1. Get current session immediately
+        const { data, error } = await supabaseClient.auth.getSession();
+
+        if (error) {
+          console.error("Error checking session:", error);
+          updateNavUI(null); // Force guest UI on error
+        } else {
+          console.log("Session check complete. User:", data.session ? data.session.user.email : "Guest");
+          updateNavUI(data.session);
+        }
+
+        // 2. Listen for future changes (Login/Logout)
+        supabaseClient.auth.onAuthStateChange((_event, session) => {
+          console.log("Auth state changed:", _event);
+          updateNavUI(session);
+        });
+
+      } catch (err) {
+        console.error("Unexpected auth error:", err);
+      }
+    }
+    try {
+      if (SUPABASE_URL && SUPABASE_KEY) {
+        // Initialize Supabase using the global variable from the CDN script
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        console.log("Supabase initialized.");
+      } else {
+        isLocalMode = true;
+        console.log(
+          "Supabase keys missing. Running in Local Demo Mode (No Database Connection)."
+        );
+      }
+    } catch (e) {
+      console.warn(
+        "Error initializing Supabase, falling back to local mode:",
+        e
+      );
+      isLocalMode = true;
+    }
+    function updateNavUI(session) {
+      const navProfile = document.getElementById('nav-profile');
+      const navLogin = document.getElementById('nav-login');
+
+      // Mobile elements
+      const mobileProfile = document.getElementById('mobile-nav-profile');
+      const mobileLogin = document.getElementById('mobile-nav-login');
+
+      if (session) {
+        // User is LOGGED IN: Show Profile, Hide Login
+        if (navProfile) navProfile.classList.remove('hidden');
+        if (navLogin) navLogin.classList.add('hidden');
+
+        if (mobileProfile) mobileProfile.classList.remove('hidden');
+        if (mobileLogin) mobileLogin.classList.add('hidden');
+      } else {
+        // User is GUEST: Hide Profile, Show Login
+        if (navProfile) navProfile.classList.add('hidden');
+        if (navLogin) navLogin.classList.remove('hidden');
+
+        if (mobileProfile) mobileProfile.classList.add('hidden');
+        if (mobileLogin) mobileLogin.classList.remove('hidden');
+      }
+    }
+    // Run the check
+    checkUserSession();
+
+
+    // --- DATA & CONTENT ---
+    const CAREER_DETAILS = {
+      backend: {
+        id: "backend",
+        title: "Backend Developer",
+        icon: "fa-terminal",
+        description:
+          "You build the logic, databases, and APIs that power applications. You prefer efficiency and logic over visual design.",
+        roadmap: [
+          {
+            month: "1-2",
+            topic: "Core Language",
+            desc: "Master Python, Java, or Node.js logic and syntax.",
+          },
+          {
+            month: "3-4",
+            topic: "Databases",
+            desc: "Learn SQL (PostgreSQL) and NoSQL (MongoDB) basics.",
+          },
+          {
+            month: "5-6",
+            topic: "APIs & Servers",
+            desc: "Build RESTful APIs using Express or Django.",
+          },
+          {
+            month: "7+",
+            topic: "Deployment",
+            desc: "Learn Docker, AWS basics, and CI/CD pipelines.",
+          },
+        ],
+      },
+      fullstack: {
+        id: "fullstack",
+        title: "Full Stack Developer",
+        icon: "fa-globe",
+        description:
+          "The jack-of-all-trades. You enjoy building the entire product, from the user interface to the server logic.",
+        roadmap: [
+          {
+            month: "1-2",
+            topic: "Frontend Basics",
+            desc: "HTML, CSS, JavaScript, and React.",
+          },
+          {
+            month: "3-4",
+            topic: "Backend Basics",
+            desc: "Node.js, Express, and connecting to databases.",
+          },
+          {
+            month: "5-6",
+            topic: "Integration",
+            desc: "Building full CRUD apps and handling state management.",
+          },
+          {
+            month: "7+",
+            topic: "Advanced",
+            desc: "Next.js, Authentication, and scalable architecture.",
+          },
+        ],
+      },
+      data: {
+        id: "data",
+        title: "Data Analyst",
+        icon: "fa-chart-line",
+        description:
+          "You find stories in numbers. You prefer patterns, statistics, and insights over writing software code.",
+        roadmap: [
+          {
+            month: "1-2",
+            topic: "Excel & SQL",
+            desc: "Master advanced Excel and SQL querying.",
+          },
+          {
+            month: "3-4",
+            topic: "Visualization",
+            desc: "Learn PowerBI or Tableau to tell stories with data.",
+          },
+          {
+            month: "5-6",
+            topic: "Python for Data",
+            desc: "Pandas, NumPy, and basic data cleaning.",
+          },
+          {
+            month: "7+",
+            topic: "Statistics",
+            desc: "Basic statistical modeling and A/B testing.",
+          },
+        ],
+      },
+      cybersecurity: {
+        id: "cybersecurity",
+        title: "Cybersecurity Analyst",
+        icon: "fa-shield-halved",
+        description:
+          "The digital guardian. You enjoy finding vulnerabilities, protecting systems, and understanding how networks work.",
+        roadmap: [
+          {
+            month: "1-2",
+            topic: "Networking",
+            desc: "CompTIA Network+ concepts, OSI model, TCP/IP.",
+          },
+          {
+            month: "3-4",
+            topic: "OS & Linux",
+            desc: "Master Linux command line and Windows administration.",
+          },
+          {
+            month: "5-6",
+            topic: "Security Basics",
+            desc: "CompTIA Security+, threat analysis, firewalls.",
+          },
+          {
+            month: "7+",
+            topic: "Tools",
+            desc: "Wireshark, Nmap, and basic penetration testing tools.",
+          },
+        ],
+      },
+      qa: {
+        id: "qa",
+        title: "QA Automation Engineer",
+        icon: "fa-check-circle",
+        description:
+          "The quality gatekeeper. You love breaking things to ensure they are fixed before reaching the user.",
+        roadmap: [
+          {
+            month: "1-2",
+            topic: "Testing Basics",
+            desc: "Manual testing, writing test cases, Jira.",
+          },
+          {
+            month: "3-4",
+            topic: "Coding for QA",
+            desc: "Java or Python basics specifically for scripting.",
+          },
+          {
+            month: "5-6",
+            topic: "Automation",
+            desc: "Selenium, Cypress, or Playwright.",
+          },
+          {
+            month: "7+",
+            topic: "CI Integration",
+            desc: "Running tests in Jenkins or GitHub Actions.",
+          },
+        ],
+      },
+    };
+
+    const QUESTIONS = [
+      {
+        id: "interest",
+        text: "What part of technology excites you the most?",
+        options: [
+          {
+            text: "Building visual interfaces users interact with",
+            scores: {
+              fullstack: 5,
+              backend: 1,
+              qa: 1,
+              data: 0,
+              cybersecurity: 0,
+            },
+          },
+          {
+            text: "Designing the hidden logic and data flow",
+            scores: {
+              backend: 5,
+              fullstack: 3,
+              data: 2,
+              cybersecurity: 1,
+              qa: 0,
+            },
+          },
+          {
+            text: "Finding patterns and predicting trends",
+            scores: {
+              data: 5,
+              backend: 1,
+              fullstack: 0,
+              cybersecurity: 1,
+              qa: 1,
+            },
+          },
+          {
+            text: "Breaking systems to make them stronger",
+            scores: {
+              cybersecurity: 4,
+              qa: 5,
+              backend: 1,
+              data: 0,
+              fullstack: 0,
+            },
+          },
+        ],
+      },
+      {
+        id: "activity",
+        text: "If you were working on a team project, which task would you volunteer for?",
+        options: [
+          {
+            text: "Creating the dashboard and buttons",
+            scores: {
+              fullstack: 5,
+              backend: 0,
+              qa: 1,
+              data: 1,
+              cybersecurity: 0,
+            },
+          },
+          {
+            text: "Setting up the database and API",
+            scores: {
+              backend: 5,
+              fullstack: 3,
+              data: 2,
+              cybersecurity: 1,
+              qa: 0,
+            },
+          },
+          {
+            text: "Analyzing user behavior data",
+            scores: {
+              data: 5,
+              backend: 1,
+              fullstack: 0,
+              cybersecurity: 0,
+              qa: 1,
+            },
+          },
+          {
+            text: "Checking for bugs and security holes",
+            scores: {
+              qa: 5,
+              cybersecurity: 5,
+              backend: 1,
+              data: 0,
+              fullstack: 0,
+            },
+          },
+        ],
+      },
+      {
+        id: "mindset",
+        text: "How do you approach a difficult problem?",
+        options: [
+          {
+            text: "I construct a solution step-by-step from scratch",
+            scores: {
+              backend: 4,
+              fullstack: 4,
+              data: 1,
+              cybersecurity: 1,
+              qa: 1,
+            },
+          },
+          {
+            text: "I look for anomalies and potential points of failure",
+            scores: {
+              cybersecurity: 5,
+              qa: 5,
+              data: 2,
+              backend: 1,
+              fullstack: 0,
+            },
+          },
+          {
+            text: "I gather data to see what worked before",
+            scores: {
+              data: 5,
+              backend: 2,
+              fullstack: 1,
+              cybersecurity: 1,
+              qa: 1,
+            },
+          },
+        ],
+      },
+      {
+        id: "environment",
+        text: "Which work environment sounds best?",
+        options: [
+          {
+            text: "Fast-paced, building new features daily",
+            scores: {
+              fullstack: 5,
+              backend: 4,
+              data: 1,
+              cybersecurity: 0,
+              qa: 1,
+            },
+          },
+          {
+            text: "Stable, ensuring reliability and security",
+            scores: {
+              cybersecurity: 5,
+              qa: 5,
+              backend: 3,
+              data: 2,
+              fullstack: 1,
+            },
+          },
+          {
+            text: "Research-heavy, creating reports and insights",
+            scores: {
+              data: 5,
+              backend: 1,
+              cybersecurity: 2,
+              fullstack: 0,
+              qa: 1,
+            },
+          },
+        ],
+      },
+    ];
+
+    let state = {
+      view: "landing",
+      step: 0,
+      formData: {
+        name: "",
+        email: "",
+        branch: "",
+        year: "1st",
+        skillLevel: "Beginner",
+        answers: {},
+      },
+      results: null,
+    };
+
+    const appContainer = document.getElementById("app-container");
+
+    // --- RENDER FUNCTIONS ---
+    function render() {
+      appContainer.innerHTML = "";
+      if (state.view === "landing") renderLanding();
+      else if (state.view === "form") renderForm();
+      else if (state.view === "calculating") renderCalculating();
+      else if (state.view === "results") renderResults();
+    }
+
+    function renderLanding() {
+      // Updated Landing Page Content
+      appContainer.innerHTML = `
+                <div class="fade-in">
+                    <!-- Hero Section -->
+                    <section class="bg-gradient-to-b from-indigo-50 to-white pt-20 pb-16 px-4 text-center">
+                        <div class="max-w-4xl mx-auto">
+                            <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-6">Career Fit Tool for BTech Students</span>
+                            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
+                                Find the Tech Career That <span class="text-indigo-600">Actually Fits You</span>
+                            </h1>
+                            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                                Not what is trending. Not what others say. But what matches your skills, interests, and learning style.
+                                A 5-7 minute assessment that gives you a clear career direction and next steps.
+                            </p>
+                            <button id="start-btn-hero" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-indigo-600 rounded-full hover:bg-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                Start Free Career Fit Test
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Problem Section -->
+                    <section class="py-16 px-4 bg-white">
+                        <div class="max-w-5xl mx-auto text-center">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-4">Confused about your tech career?</h2>
+                            <p class="text-lg text-gray-600 mb-12">You are not alone. Most BTech students struggle with:</p>
+                            <div class="grid md:grid-cols-3 gap-8">
+    <!-- Card 1 -->
+    <div class="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+        <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-list-ul text-red-500 text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900">Overwhelmed?</h3>
+        <p class="text-gray-500 text-sm">Too many options like AI, Web3, Data... we filter the noise.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+        <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-comments text-orange-500 text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900">Confused?</h3>
+        <p class="text-gray-500 text-sm">Stop relying on generic advice. Get data-backed direction.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-default">
+        <div class="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fa-solid fa-check text-green-500 text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900">Get Clarity</h3>
+        <p class="text-gray-500 text-sm">A personalized roadmap to your first job.</p>
+    </div>
+</div>
+                            
+                        </div>
+                    </section>
+
+                    <!-- Solution Section -->
+                    <section class="py-16 px-4 bg-indigo-900 text-white">
+                        <div class="max-w-4xl mx-auto text-center">
+                            <h2 class="text-3xl font-bold mb-6">This tool helps you choose smartly — with data.</h2>
+                            <p class="text-lg text-indigo-100 mb-10">
+                                Our Career Fit Tool analyzes your interests, aptitude, learning behavior, and current skill level. 
+                                We match you with real tech careers that suit you, not everyone.
+                            </p>
+                            <div class="flex flex-wrap justify-center gap-4 text-sm font-semibold">
+                                <span class="px-4 py-2 bg-indigo-800 rounded-lg border border-indigo-700">No generic advice</span>
+                                <span class="px-4 py-2 bg-indigo-800 rounded-lg border border-indigo-700">No random personality tests</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- How It Works -->
+                    <section class="py-16 px-4 bg-white">
+                        <div class="max-w-5xl mx-auto">
+                            <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">How It Works</h2>
+                            <div class="grid md:grid-cols-3 gap-8 text-center">
+                                <div>
+                                    <div class="text-5xl font-black text-indigo-100 mb-4">01</div>
+                                    <h3 class="text-xl font-bold mb-2">Answer smart questions</h3>
+                                    <p class="text-gray-600">Takes only 5-7 minutes of your time.</p>
+                                </div>
+                                <div>
+                                    <div class="text-5xl font-black text-indigo-100 mb-4">02</div>
+                                    <h3 class="text-xl font-bold mb-2">Get Fit Scores</h3>
+                                    <p class="text-gray-600">See how well different tech careers match you.</p>
+                                </div>
+                                <div>
+                                    <div class="text-5xl font-black text-indigo-100 mb-4">03</div>
+                                    <h3 class="text-xl font-bold mb-2">Get a clear roadmap</h3>
+                                    <p class="text-gray-600">Know what to learn next and where to focus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- What You Get & Careers -->
+                    <section class="py-16 px-4 bg-gray-50">
+                        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-6">What You Will Get</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-center text-gray-700"><i class="fa-solid fa-check text-green-500 w-8"></i> Your best-fit tech career</li>
+                                    <li class="flex items-center text-gray-700"><i class="fa-solid fa-check text-green-500 w-8"></i> A backup career option</li>
+                                    <li class="flex items-center text-gray-700"><i class="fa-solid fa-check text-green-500 w-8"></i> Careers you should avoid for now</li>
+                                    <li class="flex items-center text-gray-700"><i class="fa-solid fa-check text-green-500 w-8"></i> A clear learning roadmap</li>
+                                    <li class="flex items-center text-gray-700"><i class="fa-solid fa-check text-green-500 w-8"></i> Confidence in your decision</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-6">Careers We Cover</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-white border border-gray-200 rounded text-gray-700">Backend Developer</span>
+                                    <span class="px-3 py-1 bg-white border border-gray-200 rounded text-gray-700">Full Stack Developer</span>
+                                    <span class="px-3 py-1 bg-white border border-gray-200 rounded text-gray-700">Data Analyst</span>
+                                    <span class="px-3 py-1 bg-white border border-gray-200 rounded text-gray-700">Cybersecurity Analyst</span>
+                                    <span class="px-3 py-1 bg-white border border-gray-200 rounded text-gray-700">QA Automation Engineer</span>
+                                    <span class="px-3 py-1 bg-gray-100 border border-gray-200 rounded text-gray-500 italic">More coming soon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Trust Section -->
+                    <section class="py-12 px-4 bg-white border-t border-gray-100">
+                        <div class="max-w-4xl mx-auto text-center">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Honest & Student-First</h3>
+                            <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+                                <span class="flex items-center"><i class="fa-solid fa-lock text-gray-400 mr-2"></i> No forced sign-ups</span>
+                                <span class="flex items-center"><i class="fa-solid fa-ban text-gray-400 mr-2"></i> No fake promises</span>
+                                <span class="flex items-center"><i class="fa-solid fa-check-double text-gray-400 mr-2"></i> Clear, practical guidance</span>
+                            </div>
+                            <p class="mt-4 text-gray-500 text-sm">This tool is built to help you decide, not to sell you something.</p>
+                        </div>
+                    </section>
+
+                    <!-- Final CTA -->
+                    <section class="py-20 px-4 bg-gray-900 text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Find Your Path?</h2>
+                        <p class="text-gray-400 mb-8 text-lg">Stop guessing. Start choosing with clarity.</p>
+                        <button id="start-btn-footer" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-gray-900 transition-all duration-200 bg-white rounded-full hover:bg-gray-100 shadow-xl">
+                            Start Your Free Career Fit Test
+                        </button>
+                    </section>
+                </div>
+            `;
+
+      const startHandler = () => {
+        state.view = "form";
+        render();
+        window.scrollTo(0, 0);
+      };
+
+      document
+        .getElementById("start-btn-hero")
+        .addEventListener("click", startHandler);
+      document
+        .getElementById("start-btn-footer")
+        .addEventListener("click", startHandler);
+    }
+
+    function renderForm() {
+      const totalSteps = 4 + QUESTIONS.length;
+      const progress = ((state.step + 1) / totalSteps) * 100;
+
+      let content = "";
+
+      // Step 0: Basic Info
+      if (state.step === 0) {
+        content = `
+            <div class="space-y-6 fade-in">
+                <h2 class="text-2xl font-bold text-gray-900">Let us get to know you</h2>
+                <div class="space-y-4">
+                    <!-- Inputs -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+<input type="text" id="input-name" value="${state.formData.name}" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all shadow-sm outline-none" placeholder="John Doe" />                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="input-email" value="${state.formData.email
+          }" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="john@college.edu" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Branch</label>
+                            <select id="input-branch" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="">Select</option>
+                                <option value="CSE" ${state.formData.branch === "CSE"
+            ? "selected"
+            : ""
+          }>CSE</option>
+                                <option value="IT" ${state.formData.branch === "IT"
+            ? "selected"
+            : ""
+          }>IT</option>
+                                <option value="ECE" ${state.formData.branch === "ECE"
+            ? "selected"
+            : ""
+          }>ECE</option>
+                                <option value="Other" ${state.formData.branch === "Other"
+            ? "selected"
+            : ""
+          }>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                            <select id="input-year" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="1st" ${state.formData.year === "1st"
+            ? "selected"
+            : ""
+          }>1st Year</option>
+                                <option value="2nd" ${state.formData.year === "2nd"
+            ? "selected"
+            : ""
+          }>2nd Year</option>
+                                <option value="3rd" ${state.formData.year === "3rd"
+            ? "selected"
+            : ""
+          }>3rd Year</option>
+                                <option value="4th" ${state.formData.year === "4th"
+            ? "selected"
+            : ""
+          }>4th Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Current Tech Skill Level</label>
+                        <div class="flex space-x-4">
+                            ${["Beginner", "Intermediate", "Advanced"]
+            .map(
+              (lvl) => `
+                                <button class="skill-btn flex-1 py-2 px-3 rounded-lg text-sm border ${state.formData.skillLevel === lvl
+                  ? "bg-indigo-50 border-indigo-500 text-indigo-700 font-bold"
+                  : "border-gray-300 hover:bg-gray-50"
+                }" data-value="${lvl}">
+                                    ${lvl}
+                                </button>
+                            `
+            )
+            .join("")}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION BUTTONS (Updated) -->
+                <div class="flex justify-between items-center pt-6 mt-4 border-t border-gray-100">
+                    <button id="back-btn" class="px-4 py-2 text-gray-500 hover:text-gray-900 font-medium transition-colors flex items-center">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button id="next-btn" class="px-8 py-2.5 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none transition-all flex items-center">
+    Next Step <i class="fa-solid fa-arrow-right ml-2"></i>
+</button>
+                </div>
+            </div>
+        `;
+      }
+      // Questions Steps
+      else if (state.step > 0 && state.step <= QUESTIONS.length) {
+        const q = QUESTIONS[state.step - 1];
+        content = `
+            <div class="space-y-6 fade-in">
+                <span class="uppercase tracking-wide text-xs font-bold text-indigo-500 mb-2 block">Question ${state.step
+          } of ${QUESTIONS.length}</span>
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">${q.text}</h2>
+                <div class="space-y-3">
+                    ${q.options
+            .map(
+              (opt, idx) => `
+                        <button class="option-btn w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-indigo-500 hover:bg-indigo-50 transition-all duration-200 group flex items-center justify-between" data-idx="${idx}">
+                            <span class="font-medium text-gray-700 group-hover:text-indigo-900">${opt.text}</span>
+                            <div class="w-4 h-4 rounded-full border border-gray-300 group-hover:border-indigo-500 group-hover:bg-indigo-500"></div>
+                        </button>
+                    `
+            )
+            .join("")}
+                </div>
+                
+                <!-- Back Button for Questions -->
+                <div class="pt-6 mt-4 border-t border-gray-100">
+                    <button id="back-btn" class="px-4 py-2 text-gray-500 hover:text-gray-900 font-medium transition-colors flex items-center">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                    </button>
+                </div>
+            </div>
+        `;
+      }
+      // Final Confirm Step
+      else {
+        content = `
+            <div class="text-center py-10 space-y-6 fade-in">
+                <div class="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-circle-check text-4xl text-indigo-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900">All Set!</h2>
+                <p class="text-gray-600">We have analyzed your inputs. Ready to see your future?</p>
+                
+                <div class="flex flex-col gap-3">
+                    <button id="submit-btn" class="w-full md:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition-colors">
+                        Reveal My Career Path
+                    </button>
+                    <button id="back-btn" class="text-gray-500 hover:text-gray-800 text-sm font-medium mt-2">
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        `;
+      }
+
+      appContainer.innerHTML = `
+        <div class="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-4 w-full">
+            <div class="w-full max-w-2xl bg-gray-200 rounded-full h-2.5 mb-8">
+                <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
+            </div>
+            <div class="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-gray-100">
+                ${content}
+            </div>
+        </div>
+    `;
+
+      attachFormListeners();
+    }
+
+    function attachFormListeners() {
+      // --- NEW BACK BUTTON LOGIC ---
+      const backBtn = document.getElementById("back-btn");
+      if (backBtn) {
+        backBtn.addEventListener("click", () => {
+          if (state.step === 0) {
+            // If on Step 0, go back to Landing Page
+            state.view = "landing";
+          } else {
+            // Otherwise, go back one step
+            state.step--;
+          }
+          render();
+        });
+      }
+
+      if (state.step === 0) {
+        // Input Listeners
+        ["input-name", "input-email", "input-branch", "input-year"].forEach(
+          (id) => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.addEventListener("change", (e) => {
+                const key = id.replace("input-", "");
+                state.formData[key] = e.target.value;
+                // Check validation for button
+                const btn = document.getElementById("next-btn");
+                if (state.formData.name && state.formData.branch)
+                  btn.disabled = false;
+                else btn.disabled = true;
+              });
+              // Basic validation init
+              if (id === "input-name" || id === "input-branch")
+                el.dispatchEvent(new Event("change"));
+            }
+          }
+        );
+
+        // Skill Buttons
+        document.querySelectorAll(".skill-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            state.formData.skillLevel = btn.dataset.value;
+            render(); // Re-render to show active state
+          });
+        });
+
+        // Next Button
+        document.getElementById("next-btn").addEventListener("click", () => {
+          state.step++;
+          render();
+        });
+      } else if (state.step > 0 && state.step <= QUESTIONS.length) {
+        // Option Buttons
+        document.querySelectorAll(".option-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const qId = QUESTIONS[state.step - 1].id;
+            const optIdx = parseInt(btn.dataset.idx);
+            const scores = QUESTIONS[state.step - 1].options[optIdx].scores;
+
+            state.formData.answers[qId] = scores;
+
+            // Delay for visual feedback
+            setTimeout(() => {
+              state.step++;
+              render();
+            }, 250);
+          });
+        });
+      } else {
+        // Submit Button
+        document
+          .getElementById("submit-btn")
+          .addEventListener("click", calculateResults);
+      }
+    }
+
+    function renderCalculating() {
+      appContainer.innerHTML = `
+                <div class="min-h-screen flex flex-col items-center justify-center bg-white w-full">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600 mb-4"></div>
+                    <h2 class="text-xl font-semibold text-gray-700">Analyzing your responses...</h2>
+                    <p class="text-sm text-gray-500 mt-2">Computing fit scores</p>
+                </div>
+            `;
+    }
+
+    function renderResults() {
+      const { top, secondary, low } = state.results;
+
+      appContainer.innerHTML = `
+                <div class="bg-gray-50 py-12 px-4 w-full">
+                    <div class="max-w-4xl mx-auto space-y-8 fade-in">
+                        
+                        <div class="text-center mb-8">
+                            <h1 class="text-3xl font-bold text-gray-900">Your Career Analysis Results</h1>
+                            <p class="text-gray-600 mt-2">Based on your interests, logic style, and patience levels.</p>
+                        </div>
+
+                        <!-- Top Result -->
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-8 border-indigo-600 transform hover:scale-[1.01] transition-transform">
+                            <div class="p-8">
+                                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                                    <div>
+                                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold tracking-wide uppercase mb-2">Best Fit • ${top.score
+        }% Match</span>
+                                        <div class="flex items-center space-x-3">
+                                            <div class="p-3 bg-indigo-100 rounded-lg text-indigo-600 text-2xl">
+                                                <i class="fa-solid ${top.icon
+        }"></i>
+                                            </div>
+                                            <h2 class="text-3xl font-bold text-gray-900">${top.title
+        }</h2>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 md:mt-0 text-right hidden md:block">
+                                        <div class="text-5xl font-extrabold text-indigo-600">${top.score
+        }%</div>
+                                        <div class="text-sm text-gray-400">Match Score</div>
+                                    </div>
+                                </div>
+                                
+                                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-indigo-200 pl-4 mb-8">
+                                    ${top.description} <br/>
+                                    <span class="text-sm text-gray-500 mt-2 block">Why? Your answers indicate a preference for this work style.</span>
+                                </p>
+
+                                <div class="bg-slate-50 rounded-xl p-6 border border-slate-100">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                        <i class="fa-solid fa-layer-group mr-2 text-indigo-600"></i>
+                                        Your 6-Month Roadmap
+                                    </h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        ${top.roadmap
+          .map(
+            (step) => `
+                                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 relative">
+                                                <div class="absolute top-0 right-0 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg">
+                                                    Month ${step.month}
+                                                </div>
+                                                <h4 class="font-bold text-indigo-900 mt-2">${step.topic}</h4>
+                                                <p class="text-sm text-gray-600 mt-1">${step.desc}</p>
+                                            </div>
+                                        `
+          )
+          .join("")}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Secondary -->
+                        <div class="bg-white rounded-xl shadow p-6 border-l-4 border-blue-400">
+                            <h3 class="text-lg font-bold text-gray-900 mb-1">Strong Alternative</h3>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3 mt-2">
+                                    <div class="p-2 bg-blue-50 rounded text-blue-500 text-xl"><i class="fa-solid ${secondary.icon
+        }"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">${secondary.title
+        }</h4>
+                                        <p class="text-sm text-gray-500">${secondary.score
+        }% Match</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="text-center pt-8 pb-12">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Ready to start?</h3>
+                            <div class="flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-4">
+                                <button class="px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition shadow-lg">
+                                    Find Mentors
+                                </button>
+                                <button id="retake-btn" class="px-6 py-3 bg-white text-gray-900 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition">
+                                    Retake Test
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+
+      document.getElementById("retake-btn").addEventListener("click", () => {
+        state.step = 0;
+        state.view = "landing";
+        state.results = null;
+        state.formData.answers = {};
+        render();
+      });
+    }
+
+    // --- LOGIC ---
+    async function calculateResults() {
+      state.view = "calculating";
+      render();
+
+      let finalScores = {
+        backend: 0,
+        fullstack: 0,
+        data: 0,
+        cybersecurity: 0,
+        qa: 0,
+      };
+
+      Object.values(state.formData.answers).forEach((scoreSet) => {
+        Object.keys(scoreSet).forEach((career) => {
+          finalScores[career] += scoreSet[career];
+        });
+      });
+
+      if (state.formData.branch === "CSE" || state.formData.branch === "IT") {
+        finalScores.backend += 2;
+        finalScores.fullstack += 2;
+      }
+      if (state.formData.skillLevel === "Beginner") {
+        finalScores.qa += 3;
+        finalScores.data += 1;
+      }
+      if (state.formData.skillLevel === "Advanced") {
+        finalScores.backend += 3;
+        finalScores.cybersecurity += 3;
+      }
+
+      const maxPossible = 30;
+      const sortedCareers = Object.entries(finalScores)
+        .map(([key, value]) => ({
+          key,
+          score: Math.min(Math.round((value / maxPossible) * 100), 98),
+          ...CAREER_DETAILS[key],
+        }))
+        .sort((a, b) => b.score - a.score);
+
+      // Save to Supabase
+      try {
+        if (supabaseClient) {
+          const { data, error } = await supabaseClient
+            .from("career_analysis")
+            .insert([
+              {
+                student_info: {
+                  name: state.formData.name,
+                  branch: state.formData.branch,
+                  year: state.formData.year,
+                },
+                answers: state.formData.answers,
+                scores: finalScores,
+                created_at: new Date().toISOString(),
+              },
+            ]);
+          if (error) throw error;
+          console.log("Data saved to Supabase");
+        } else {
+          console.log(
+            "Supabase not configured. Skipping data save (Demo Mode)."
+          );
+        }
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+
+      state.results = {
+        top: sortedCareers[0],
+        secondary: sortedCareers[1],
+        low: sortedCareers[sortedCareers.length - 1],
+      };
+
+      state.view = "results";
+      render();
+    }
+
+    render();
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // 2. Desktop Tools Dropdown Toggle (Fixed Logic)
+      const toolsBtn = document.getElementById('desktop-tools-btn');
+      const toolsMenu = document.getElementById('desktop-tools-menu');
+
+      if (toolsBtn && toolsMenu) {
+        toolsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Toggle the hidden class
+          const isHidden = toolsMenu.classList.contains('hidden');
+          if (isHidden) {
+            toolsMenu.classList.remove('hidden');
+          } else {
+            toolsMenu.classList.add('hidden');
+          }
+        });
+      }
+
+      // 3. Close menus when clicking outside
+      document.addEventListener('click', (e) => {
+        // Close Tools Menu
+        if (toolsMenu && !toolsMenu.contains(e.target) && !toolsBtn.contains(e.target)) {
+          toolsMenu.classList.add('hidden');
+        }
+        // Close Mobile Menu
+        if (mobileMenu && !mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    });
+ 

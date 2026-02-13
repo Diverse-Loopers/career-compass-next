@@ -1,0 +1,65 @@
+
+        :root {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        .dark {
+            --bg-body: #090a14;
+            --bg-card: #151726;
+            --text-main: #f1f5f9;
+            --border: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .glass-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn.active {
+            color: #4f46e5;
+            border-bottom: 2px solid #4f46e5;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+        }
+   

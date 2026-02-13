@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap');
+
+:root {
+    --bg-body: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --border: #e2e8f0;
+}
+
+.dark {
+    --bg-body: #090a14;
+    --bg-card: #151726;
+    --text-main: #f1f5f9;
+    --border: #1e293b;
+}
+
+.glass-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background-color: var(--bg-body);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    outline: none;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.input-field:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+@keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+
+    33% {
+        transform: translate(20px, -30px) scale(1.05);
+    }
+
+    66% {
+        transform: translate(-10px, 10px) scale(0.95);
+    }
+
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .glass-nav {
+    background: rgba(12, 13, 25, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+details>summary {
+    list-style: none;
+}
+
+details>summary::-webkit-details-marker {
+    display: none;
+}
