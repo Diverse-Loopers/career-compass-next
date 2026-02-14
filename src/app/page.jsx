@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
+
 import * as HomeLogic from '@/lib/pages/home';
 import "./home/home.css";
+
 
 export default function HomePage() {
   useEffect(() => {
@@ -17,6 +19,8 @@ export default function HomePage() {
 
   return (
     <>
+
+
       {/* ================= NAVIGATION ================= */}
       <nav className="fixed top-0 w-full z-50 glass-nav">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

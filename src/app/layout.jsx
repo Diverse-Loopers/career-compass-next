@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter, Poppins } from 'next/font/google';
+import SmoothScroll from './SmoothScroll'
 
 // Optimized font loading with Next.js
 const inter = Inter({ 
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className="font-sans text-slate-800 bg-white min-h-screen overflow-x-hidden">
+         <SmoothScroll />
         {children}
       </body>
     </html>
