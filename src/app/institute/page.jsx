@@ -1,75 +1,54 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import './institute.css';
-import Script from 'next/script';
+import Script from "next/script";
+import { useEffect } from "react";
+import "./institute.css";
+import { initBusinessPage } from "@/lib/pages/institute";
 
-export default function Universities() {
+export default function BusinessPage() {
   useEffect(() => {
-    // Initialize the page after scripts are loaded
-    if (typeof window !== 'undefined' && window.initUniversities) {
-      window.initUniversities();
-    }
+    initBusinessPage();
   }, []);
 
   return (
     <>
-      {/* External Scripts */}
-      <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
-      <Script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" strategy="beforeInteractive" />
-      <Script src="https://unpkg.com/lucide@latest" strategy="beforeInteractive" />
+      {/* Fonts */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap"
+        rel="stylesheet"
+      />
+
+      {/* Scripts */}
+     
+      <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" />
+
       
-      {/* Tailwind Config */}
-      <Script id="tailwind-config" strategy="beforeInteractive">
-        {`
-          tailwind.config = {
-            theme: {
-              extend: {
-                colors: {
-                  primary: '#2563eb',
-                  secondary: '#db2777',
-                  dark: '#0f172a',
-                  surface: '#f8fafc'
-                },
-                fontFamily: {
-                  sans: ['Inter', 'sans-serif'],
-                  heading: ['Poppins', 'sans-serif'],
-                }
-              }
-            }
-          }
-        `}
-      </Script>
-
-      {/* Main JavaScript Logic */}
-      <Script src="/js/institute.js" strategy="afterInteractive" />
-
-    
 
       <div className="font-sans text-slate-600 bg-white selection:bg-primary selection:text-white min-h-screen flex flex-col overflow-x-hidden">
-        
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-50 glass-nav">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
-              <a href="index.html" className="flex-shrink-0 flex items-center gap-2">
-                <img src="DIVERSE LOOPERS (1) bg.png" alt="Diverse Loopers" className="h-12 w-auto" />
+              <a href="/" className="flex-shrink-0 flex items-center gap-2">
+                <img src="/DIVERSE LOOPERS (1) bg.png" alt="Diverse Loopers" className="h-12 w-auto" />
               </a>
 
               {/* Desktop Nav */}
               <div className="hidden md:flex items-center space-x-8">
                 <div className="flex space-x-1 p-1 bg-slate-100 rounded-full text-xs font-semibold mr-4">
-                  <a href="index.html" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">
+                  <a href="/" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">
                     Students
                   </a>
-                  <a href="institute.html" className="px-4 py-1.5 bg-white text-primary rounded-full shadow-sm">
+                  <a href="/institute" className="px-4 py-1.5 bg-white text-primary rounded-full shadow-sm">
                     Universities
                   </a>
-                  <a href="business.html" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">
+                  <a href="/business" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">
                     Businesses
                   </a>
                 </div>
-                <a href="institute.html" className="text-slate-600 hover:text-primary font-medium transition text-sm">
+                <a href="/" className="text-slate-600 hover:text-primary font-medium transition text-sm">
                   Home
                 </a>
                 <a href="#philosophy" className="text-slate-600 hover:text-primary font-medium transition text-sm">
@@ -78,7 +57,10 @@ export default function Universities() {
                 <a href="#blueprint" className="text-slate-600 hover:text-primary font-medium transition text-sm">
                   Blueprint
                 </a>
-                <a href="#contact" className="px-5 py-2.5 bg-primary text-white rounded-full font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+                 <a 
+                  href="#contact"
+                  className="px-5 py-2.5 bg-primary text-white rounded-full font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-200"
+                >
                   Become a Partner
                 </a>
               </div>
@@ -92,26 +74,45 @@ export default function Universities() {
           </div>
 
           {/* Mobile Menu */}
-          <div id="mobile-menu" className="hidden md:hidden bg-white border-b border-slate-100 max-h-[calc(100vh-80px)] overflow-y-auto">
+          <div
+            id="mobile-menu"
+            className="hidden md:hidden bg-white border-b border-slate-100 max-h-[calc(100vh-80px)] overflow-y-auto"
+          >
             <div className="px-4 pt-2 pb-8 space-y-1">
               <div className="flex gap-2 p-2 mb-4 bg-slate-50 rounded-xl text-center">
-                <a href="index.html" className="flex-1 py-2 text-slate-500 text-xs font-bold">Students</a>
-                <a href="institute.html" className="flex-1 py-2 bg-white text-primary rounded-lg text-xs font-bold shadow-sm">
+                <a href="/" className="flex-1 py-2 text-slate-500 text-xs font-bold">
+                  Students
+                </a>
+                <a href="/institute" className="flex-1 py-2 bg-white text-primary rounded-lg text-xs font-bold shadow-sm">
                   Universities
                 </a>
-                <a href="business.html" className="flex-1 py-2 text-slate-500 text-xs font-bold">Businesses</a>
+                <a href="/business" className="flex-1 py-2 text-slate-500 text-xs font-bold">
+                  Businesses
+                </a>
               </div>
-              <a href="#philosophy" className="block px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-xl">
+               <a
+                href="#philosophy"
+                className="block px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-xl"
+              >
                 Our Philosophy
               </a>
-              <a href="#blueprint" className="block px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-xl">
+               <a 
+                href="#blueprint"
+                className="block px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-xl"
+              >
                 Blueprint
               </a>
-              <a href="#partnership-models" className="block px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-xl">
+               <a 
+                href="#partnership-models"
+                className="block px-4 py-3 text-base font-semibold text-slate-700 hover:bg-slate-50 rounded-xl"
+              >
                 Models
               </a>
               <div className="pt-6 px-2">
-                <a href="#contact" className="block w-full text-center py-4 bg-primary text-white rounded-2xl font-bold shadow-lg">
+                 <a 
+                  href="#contact"
+                  className="block w-full text-center py-4 bg-primary text-white rounded-2xl font-bold shadow-lg"
+                >
                   Partner Now
                 </a>
               </div>
@@ -129,18 +130,27 @@ export default function Universities() {
                   Academic Transformation Model
                 </span>
                 <h1 className="text-4xl md:text-7xl font-heading font-black text-slate-900 leading-tight mb-8 fade-in">
-                  Build Graduates Who Don't Just Graduate — <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                  Build Graduates Who Don't Just Graduate —{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                     They Lead.
                   </span>
                 </h1>
                 <p className="text-xl text-slate-600 leading-relaxed mb-12 fade-in">
-                  Higher education is at a turning point. Industries are evolving faster than curricula. Partner with Diverse Loopers to build an application-driven ecosystem where learning is proof-based.
+                  Higher education is at a turning point. Industries are evolving faster than curricula. Partner with
+                  Diverse Loopers to build an application-driven ecosystem where learning is proof-based.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
-                  <a href="#blueprint" className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-blue-700 shadow-xl shadow-blue-100 flex items-center justify-center gap-2 group transition">
-                    Explore Blueprint <i data-lucide="arrow-right" className="w-5 h-5 group-hover:translate-x-1 transition"></i>
+                   <a 
+                    href="#blueprint"
+                    className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-blue-700 shadow-xl shadow-blue-100 flex items-center justify-center gap-2 group transition"
+                  >
+                    Explore Blueprint{" "}
+                    <i data-lucide="arrow-right" className="w-5 h-5 group-hover:translate-x-1 transition"></i>
                   </a>
-                  <a href="#contact" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition">
+                  <a
+                    href="#contact"
+                    className="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition"
+                  >
                     Schedule Strategy Call
                   </a>
                 </div>
@@ -151,20 +161,26 @@ export default function Universities() {
                 <div>
                   <h2 className="text-3xl font-heading font-bold text-slate-900 mb-6">Why Universities Need This Now</h2>
                   <p className="text-slate-600 mb-6 leading-relaxed">
-                    Universities across the world are facing the same challenge: industry expectations are changing faster than academic structures. Students want direction, relevance, and results.
+                    Universities across the world are facing the same challenge: industry expectations are changing faster
+                    than academic structures. Students want direction, relevance, and results.
                   </p>
                   <p className="text-slate-600 font-medium">
-                    Diverse Loopers helps institutions modernize without replacing what already works. We strengthen the existing academic ecosystem.
+                    Diverse Loopers helps institutions modernize without replacing what already works. We strengthen the
+                    existing academic ecosystem.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 gap-4">
                   <div className="flex gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <i data-lucide="alert-circle" className="text-secondary w-6 h-6 flex-shrink-0"></i>
-                    <p className="text-sm text-slate-600">Employers demand applied skills and verifiable portfolios over scores.</p>
+                    <p className="text-sm text-slate-600">
+                      Employers demand applied skills and verifiable portfolios over scores.
+                    </p>
                   </div>
                   <div className="flex gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                     <i data-lucide="trending-up" className="text-primary w-6 h-6 flex-shrink-0"></i>
-                    <p className="text-sm text-slate-600">Bridging the widening gap between traditional curricula and market needs.</p>
+                    <p className="text-sm text-slate-600">
+                      Bridging the widening gap between traditional curricula and market needs.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -179,7 +195,8 @@ export default function Universities() {
                   <span className="text-lg font-bold text-slate-700">Technical Universities</span>
                 </div>
                 <p className="text-sm text-slate-500 max-w-2xl mx-auto italic">
-                  We collaborate closely with academic leaders to design practical, outcome-driven ecosystems tailored to engineering, management, research, and interdisciplinary programs.
+                  We collaborate closely with academic leaders to design practical, outcome-driven ecosystems tailored to
+                  engineering, management, research, and interdisciplinary programs.
                 </p>
               </div>
             </div>
@@ -190,12 +207,16 @@ export default function Universities() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="mb-16 fade-in text-center">
                 <h2 className="text-primary font-bold uppercase tracking-widest text-sm mb-4">Our Philosophy</h2>
-                <h3 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">Why Diverse Loopers Exists</h3>
+                <h3 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">
+                  Why Diverse Loopers Exists
+                </h3>
                 <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                  Diverse Loopers is a business and education ecosystem that blends real-world project execution, career pathways, and applied learning environments.
+                  Diverse Loopers is a business and education ecosystem that blends real-world project execution, career
+                  pathways, and applied learning environments.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  We connect institutions, learners, and industry to create measurable outcomes and meaningful opportunities.
+                  We connect institutions, learners, and industry to create measurable outcomes and meaningful
+                  opportunities.
                 </p>
               </div>
 
@@ -207,7 +228,8 @@ export default function Universities() {
                   </div>
                   <h4 className="text-xl font-bold text-slate-900 mb-4">Skill is the New Academic Currency</h4>
                   <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                    Degrees validate knowledge; skills validate capability. We ensure students graduate as contributors, not trainees.
+                    Degrees validate knowledge; skills validate capability. We ensure students graduate as contributors,
+                    not trainees.
                   </p>
                   <ul className="space-y-2 text-xs font-semibold text-slate-700">
                     <li className="flex items-center gap-2">
@@ -251,7 +273,8 @@ export default function Universities() {
                   </div>
                   <h4 className="text-xl font-bold text-slate-900 mb-4">Education Must Show Measurable ROI</h4>
                   <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                    Impact is seen in employability and research application. We help universities track results confidently.
+                    Impact is seen in employability and research application. We help universities track results
+                    confidently.
                   </p>
                   <ul className="space-y-2 text-xs font-semibold text-slate-700">
                     <li className="flex items-center gap-2">
@@ -268,8 +291,8 @@ export default function Universities() {
               </div>
             </div>
             <div className="flex justify-center items-center mt-12">
-              <button 
-                onClick={() => window.location.href='skillsynth.html'} 
+              <button
+                onClick={() => (window.location.href = '/skillsynth')}
                 className="px-10 py-4 bg-white text-slate-700 border border-slate-200 rounded-2xl font-bold hover:border-primary hover:text-primary transition"
               >
                 Our Top Performers
@@ -284,10 +307,12 @@ export default function Universities() {
                 <div className="sticky top-32 fade-in">
                   <h2 className="text-primary font-bold uppercase tracking-widest text-sm mb-4">The Blueprint</h2>
                   <h3 className="text-4xl md:text-5xl font-heading font-black text-slate-900 mb-8 leading-tight">
-                    We co-design academic <br />ecosystems.
+                    We co-design academic <br />
+                    ecosystems.
                   </h3>
                   <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                    Our partnership grows across three structured stages. We don't implement pre-built modules; we co-create with your vision.
+                    Our partnership grows across three structured stages. We don't implement pre-built modules; we
+                    co-create with your vision.
                   </p>
                   <div className="p-6 bg-blue-50 border-l-4 border-primary rounded-r-2xl">
                     <p className="text-sm font-medium text-slate-700 italic">
@@ -305,16 +330,20 @@ export default function Universities() {
                       </span>
                       <h4 className="text-xl font-bold text-slate-900">Co-Creation & Integration</h4>
                     </div>
-                    <p className="text-sm text-slate-500 mb-6 italic">Embed capability into the foundation (6 Months).</p>
+                    <p className="text-sm text-slate-500 mb-6 italic">
+                      Embed capability into the foundation (6 Months).
+                    </p>
                     <ul className="space-y-3 text-sm text-slate-600 font-medium">
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Map curriculum against industry needs
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Map curriculum against industry
+                        needs
                       </li>
                       <li className="flex items-start gap-3">
                         <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Introduce learning labs & tools
                       </li>
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Train faculty to collaborate with mentors
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Train faculty to collaborate with
+                        mentors
                       </li>
                     </ul>
                   </div>
@@ -327,16 +356,20 @@ export default function Universities() {
                       </span>
                       <h4 className="text-xl font-bold text-slate-900">Pilot Execution & Impact</h4>
                     </div>
-                    <p className="text-sm text-slate-500 mb-6 italic">Validate outcomes through results (12 Months).</p>
+                    <p className="text-sm text-slate-500 mb-6 italic">
+                      Validate outcomes through results (12 Months).
+                    </p>
                     <ul className="space-y-3 text-sm text-slate-600 font-medium">
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Assign real business projects to batches
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Assign real business projects to
+                        batches
                       </li>
                       <li className="flex items-start gap-3">
                         <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Conduct hybrid learning workshops
                       </li>
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Activate placement & internship pipeline
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Activate placement & internship
+                        pipeline
                       </li>
                     </ul>
                   </div>
@@ -349,16 +382,21 @@ export default function Universities() {
                       </span>
                       <h4 className="text-xl font-bold text-slate-900">National Spotlight & Scale</h4>
                     </div>
-                    <p className="text-sm text-slate-500 mb-6 italic">Transform your institution into a role model (Ongoing).</p>
+                    <p className="text-sm text-slate-500 mb-6 italic">
+                      Transform your institution into a role model (Ongoing).
+                    </p>
                     <ul className="space-y-3 text-sm text-slate-600 font-medium">
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Expand across multiple departments
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Expand across multiple
+                        departments
                       </li>
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Establish innovation labs & hybrid workspaces
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Establish innovation labs & hybrid
+                        workspaces
                       </li>
                       <li className="flex items-start gap-3">
-                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Position as a future-ready education leader
+                        <i data-lucide="check" className="w-4 h-4 text-primary mt-1"></i> Position as a future-ready
+                        education leader
                       </li>
                     </ul>
                   </div>
@@ -395,7 +433,9 @@ export default function Universities() {
                         <i data-lucide="user-plus" className="text-primary flex-shrink-0"></i>
                         <div>
                           <p className="text-slate-900 font-bold">Faculty Empowerment & Support</p>
-                          <p className="text-sm">Enable faculty with tools, co-teaching models, and industry insights.</p>
+                          <p className="text-sm">
+                            Enable faculty with tools, co-teaching models, and industry insights.
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -448,23 +488,35 @@ export default function Universities() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
                 <div className="p-8 bento-card rounded-3xl">
                   <h4 className="text-lg font-bold text-slate-900 mb-2">Department Pilot Model</h4>
-                  <p className="text-sm text-slate-500">Focused integration for specific technical or management streams.</p>
+                  <p className="text-sm text-slate-500">
+                    Focused integration for specific technical or management streams.
+                  </p>
                 </div>
                 <div className="p-8 bento-card rounded-3xl">
                   <h4 className="text-lg font-bold text-slate-900 mb-2">Innovation Lab Partnership</h4>
-                  <p className="text-sm text-slate-500">Physical spaces for experimentation, prototyping, and research.</p>
+                  <p className="text-sm text-slate-500">
+                    Physical spaces for experimentation, prototyping, and research.
+                  </p>
                 </div>
                 <div className="p-8 bento-card rounded-3xl">
                   <h4 className="text-lg font-bold text-slate-900 mb-2">Joint Certification Program</h4>
-                  <p className="text-sm text-slate-500">Industry-recognized skill validation alongside academic degrees.</p>
+                  <p className="text-sm text-slate-500">
+                    Industry-recognized skill validation alongside academic degrees.
+                  </p>
                 </div>
                 <div className="p-8 bento-card rounded-3xl lg:col-span-1">
                   <h4 className="text-lg font-bold text-slate-900 mb-2">Full-University Integration</h4>
-                  <p className="text-sm text-slate-500">Comprehensive ecosystem deployment across all departments.</p>
+                  <p className="text-sm text-slate-500">
+                    Comprehensive ecosystem deployment across all departments.
+                  </p>
                 </div>
                 <div className="p-8 bento-card rounded-3xl lg:col-span-2">
-                  <h4 className="text-lg font-bold text-slate-900 mb-2">Custom Institutional Collaboration Framework</h4>
-                  <p className="text-sm text-slate-500">A bespoke roadmap tailored to the institution's long-term legacy goals.</p>
+                  <h4 className="text-lg font-bold text-slate-900 mb-2">
+                    Custom Institutional Collaboration Framework
+                  </h4>
+                  <p className="text-sm text-slate-500">
+                    A bespoke roadmap tailored to the institution's long-term legacy goals.
+                  </p>
                 </div>
               </div>
             </div>
@@ -520,7 +572,9 @@ export default function Universities() {
                   <span className="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-bold uppercase rounded-full">
                     Success Story
                   </span>
-                  <h3 className="text-2xl font-heading font-bold text-slate-900">Case Study: Pilot Department Deployment</h3>
+                  <h3 className="text-2xl font-heading font-bold text-slate-900">
+                    Case Study: Pilot Department Deployment
+                  </h3>
                 </div>
                 <p className="text-slate-600 mb-8">
                   Within one year of hybrid curriculum integration, our partner institution achieved:
@@ -550,7 +604,9 @@ export default function Universities() {
           {/* FAQ Section */}
           <section id="faq" className="py-24 bg-white">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h3 className="text-3xl font-heading font-bold text-slate-900 mb-12 text-center fade-in">Partnership FAQ</h3>
+              <h3 className="text-3xl font-heading font-bold text-slate-900 mb-12 text-center fade-in">
+                Partnership FAQ
+              </h3>
               <div className="space-y-4 fade-in">
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
@@ -558,7 +614,8 @@ export default function Universities() {
                     <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
-                    No. We strengthen existing structures and collaborate with faculty. We align industrial modules with academic subjects to make them practical.
+                    No. We strengthen existing structures and collaborate with faculty. We align industrial modules with
+                    academic subjects to make them practical.
                   </div>
                 </details>
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
@@ -567,7 +624,8 @@ export default function Universities() {
                     <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
-                    Partnership models vary—some are institution-funded while others are student-led. The financial structure is finalized with the institution.
+                    Partnership models vary—some are institution-funded while others are student-led. The financial
+                    structure is finalized with the institution.
                   </div>
                 </details>
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
@@ -576,7 +634,8 @@ export default function Universities() {
                     <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
-                    We don't make unrealistic guarantees. We build verified capability, create industry pipelines, and increase measurable opportunities for students.
+                    We don't make unrealistic guarantees. We build verified capability, create industry pipelines, and
+                    increase measurable opportunities for students.
                   </div>
                 </details>
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
@@ -585,7 +644,8 @@ export default function Universities() {
                     <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
-                    Yes. Hybrid learning models benefit innovation, business, research, and design domains equally by focusing on outcomes over theory.
+                    Yes. Hybrid learning models benefit innovation, business, research, and design domains equally by
+                    focusing on outcomes over theory.
                   </div>
                 </details>
               </div>
@@ -595,9 +655,12 @@ export default function Universities() {
           {/* SEO Final Section */}
           <section className="py-24 bg-surface border-t border-slate-100">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
-              <h3 className="text-3xl font-heading font-black text-slate-900 mb-6">Why Partner With Diverse Loopers Now</h3>
+              <h3 className="text-3xl font-heading font-black text-slate-900 mb-6">
+                Why Partner With Diverse Loopers Now
+              </h3>
               <p className="text-lg text-slate-500 mb-8 leading-relaxed">
-                The future belongs to institutions that align with industry, invest in capability development, and create measurable student outcomes. Diverse Loopers exists to help universities lead this change with confidence.
+                The future belongs to institutions that align with industry, invest in capability development, and create
+                measurable student outcomes. Diverse Loopers exists to help universities lead this change with confidence.
               </p>
             </div>
           </section>
@@ -610,10 +673,13 @@ export default function Universities() {
                   {/* CTA Text */}
                   <div className="p-10 lg:p-16 flex flex-col justify-center bg-slate-900 text-white">
                     <h2 className="text-3xl md:text-5xl font-heading font-black mb-6 leading-tight">
-                      An Invitation<br />to Partner.
+                      An Invitation
+                      <br />
+                      to Partner.
                     </h2>
                     <p className="text-lg text-slate-300 mb-8 leading-relaxed">
-                      Not as customers. Not as vendors. But as co-creators of a new academic paradigm. Let's design the future of higher education together.
+                      Not as customers. Not as vendors. But as co-creators of a new academic paradigm. Let's design the
+                      future of higher education together.
                     </p>
                     <div className="space-y-4">
                       <div className="flex items-center gap-4 text-slate-400">
@@ -632,12 +698,12 @@ export default function Universities() {
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                           Institution Name
                         </label>
-                        <input 
-                          type="text" 
-                          name="university_name" 
-                          required 
-                          placeholder="University / College" 
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition" 
+                        <input
+                          type="text"
+                          name="university_name"
+                          required
+                          placeholder="University / College"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition"
                         />
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4">
@@ -645,24 +711,24 @@ export default function Universities() {
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                             Contact Person
                           </label>
-                          <input 
-                            type="text" 
-                            name="contact_person" 
-                            required 
-                            placeholder="Full Name" 
-                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition" 
+                          <input
+                            type="text"
+                            name="contact_person"
+                            required
+                            placeholder="Full Name"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition"
                           />
                         </div>
                         <div className="space-y-1">
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                             Designation
                           </label>
-                          <input 
-                            type="text" 
-                            name="designation" 
-                            required 
-                            placeholder="e.g. Principal" 
-                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition" 
+                          <input
+                            type="text"
+                            name="designation"
+                            required
+                            placeholder="e.g. Principal"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition"
                           />
                         </div>
                       </div>
@@ -671,24 +737,24 @@ export default function Universities() {
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                             Official Email
                           </label>
-                          <input 
-                            type="email" 
-                            name="email" 
-                            required 
-                            placeholder="admin@univ.edu" 
-                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition" 
+                          <input
+                            type="email"
+                            name="email"
+                            required
+                            placeholder="admin@univ.edu"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition"
                           />
                         </div>
                         <div className="space-y-1">
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                             Contact Number
                           </label>
-                          <input 
-                            type="tel" 
-                            name="phone" 
-                            required 
-                            placeholder="+91 ..." 
-                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition" 
+                          <input
+                            type="tel"
+                            name="phone"
+                            required
+                            placeholder="+91 ..."
+                            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition"
                           />
                         </div>
                       </div>
@@ -696,15 +762,15 @@ export default function Universities() {
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                           Support Inquiry
                         </label>
-                        <textarea 
-                          name="message" 
-                          rows={3} 
-                          placeholder="How can we help your students?" 
+                        <textarea
+                          name="message"
+                          rows={3}
+                          placeholder="How can we help your students?"
                           className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-primary outline-none transition"
                         ></textarea>
                       </div>
-                      <button 
-                        type="submit" 
+                      <button
+                        type="submit"
                         className="w-full py-4 bg-primary text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-100"
                       >
                         Start the Conversation
@@ -723,7 +789,7 @@ export default function Universities() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-sm">
               <div className="col-span-1 lg:col-span-1">
-                <img src="Diverse Loopers Black BG (2).png" alt="Diverse Loopers" className="h-12 w-auto mb-6" />
+                <img src="/Diverse Loopers Black BG (2).png" alt="Diverse Loopers" className="h-12 w-auto mb-6" />
                 <p className="text-slate-400 leading-relaxed">
                   Empowering talents for tomorrow through future-ready career pathways.
                 </p>
@@ -732,16 +798,29 @@ export default function Universities() {
               <div>
                 <h4 className="font-bold mb-6">Quick Navigation</h4>
                 <ul className="space-y-4 text-slate-400">
-                  <li><a href="index.html" className="hover:text-white transition">For Students</a></li>
-                  <li><a href="business.html" className="hover:text-white transition">For Businesses</a></li>
-                  <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+                  <li>
+                    <a href="/" className="hover:text-white transition">
+                      For Students
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/business" className="hover:text-white transition">
+                      For Businesses
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition">
+                      Privacy Policy
+                    </a>
+                  </li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-bold mb-6">Contact Us</h4>
                 <ul className="space-y-4 text-slate-400">
                   <li className="flex gap-3">
-                    <i data-lucide="mail" className="w-4 h-4 text-primary"></i> contact@diverseloopers.com
+                    <i data-lucide="mail" className="w-4 h-4 text-primary"></i>
+                    contact@diverseloopers.com
                   </li>
                   <li className="flex gap-3">
                     <i data-lucide="phone" className="w-4 h-4 text-primary"></i> +91 98393 50961
@@ -751,17 +830,27 @@ export default function Universities() {
               <div>
                 <p className="text-xs text-slate-500 font-bold">&copy; 2024 Diverse Loopers Inc.</p>
                 <p className="text-[10px] text-slate-500 mt-2 italic leading-relaxed">
-                  Creating an ecosystem where students do not simply pass examinations, but thrive as innovators, leaders, and professionals.
+                  Creating an ecosystem where students do not simply pass examinations, but thrive as innovators, leaders,
+                  and professionals.
                 </p>
               </div>
               <div className="flex gap-4">
-                <a href="https://www.linkedin.com/company/105277450" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
+                <a
+                  href="https://www.linkedin.com/company/105277450"
+                  className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition"
+                >
                   <i data-lucide="linkedin" className="w-4 h-4"></i>
                 </a>
-                <a href="https://www.instagram.com/diverseloopers/" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
+                <a
+                  href="https://www.instagram.com/diverseloopers/"
+                  className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition"
+                >
                   <i data-lucide="instagram" className="w-4 h-4"></i>
                 </a>
-                <a href="#" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
+                <a
+                  href="#"
+                  className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition"
+                >
                   <i data-lucide="twitter" className="w-4 h-4"></i>
                 </a>
               </div>

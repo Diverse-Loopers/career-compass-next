@@ -1,186 +1,39 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useRef } from 'react';
-import './analyzer.css';
-import Script from 'next/script';
-import { supabase } from '@/lib/supabase';
-import { 
-  roleOptions, 
-  updateTargetRoles, 
-  handleFormSubmit, 
-  renderResults, 
-  saveAnalysisToSupabase,
-  resetCurrentAnalysis 
-} from '@/lib/pages/analyzer';
+import { useEffect } from 'react'
+import Script from 'next/script'
+import './analyzer.css'
+import { initAnalyzerPage } from '@/lib/pages/analyzer'
 
 export default function AnalyzerPage() {
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-  const [selectedBranch, setSelectedBranch] = useState('Computer Science (CSE)');
-  const [showForm, setShowForm] = useState(true);
-  const [showLoader, setShowLoader] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [saveStatus, setSaveStatus] = useState({ show: false, message: '' });
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    collegeName: '',
-    targetCompany: '',
-    branch: 'Computer Science (CSE)',
-    targetRole: ''
-  });
-
-  const targetRoleRef = useRef(null);
-
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-      
-      if (user) {
-        const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single();
-        setProfile(profile);
-        
-        if (profile) {
-          setFormData(prev => ({
-            ...prev,
-            fullName: profile.full_name || '',
-            email: user.email || ''
-          }));
-        }
-      }
-    };
-    
-    checkUser();
-
-    if (localStorage.getItem('theme') === 'dark') {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
+    initAnalyzerPage();
   }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (typeof window !== 'undefined' && window.lucide) {
-        window.lucide.createIcons();
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  });
-
-  useEffect(() => {
-    if (targetRoleRef.current) {
-      updateTargetRoles(selectedBranch, targetRoleRef.current);
-    }
-  }, [selectedBranch]);
-
-  const toggleTheme = () => {
-    const newDark = !isDark;
-    setIsDark(newDark);
-    document.documentElement.classList.toggle('dark', newDark);
-    localStorage.setItem('theme', newDark ? 'dark' : 'light');
-    setTimeout(() => {
-      if (typeof window !== 'undefined' && window.lucide) {
-        window.lucide.createIcons();
-      }
-    }, 100);
-  };
-
-  const handleBranchChange = (e) => {
-    const branch = e.target.value;
-    setSelectedBranch(branch);
-    setFormData(prev => ({ ...prev, branch }));
-  };
-
-  const handleInputChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage('');
-    setShowForm(false);
-    setShowLoader(true);
-    setShowResults(false);
-
-    const result = await handleFormSubmit(e, formData);
-    setShowLoader(false);
-
-    if (result.success) {
-      renderResults(result.data, result.userName, result.targetRole);
-      setShowResults(true);
-      setTimeout(() => {
-        document.getElementById('results-display')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      setErrorMessage(result.error);
-      setShowForm(true);
-    }
-  };
-
-  const handleSaveResults = async () => {
-    setSaveStatus({ show: false, message: '' });
-    const result = await saveAnalysisToSupabase();
-    
-    if (result.success) {
-      setSaveStatus({ 
-        show: true, 
-        message: 'Success! View results in your <a href="/dashboard" class="underline">Dashboard</a>.' 
-      });
-    } else {
-      setSaveStatus({ 
-        show: true, 
-        message: 'Failed to save. Please try again.' 
-      });
-    }
-  };
-
-  const handleBackToForm = () => {
-    setShowResults(false);
-    setShowForm(true);
-    resetCurrentAnalysis();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = '/login';
-  };
 
   return (
     <>
-      <Script 
-        src="https://cdn.tailwindcss.com" 
-        strategy="beforeInteractive"
-        onLoad={() => {
-          if (window.tailwind) {
-            window.tailwind.config = {
-              darkMode: 'class',
-              theme: {
-                extend: {
-                  colors: {
-                    primary: '#4f46e5',
-                    secondary: '#ec4899',
-                    dark: '#0c0d19'
-                  }
-                }
-              }
-            };
-          }
-        }}
+      {/* Fonts */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet"
       />
-      <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" onLoad={() => {
-        if (window.lucide) window.lucide.createIcons();
-      }} />
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" strategy="afterInteractive" />
 
-      <div className="min-h-screen flex flex-col overflow-x-hidden">
+      {/* Font Awesome */}
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+
+      {/* Lucide Icons */}
+      <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" onLoad={() => {
+        if (typeof window !== 'undefined' && window.lucide) {
+          window.lucide.createIcons();
+        }
+      }} />
+
+      <div className="min-h-screen flex flex-col">
         {/* Decorative Blobs */}
         <div className="absolute top-0 -left-4 w-64 md:w-96 h-64 md:h-96 bg-primary/5 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob pointer-events-none"></div>
         <div className="absolute top-0 -right-4 w-64 md:w-96 h-64 md:h-96 bg-secondary/5 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000 pointer-events-none"></div>
@@ -209,59 +62,48 @@ export default function AnalyzerPage() {
                 </div>
 
                 <div className="flex items-center gap-4 border-l border-slate-200 dark:border-white/10 pl-6 lg:pl-8">
-                  <button onClick={toggleTheme} className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5 transition">
-                    <i data-lucide={isDark ? "sun" : "moon"} className="w-5 h-5"></i>
+                  <button id="theme-toggle" className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <i data-lucide="moon" id="theme-icon" className="w-5 h-5"></i>
                   </button>
-                  {user ? (
-                    <a href="/profile" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden">
-                      {profile?.avatar_url ? (
-                        <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
-                      ) : (
-                        <i data-lucide="user" className="w-5 h-5 text-primary"></i>
-                      )}
-                    </a>
-                  ) : (
-                    <a href="/login" className="text-sm font-bold text-slate-600 dark:text-slate-300">Login</a>
-                  )}
+                  <a href="/login" id="login-btn" className="text-sm font-bold text-slate-600 dark:text-slate-300">Login</a>
+                  <a href="/profile" id="profile-btn" className="hidden w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden">
+                    <img id="nav-avatar-img" className="w-full h-full object-cover hidden" src="" alt="" />
+                    <i data-lucide="user" id="nav-avatar-icon" className="w-5 h-5 text-primary"></i>
+                  </a>
                 </div>
               </div>
 
               <div className="md:hidden flex items-center gap-4">
-                <button onClick={toggleTheme} className="p-2 text-slate-500">
-                  <i data-lucide={isDark ? "sun" : "moon"} className="w-5 h-5"></i>
+                <button id="mobile-theme-toggle" className="p-2 text-slate-500">
+                  <i data-lucide="moon" className="w-5 h-5"></i>
                 </button>
-                <button onClick={() => setShowMobileMenu(!showMobileMenu)} className="p-2 text-slate-600 dark:text-slate-300">
+                <button id="mobile-menu-toggle" className="p-2 text-slate-600 dark:text-slate-300">
                   <i data-lucide="menu" className="w-6 h-6"></i>
                 </button>
               </div>
             </div>
           </div>
 
-          {showMobileMenu && (
-            <div className="md:hidden bg-white dark:bg-dark border-b border-slate-100 dark:border-white/5 overflow-y-auto max-h-screen shadow-2xl">
-              <div className="px-6 py-8 space-y-4 text-center">
-                <a href="/" className="block text-lg font-bold text-slate-700 dark:text-slate-300" onClick={() => setShowMobileMenu(false)}>Home</a>
-                <a href="/#programs" className="block text-lg font-bold text-slate-700 dark:text-slate-300" onClick={() => setShowMobileMenu(false)}>Programs</a>
-                <a href="/#events" className="block text-lg font-bold text-slate-700 dark:text-slate-300" onClick={() => setShowMobileMenu(false)}>Events</a>
-                <hr className="border-slate-100 dark:border-white/5 mx-auto w-1/2" />
-                <a href="/career-analyzer" className="block text-lg font-bold text-slate-700 dark:text-slate-300" onClick={() => setShowMobileMenu(false)}>Career Analyzer</a>
-                <a href="/analyzer" className="block text-lg font-bold text-primary" onClick={() => setShowMobileMenu(false)}>Path Analyzer</a>
-                <div className="pt-6">
-                  {user ? (
-                    <a href="/profile" className="block w-full py-4 bg-primary text-white text-center rounded-2xl font-bold" onClick={() => setShowMobileMenu(false)}>My Profile</a>
-                  ) : (
-                    <a href="/login" className="block w-full py-4 bg-slate-100 dark:bg-white/5 text-center rounded-2xl font-bold" onClick={() => setShowMobileMenu(false)}>Login</a>
-                  )}
-                </div>
+          <div id="mobile-menu" className="hidden md:hidden bg-white dark:bg-dark border-b border-slate-100 dark:border-white/5 overflow-y-auto max-h-screen shadow-2xl">
+            <div className="px-6 py-8 space-y-4 text-center">
+              <a href="/" className="block text-lg font-bold text-slate-700 dark:text-slate-300">Home</a>
+              <a href="/#programs" className="block text-lg font-bold text-slate-700 dark:text-slate-300">Programs</a>
+              <a href="/#events" className="block text-lg font-bold text-slate-700 dark:text-slate-300">Events</a>
+              <hr className="border-slate-100 dark:border-white/5 mx-auto w-1/2" />
+              <a href="/career-analyzer" className="block text-lg font-bold text-slate-700 dark:text-slate-300">Career Analyzer</a>
+              <a href="/analyzer" className="block text-lg font-bold text-primary">Path Analyzer</a>
+              <div className="pt-6">
+                <a href="/login" id="mobile-login-btn" className="block w-full py-4 bg-slate-100 dark:bg-white/5 text-center rounded-2xl font-bold">Login</a>
+                <a href="/profile" id="mobile-profile-btn" className="hidden block w-full py-4 bg-primary text-white text-center rounded-2xl font-bold">My Profile</a>
               </div>
             </div>
-          )}
+          </div>
         </nav>
 
         <main className="flex-grow pt-24 md:pt-32 pb-20">
           {/* Hero Section */}
           <section className="max-w-7xl mx-auto px-6 text-center space-y-8 pb-10">
-            <h1 className="text-primary font-black uppercase tracking-[0.3em] text-sm">Path Analyzer</h1>
+            <h1 className="text-primary font-black uppercase tracking-[0.3em] text-sm animate-fade-in">Path Analyzer</h1>
             <h2 className="text-3xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight">
               Your Personalized Career Roadmap — <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Powered by Real Industry Data</span>
             </h2>
@@ -278,7 +120,7 @@ export default function AnalyzerPage() {
             </div>
           </section>
 
-          {/* What is Path Analyzer */}
+          {/* Content Section: What is Path Analyzer */}
           <section className="py-24 bg-white dark:bg-slate-900/20">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -314,7 +156,7 @@ export default function AnalyzerPage() {
             </div>
           </section>
 
-          {/* Who Should Use */}
+          {/* Section: Who Should Use */}
           <section className="py-24 max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white">Who Should Use the Path Analyzer?</h2>
@@ -340,7 +182,7 @@ export default function AnalyzerPage() {
             </div>
           </section>
 
-          {/* How it Works */}
+          {/* Section: How it Works (4 Steps) */}
           <section id="how-it-works" className="py-24 bg-dark text-white rounded-[3rem] md:rounded-[4rem] mx-4 md:mx-6">
             <div className="max-w-7xl mx-auto px-6 text-center">
               <h2 className="text-3xl md:text-4xl font-black mb-16 md:mb-20 italic">Simple but Intelligent Process</h2>
@@ -372,186 +214,110 @@ export default function AnalyzerPage() {
           {/* ANALYZER TOOL */}
           <section id="analyzer-tool" className="py-24 bg-white dark:bg-transparent relative z-10">
             <div className="max-w-5xl mx-auto px-4 md:px-6">
-              {showForm && (
-                <div className="glass-card rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-16 shadow-2xl shadow-primary/10">
-                  <div className="mb-12 space-y-2">
-                    <h2 className="text-2xl md:text-3xl font-black italic">Start Your Path Analysis</h2>
-                    <p className="text-slate-400 font-medium text-sm md:text-base">Identify the gap between your curriculum and your goal.</p>
+              {/* FORM */}
+              <div id="form-container" className="glass-card rounded-[2.5rem] md:rounded-[3.5rem] p-6 md:p-16 shadow-2xl shadow-primary/10">
+                <div className="mb-12 space-y-2">
+                  <h2 className="text-2xl md:text-3xl font-black italic">Start Your Path Analysis</h2>
+                  <p className="text-slate-400 font-medium text-sm md:text-base">Identify the gap between your curriculum and your goal.</p>
+                </div>
+
+                <form id="analysis-form" className="space-y-8 md:space-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Name</label>
+                      <input type="text" id="fullName" name="fullName" required className="input-field" placeholder="Full Name" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Email Address</label>
+                      <input type="email" id="email" name="email" required className="input-field" placeholder="your@email.com" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">College Name</label>
+                      <input type="text" id="collegeName" name="collegeName" required className="input-field" placeholder="College Name" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Company (e.g., Google)</label>
+                      <input type="text" id="targetCompany" name="targetCompany" className="input-field" placeholder="Target Company" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Engineering Branch</label>
+                      <select id="branch" name="branch" className="input-field">
+                        <option>Computer Science (CSE)</option>
+                        <option>Information Technology (IT)</option>
+                        <option>Electronics & Communication (ECE)</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Job Role</label>
+                      <select id="targetRole" name="targetRole" className="input-field"></select>
+                    </div>
                   </div>
 
-                  <form onSubmit={onSubmit} className="space-y-8 md:space-y-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Name</label>
-                        <input 
-                          type="text" 
-                          name="fullName" 
-                          value={formData.fullName}
-                          onChange={handleInputChange}
-                          required 
-                          className="input-field" 
-                          placeholder="Full Name" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Email Address</label>
-                        <input 
-                          type="email" 
-                          name="email" 
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required 
-                          className="input-field" 
-                          placeholder="your@email.com" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">College Name</label>
-                        <input 
-                          type="text" 
-                          name="collegeName" 
-                          value={formData.collegeName}
-                          onChange={handleInputChange}
-                          required 
-                          className="input-field" 
-                          placeholder="College Name" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Company (e.g., Google)</label>
-                        <input 
-                          type="text" 
-                          name="targetCompany" 
-                          value={formData.targetCompany}
-                          onChange={handleInputChange}
-                          className="input-field" 
-                          placeholder="Target Company" 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Engineering Branch</label>
-                        <select 
-                          name="branch" 
-                          value={formData.branch}
-                          onChange={handleBranchChange}
-                          className="input-field"
-                        >
-                          <option>Computer Science (CSE)</option>
-                          <option>Information Technology (IT)</option>
-                          <option>Electronics & Communication (ECE)</option>
-                        </select>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Target Job Role</label>
-                        <select 
-                          ref={targetRoleRef}
-                          name="targetRole" 
-                          value={formData.targetRole}
-                          onChange={handleInputChange}
-                          className="input-field"
-                        />
-                      </div>
-                    </div>
+                  <div id="error-message-container" className="hidden"></div>
 
-                    {errorMessage && (
-                      <div className="p-4 bg-red-50 text-red-600 rounded-2xl text-xs font-bold">
-                        <strong>Error:</strong> {errorMessage}
-                      </div>
-                    )}
-
-                    <div className="pt-4 md:pt-6 text-center">
-                      <button 
-                        type="submit" 
-                        className="w-full py-5 bg-primary text-white rounded-[1.5rem] md:rounded-3xl font-black text-lg uppercase tracking-widest hover:bg-blue-700 transition shadow-xl shadow-blue-100 flex items-center justify-center gap-2"
-                      >
-                        Analyze My Track <i data-lucide="arrow-right" className="w-6 h-6"></i>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              )}
-
-              {showLoader && (
-                <div className="py-24 text-center space-y-6">
-                  <div className="w-12 h-12 md:w-16 md:h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-                  <p className="font-black text-slate-400 uppercase tracking-widest animate-pulse italic">Comparing Industry Standards...</p>
-                </div>
-              )}
-
-              {showResults && (
-                <div id="results-display" className="space-y-8 md:space-y-12">
-                  <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-                    <button 
-                      onClick={handleBackToForm}
-                      className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-primary"
-                    >
-                      <i data-lucide="chevron-left" className="w-4 h-4"></i> Edit Profile
-                    </button>
-                    <button 
-                      onClick={handleSaveResults}
-                      className="w-full md:w-auto px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:scale-105 transition shadow-lg"
-                    >
-                      Save Results to Profile
+                  <div className="pt-4 md:pt-6 text-center">
+                    <button type="submit" className="w-full py-5 bg-primary text-white rounded-[1.5rem] md:rounded-3xl font-black text-lg uppercase tracking-widest hover:bg-blue-700 transition shadow-xl shadow-blue-100">
+                      Analyze My Track <i data-lucide="arrow-right" className="w-6 h-6 inline"></i>
                     </button>
                   </div>
+                </form>
+              </div>
 
-                  <div className="glass-card p-8 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                    <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
-                      <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                        <path 
-                          className="stroke-slate-100 dark:stroke-white/5 fill-none" 
-                          strokeWidth="3" 
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" 
-                        />
-                        <path 
-                          id="result-match-circle" 
-                          className="stroke-primary fill-none transition-all duration-1000" 
-                          strokeWidth="3" 
-                          strokeLinecap="round" 
-                          strokeDasharray="0, 100" 
-                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" 
-                        />
-                      </svg>
-                      <div id="result-match-text" className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
-                        --%
-                      </div>
-                    </div>
-                    <div className="space-y-3 text-center md:text-left">
-                      <h2 className="text-2xl md:text-3xl font-black italic text-slate-900 dark:text-white">Your Career Blueprint</h2>
-                      <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-lg">
-                        Hello <span id="user-name-result" className="text-primary font-black"></span>! Here is your personalized readiness report for the <strong id="user-role-result" className="text-dark dark:text-white"></strong> role.
-                      </p>
-                      {saveStatus.show && (
-                        <div 
-                          className="text-xs font-bold text-green-600 bg-green-50 p-3 rounded-xl border border-green-100 mt-4"
-                          dangerouslySetInnerHTML={{ __html: saveStatus.message }}
-                        />
-                      )}
-                    </div>
+              {/* LOADER */}
+              <div id="loader" className="hidden py-24 text-center space-y-6">
+                <div className="w-12 h-12 md:w-16 md:h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <p className="font-black text-slate-400 uppercase tracking-widest animate-pulse italic">Comparing Industry Standards...</p>
+              </div>
+
+              {/* RESULTS DISPLAY */}
+              <div id="results-display" className="hidden space-y-8 md:space-y-12">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+                  <button id="back-btn" className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-primary">
+                    <i data-lucide="chevron-left" className="w-4 h-4"></i> Edit Profile
+                  </button>
+                  <button id="save-path-btn" className="w-full md:w-auto px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:scale-105 transition shadow-lg">
+                    Save Results to Profile
+                  </button>
+                </div>
+
+                <div className="glass-card p-8 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                  <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                    <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+                      <path className="stroke-slate-100 dark:stroke-white/5 fill-none" strokeWidth="3" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <path id="result-match-circle" className="stroke-primary fill-none transition-all duration-1000" strokeWidth="3" strokeLinecap="round" strokeDasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div id="result-match-text" className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-black text-slate-900 dark:text-white">--%</div>
                   </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-                    <div className="glass-card p-6 md:p-8 rounded-[2rem] md:rounded-[3rem]">
-                      <h3 className="text-lg md:text-xl font-black flex items-center gap-3 mb-6 text-slate-900 dark:text-white">
-                        <i data-lucide="book-check" className="text-primary"></i> Curriculum Focus
-                      </h3>
-                      <div id="core-focus-list" className="space-y-6"></div>
-                    </div>
-                    <div className="glass-card p-6 md:p-8 rounded-[2rem] md:rounded-[3rem]">
-                      <h3 className="text-lg md:text-xl font-black flex items-center gap-3 mb-6 text-slate-900 dark:text-white">
-                        <i data-lucide="alert-triangle" className="text-secondary"></i> Critical Gaps
-                      </h3>
-                      <div id="missing-skills-list" className="flex flex-wrap gap-2"></div>
-                    </div>
-                    <div className="md:col-span-2 glass-card p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem]">
-                      <h3 className="text-xl md:text-2xl font-black flex items-center gap-3 mb-8 italic text-primary">
-                        <i data-lucide="map-pinned"></i> Detailed Learning Roadmap
-                      </h3>
-                      <div id="roadmap-list" className="space-y-4"></div>
-                    </div>
+                  <div className="space-y-3 text-center md:text-left">
+                    <h2 className="text-2xl md:text-3xl font-black italic text-slate-900 dark:text-white">Your Career Blueprint</h2>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-lg">
+                      Hello <span id="user-name-result" className="text-primary font-black"></span>! Here is your personalized readiness report for the <strong id="user-role-result" className="text-dark dark:text-white"></strong> role.
+                    </p>
+                    <div id="save-path-notification" className="text-xs font-bold text-green-600 bg-green-50 p-3 rounded-xl hidden border border-green-100 mt-4"></div>
                   </div>
                 </div>
-              )}
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+                  <div className="glass-card p-6 md:p-8 rounded-[2rem] md:rounded-[3rem]">
+                    <h3 className="text-lg md:text-xl font-black flex items-center gap-3 mb-6 text-slate-900 dark:text-white">
+                      <i data-lucide="book-check" className="text-primary"></i> Curriculum Focus
+                    </h3>
+                    <div id="core-focus-list" className="space-y-6"></div>
+                  </div>
+                  <div className="glass-card p-6 md:p-8 rounded-[2rem] md:rounded-[3rem]">
+                    <h3 className="text-lg md:text-xl font-black flex items-center gap-3 mb-6 text-slate-900 dark:text-white">
+                      <i data-lucide="alert-triangle" className="text-secondary"></i> Critical Gaps
+                    </h3>
+                    <div id="missing-skills-list" className="flex flex-wrap gap-2"></div>
+                  </div>
+                  <div className="md:col-span-2 glass-card p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem]">
+                    <h3 className="text-xl md:text-2xl font-black flex items-center gap-3 mb-8 italic text-primary">
+                      <i data-lucide="map-pinned"></i> Detailed Learning Roadmap
+                    </h3>
+                    <div id="roadmap-list" className="space-y-4"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -604,13 +370,19 @@ export default function AnalyzerPage() {
                   <a href="#" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
                     <i data-lucide="twitter" className="w-4 h-4"></i>
                   </a>
+                  <a href="https://chat.whatsapp.com/B6XJSoLC2Hg7Wgg5lHRfSf" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                      <path d="M16.7 13.4c-.3-.2-1.7-.8-2-1-.3-.2-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.2-1.3-1-1-1.3-1.9-1.4-2.2-.1-.3 0-.5.2-.7.2-.2.6-.7.8-1 .2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.1-.2-.4-.4-.3-.7-.3-.3 0-.6 0-.9.3-.3.3-1.1 1.1-1.1 2.6 0 1.5.9 3 1.1 3.2.1.2 2.1 3.2 5.1 4.4 1.9.8 2.6.9 3.5.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.4z" />
+                      <path d="M21 12a9 9 0 1 0-16.5 5.2L3 21l3.8-1.5A9 9 0 0 0 21 12z" />
+                    </svg>
+                  </a>
                 </div>
               </div>
 
               <div className="flex flex-col items-center sm:items-start">
                 <h4 className="font-bold mb-6 text-xs uppercase tracking-widest text-slate-500">Quick Navigation</h4>
                 <ul className="space-y-4 text-slate-400 text-sm">
-                  <li><a href="/about" className="hover:text-white transition">About Us</a></li>
+                  <li><a href="/aboutus-std" className="hover:text-white transition">About Us</a></li>
                   <li><a href="mailto:contact@diverseloopers.com" className="hover:text-white transition">Contact Us</a></li>
                   <li><a href="/#programs" className="hover:text-white transition">Programs</a></li>
                   <li><a href="/#events" className="hover:text-white transition">Events</a></li>
@@ -637,29 +409,21 @@ export default function AnalyzerPage() {
                   </li>
                 </ul>
 
-                {user && (
-                  <div className="pt-6 border-t border-white/10 flex flex-col items-center sm:items-start">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-bold uppercase overflow-hidden">
-                        {profile?.avatar_url ? (
-                          <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
-                        ) : (
-                          <span>{profile?.full_name?.[0] || 'U'}</span>
-                        )}
-                      </div>
-                      <div className="text-left">
-                        <p className="text-sm font-bold text-white">{profile?.full_name}</p>
-                        <p className="text-[10px] text-slate-500">{user.email}</p>
-                      </div>
+                <div id="footer-auth" className="pt-6 border-t border-white/10 hidden flex flex-col items-center sm:items-start">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center font-bold uppercase overflow-hidden">
+                      <img id="footer-avatar-img" className="w-full h-full object-cover hidden" src="" alt="" />
+                      <span id="footer-initial">U</span>
                     </div>
-                    <button 
-                      onClick={handleLogout}
-                      className="text-xs text-red-400 hover:text-red-300 font-bold uppercase tracking-widest transition"
-                    >
-                      Sign Out
-                    </button>
+                    <div className="text-left">
+                      <p id="footer-user-name" className="text-sm font-bold text-white"></p>
+                      <p id="footer-user-email" className="text-[10px] text-slate-500"></p>
+                    </div>
                   </div>
-                )}
+                  <button id="logout-btn-footer" className="text-xs text-red-400 hover:text-red-300 font-bold uppercase tracking-widest transition">
+                    Sign Out
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -675,5 +439,5 @@ export default function AnalyzerPage() {
         </footer>
       </div>
     </>
-  );
+  )
 }

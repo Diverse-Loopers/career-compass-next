@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import * as HomeLogic from '@/lib/pages/home';
-import "./home/home.css";
+import "./(home)/home.css";
 
 
 export default function HomePage() {

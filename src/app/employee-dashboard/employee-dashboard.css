@@ -25,14 +25,12 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     display: flex;
-    /* Makes the dashboard-container take full height/width if needed */
     height: 100vh;
     overflow: hidden;
 }
 
 .dashboard-container {
     display: flex;
-    /* CRITICAL: This puts Sidebar and Main Content side-by-side */
     width: 100%;
     height: 100%;
 }
@@ -59,7 +57,6 @@ body {
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    
 }
 
 .logo img {
@@ -249,6 +246,11 @@ tr:last-child td {
     color: #dc2626;
 }
 
+.status-submitted {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
 /* MODALS */
 .modal {
     position: fixed;
@@ -268,39 +270,6 @@ tr:last-child td {
     display: none;
 }
 
-/* UTILITIES */
-.hidden {
-    display: none !important;
-}
-
-.flex {
-    display: flex;
-}
-
-.flex-col {
-    flex-direction: column;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.justify-between {
-    justify-content: space-between;
-}
-
-.justify-end {
-    justify-content: flex-end;
-}
-
-.gap-2 {
-    gap: 0.5rem;
-}
-
-.gap-4 {
-    gap: 1rem;
-}
-
 .modal-content {
     background: white;
     padding: 2rem;
@@ -316,7 +285,6 @@ tr:last-child td {
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -352,111 +320,33 @@ tr:last-child td {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    body {
-        height: auto;
-        overflow: auto;
-        /* Allow both x and y scroll */
-        overflow-x: hidden;
-        /* Prevent horizontal scroll specifically */
-    }
-
-    .dashboard-container {
-        position: relative;
-        display: block;
-        height: auto;
-        min-height: 100vh;
-    }
-
-    /* Mobile Menu Button */
-    #mobile-menu-btn {
-        display: block !important;
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        z-index: 2000;
-        background: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 1.5rem;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Sidebar - Hidden by default off-screen */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -280px;
-        width: 260px;
-        height: 100vh;
-        z-index: 1999;
-        transition: left 0.3s ease-in-out;
-        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
-        display: flex;
-    }
-
-    /* Sidebar Active State (Slide in) */
-    .sidebar.active {
-        left: 0 !important;
-    }
-
-    /* Main Content */
-    .main-content {
-        padding: 1.5rem;
-        padding-top: 5rem;
-        width: 100%;
-        overflow: visible;
-    }
-
-    /* Header Adjustments */
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .header>div {
-        width: 100%;
-    }
-
-    .header .flex {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    #attendance-box {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-
-    /* Cards */
-    .card-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stat-value {
-        font-size: 2rem;
-    }
-
-    /* Tables */
-    .table-container {
-        overflow-x: auto;
-    }
-
-    th,
-    td {
-        white-space: nowrap;
-        padding: 0.75rem;
-        font-size: 0.85rem;
-    }
+/* CAMERA FEED */
+.camera-feed {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
 }
 
-/* Notification Styles - Refined */
+.camera-feed video {
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+}
+
+.camera-feed canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#status-msg {
+    text-align: center;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* NOTIFICATION STYLES */
 .notification-wrapper {
     position: relative;
     display: inline-flex;
@@ -496,18 +386,13 @@ tr:last-child td {
     position: absolute;
     right: 0;
     top: 50px;
-    /* Push it down a bit to clear the header */
     background: #ffffff;
     min-width: 320px;
-    /* Slightly wider */
     width: max-content;
     max-width: 400px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    /* Stronger shadow */
     border-radius: 12px;
-    /* Smoother corners */
     z-index: 1000;
-    /* Ensure it floats above table headers */
     border: 1px solid #f3f4f6;
     overflow: hidden;
     animation: slideDown 0.2s ease-out;
@@ -518,7 +403,6 @@ tr:last-child td {
         opacity: 0;
         transform: translateY(-10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -589,13 +473,138 @@ tr:last-child td {
     font-style: italic;
 }
 
+/* UTILITIES */
+.hidden {
+    display: none !important;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
+    body {
+        height: auto;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .dashboard-container {
+        position: relative;
+        display: block;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    #mobile-menu-btn {
+        display: block !important;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 2000;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 260px;
+        height: 100vh;
+        z-index: 1999;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+        display: flex;
+    }
+
+    .sidebar.active {
+        left: 0 !important;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+        padding-top: 5rem;
+        width: 100%;
+        overflow: visible;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .header>div {
+        width: 100%;
+    }
+
+    .header .flex {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #attendance-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
     .dropdown-content {
         min-width: 280px;
         width: 300px;
         max-width: 85vw;
         right: -60px;
-        /* Push it slightly right to align with screen edge more */
         top: 60px;
     }
 }

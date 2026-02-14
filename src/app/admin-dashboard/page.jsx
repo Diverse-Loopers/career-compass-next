@@ -61,8 +61,8 @@ export default function AdminDashboard() {
               Leave Requests
             </button>
             <button onClick={() => window.showSection && window.showSection('applicants')}>
-  Job Applicants
-</button>
+              Job Applicants
+            </button>
             <button onClick={() => window.logoutAdmin && window.logoutAdmin()} style={{ marginTop: "auto", color: "#ef4444" }}>
               Logout
             </button>
@@ -200,25 +200,25 @@ export default function AdminDashboard() {
           </section>
 
           {/* SECTION: JOB APPLICANTS */}
-<section id="applicants-section" className="hidden">
-  <h2>Job Applications</h2>
-  <div className="table-container">
-    <table id="applicants-table">
-      <thead>
-        <tr>
-          <th>Applicant Name</th>
-          <th>Job Title</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Experience</th>
-          <th>Applied On</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</section>
+          <section id="applicants-section" className="hidden">
+            <h2>Job Applications</h2>
+            <div className="table-container">
+              <table id="applicants-table">
+                <thead>
+                  <tr>
+                    <th>Applicant Name</th>
+                    <th>Job Title</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Experience</th>
+                    <th>Applied On</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
 
 
 
@@ -351,62 +351,62 @@ export default function AdminDashboard() {
       </div>
 
       {/* MODAL: APPLICANT DETAILS */}
-<div id="applicant-detail-modal" className="modal hidden">
-  <div className="modal-content premium-modal" style={{ maxWidth: '600px' }}>
-    <div className="modal-header">
-      <h2 id="app-detail-name">Applicant Name</h2>
-      <p className="modal-subtitle" id="app-detail-job">Job Title</p>
-    </div>
+      <div id="applicant-detail-modal" className="modal hidden">
+        <div className="modal-content premium-modal" style={{ maxWidth: '600px' }}>
+          <div className="modal-header">
+            <h2 id="app-detail-name">Applicant Name</h2>
+            <p className="modal-subtitle" id="app-detail-job">Job Title</p>
+          </div>
 
-    <div style={{ padding: '1.5rem', lineHeight: '1.8' }}>
-      <div style={{ marginBottom: '1rem' }}>
-        <strong style={{ color: '#374151' }}>Email:</strong>
-        <p id="app-detail-email" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
+          <div style={{ padding: '1.5rem', lineHeight: '1.8' }}>
+            <div style={{ marginBottom: '1rem' }}>
+              <strong style={{ color: '#374151' }}>Email:</strong>
+              <p id="app-detail-email" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <strong style={{ color: '#374151' }}>Phone:</strong>
+              <p id="app-detail-phone" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <strong style={{ color: '#374151' }}>Experience:</strong>
+              <p id="app-detail-experience" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <strong style={{ color: '#374151' }}>Education:</strong>
+              <p id="app-detail-education" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <strong style={{ color: '#374151' }}>Why they want to join:</strong>
+              <p id="app-detail-reason" style={{ color: '#6b7280', margin: '0.25rem 0 0 0', whiteSpace: 'pre-wrap' }}>-</p>
+            </div>
+
+            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <a id="app-detail-resume" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}>
+                View Resume
+              </a>
+              <a id="app-detail-linkedin" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#0077b5' }}>
+                LinkedIn
+              </a>
+              <a id="app-detail-github" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#24292e' }}>
+                GitHub
+              </a>
+              <a id="app-detail-portfolio" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#8b5cf6' }}>
+                Portfolio
+              </a>
+            </div>
+          </div>
+
+          <div className="modal-actions">
+            <button type="button" className="btn-secondary" onClick={() => window.closeModal && window.closeModal('applicant-detail-modal')}>
+              Close
+            </button>
+          </div>
+        </div>
       </div>
-
-      <div style={{ marginBottom: '1rem' }}>
-        <strong style={{ color: '#374151' }}>Phone:</strong>
-        <p id="app-detail-phone" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
-      </div>
-
-      <div style={{ marginBottom: '1rem' }}>
-        <strong style={{ color: '#374151' }}>Experience:</strong>
-        <p id="app-detail-experience" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
-      </div>
-
-      <div style={{ marginBottom: '1rem' }}>
-        <strong style={{ color: '#374151' }}>Education:</strong>
-        <p id="app-detail-education" style={{ color: '#6b7280', margin: '0.25rem 0 0 0' }}>-</p>
-      </div>
-
-      <div style={{ marginBottom: '1rem' }}>
-        <strong style={{ color: '#374151' }}>Why they want to join:</strong>
-        <p id="app-detail-reason" style={{ color: '#6b7280', margin: '0.25rem 0 0 0', whiteSpace: 'pre-wrap' }}>-</p>
-      </div>
-
-      <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-        <a id="app-detail-resume" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}>
-          View Resume
-        </a>
-        <a id="app-detail-linkedin" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#0077b5' }}>
-          LinkedIn
-        </a>
-        <a id="app-detail-github" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#24292e' }}>
-           GitHub
-        </a>
-        <a id="app-detail-portfolio" href="#" target="_blank" className="btn-primary hidden" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#8b5cf6' }}>
-           Portfolio
-        </a>
-      </div>
-    </div>
-
-    <div className="modal-actions">
-      <button type="button" className="btn-secondary" onClick={() => window.closeModal && window.closeModal('applicant-detail-modal')}>
-        Close
-      </button>
-    </div>
-  </div>
-</div>
     </>
   );
 }

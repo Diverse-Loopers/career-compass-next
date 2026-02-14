@@ -1,86 +1,8 @@
+// lib/pages/dashboard.js
+
 import { supabase } from '../supabase';
 
-let db = supabase;
-
-export function initLucideIcons() {
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
-}
-
-export function setCurrentDate() {
-    const dateEl = document.getElementById('current-date');
-    if (dateEl) {
-        dateEl.textContent = new Date().toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            month: 'long', 
-            day: 'numeric' 
-        });
-    }
-}
-
-// --- Hustler Modal Logic ---
-export function toggleHustlerModal(show) {
-    const modal = document.getElementById('hustler-modal-overlay');
-    if (modal) {
-        modal.style.display = show ? 'flex' : 'none';
-        if (show) {
-            db.auth.getUser().then(({ data: { user } }) => {
-                if (user) {
-                    const emailInput = document.getElementById('hustler-email');
-                    if (emailInput) emailInput.value = user.email;
-                }
-            });
-        }
-    }
-}
-
-export async function handleHustlerIdForm(e) {
-    e.preventDefault();
-    const btn = document.getElementById('hustler-submit-btn');
-    const status = document.getElementById('hustler-form-status');
-
-    if (btn) {
-        btn.disabled = true;
-        btn.textContent = "Submitting...";
-    }
-    if (status) status.classList.add('hidden');
-
-    const { data: { user } } = await db.auth.getUser();
-    if (!user) {
-        alert("Session expired. Please login again.");
-        return;
-    }
-
-    const payload = {
-        user_id: user.id,
-        full_name: document.getElementById('hustler-name')?.value,
-        registration_id: document.getElementById('hustler-reg-id')?.value,
-        course_name: document.getElementById('hustler-course')?.value,
-        email_id: document.getElementById('hustler-email')?.value
-    };
-
-    const { error } = await db.from('hustler_id_applications').insert([payload]);
-
-    if (status) {
-        if (error) {
-            status.textContent = "Error: " + error.message;
-            status.className = "text-center text-xs font-bold mt-4 text-red-500 block";
-        } else {
-            status.textContent = "Application Submitted Successfully! We will review it shortly.";
-            status.className = "text-center text-xs font-bold mt-4 text-green-500 block";
-            setTimeout(() => toggleHustlerModal(false), 2000);
-        }
-    }
-
-    if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = `Submit Application <i data-lucide="send" class="w-4 h-4"></i>`;
-        initLucideIcons();
-    }
-}
-
-// --- Theme ---
+// Theme Management
 export function setTheme(isDark) {
     const dot = document.getElementById('theme-toggle-dot');
     const icon = document.getElementById('theme-icon');
@@ -98,158 +20,132 @@ export function setTheme(isDark) {
         if (text) text.textContent = 'Dark Mode';
     }
     
-    initLucideIcons();
+    if (typeof window !== 'undefined' && window.lucide) {
+        window.lucide.createIcons();
+    }
+    
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
-export function toggleTheme() {
-    setTheme(!document.documentElement.classList.contains('dark'));
-}
-
 export function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.onclick = () => {
+            const isDark = !document.documentElement.classList.contains('dark');
+            setTheme(isDark);
+        };
+    }
+    
+    // Load saved theme
     if (localStorage.getItem('theme') === 'dark') {
         setTheme(true);
     }
 }
 
-// --- Sidebar ---
-export function openSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    
-    if (sidebar) sidebar.classList.add('open');
-    if (overlay) {
-        overlay.classList.remove('hidden');
-        overlay.classList.add('visible');
-    }
-}
-
-export function closeSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    
-    if (sidebar) sidebar.classList.remove('open');
-    if (overlay) {
-        overlay.classList.add('hidden');
-        overlay.classList.remove('visible');
-    }
-}
-
+// Sidebar Management
 export function initSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
     const openBtn = document.getElementById('open-sidebar');
     const closeBtn = document.getElementById('close-sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
 
-    if (openBtn) openBtn.onclick = openSidebar;
-    if (closeBtn) closeBtn.onclick = closeSidebar;
-    if (overlay) overlay.onclick = closeSidebar;
+    if (openBtn) {
+        openBtn.onclick = () => {
+            if (sidebar) sidebar.classList.add('open');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('visible');
+            }
+        };
+    }
+
+    [closeBtn, overlay].forEach(el => {
+        if (el) {
+            el.onclick = () => {
+                if (sidebar) sidebar.classList.remove('open');
+                if (overlay) {
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('visible');
+                }
+            };
+        }
+    });
 }
 
-// --- Main Logic ---
-export async function handleLogout() {
-    await db.auth.signOut();
-    window.location.href = '/';
-}
-
-export async function fetchDashboardData(userId) {
-    try {
-        const { data: profile } = await db.from('profiles').select('*').eq('id', userId).single();
-        if (profile) {
-            const welcomeMsg = document.getElementById('welcome-message');
-            if (welcomeMsg) {
-                welcomeMsg.textContent = `Welcome back, ${profile.full_name.split(' ')[0]}!`;
+// Hustler Modal
+export function toggleHustlerModal(show) {
+    const modal = document.getElementById('hustler-modal-overlay');
+    if (modal) {
+        modal.style.display = show ? 'flex' : 'none';
+    }
+    
+    if (show) {
+        // Pre-fill email if user is logged in
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            const emailInput = document.getElementById('hustler-email');
+            if (user && emailInput) {
+                emailInput.value = user.email;
             }
-            
-            if (profile.avatar_url) {
-                const desktopAvatar = document.getElementById('desktop-avatar-img');
-                const mobileAvatar = document.getElementById('mobile-nav-img');
-                const desktopProfileAvatar = document.getElementById('desktop-profile-avatar');
-                const mobileNavAvatar = document.getElementById('mobile-nav-avatar');
-                
-                if (desktopAvatar) desktopAvatar.src = profile.avatar_url;
-                if (mobileAvatar) mobileAvatar.src = profile.avatar_url;
-                if (desktopProfileAvatar) desktopProfileAvatar.classList.remove('hidden');
-                if (mobileNavAvatar) mobileNavAvatar.classList.remove('hidden');
-            }
-            
-            const hustlerName = document.getElementById('hustler-name');
-            if (hustlerName) hustlerName.value = profile.full_name;
-        }
-
-        // Metrics
-        const { data: skills } = await db.from('user_skills').select('skill_name').eq('user_id', userId);
-        const skillContainer = document.getElementById('skills-container');
-        if (skillContainer) {
-            skillContainer.innerHTML = (skills?.length) 
-                ? skills.map(s => `<span class="px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full text-[10px] font-bold uppercase">${s.skill_name}</span>`).join('') 
-                : '<p class="text-xs text-slate-400">Add skills...</p>';
-        }
-
-        const { data: role } = await db.from('target_roles').select('*').eq('user_id', userId).single();
-        if (role) {
-            const roleName = document.getElementById('target-role-name');
-            const roleDesc = document.getElementById('target-role-desc');
-            const roadmapTitle = document.getElementById('roadmap-title');
-            
-            if (roleName) roleName.textContent = role.role_name;
-            if (roleDesc) roleDesc.textContent = role.description;
-            if (roadmapTitle) roadmapTitle.innerHTML = `Path to <span class="text-primary">${role.role_name}</span>`;
-        }
-
-        const { data: latest } = await db.from('analyses').select('id, match_percentage').eq('user_id', userId).order('created_at', { ascending: false }).limit(1).single();
-        if (latest) {
-            const matchText = document.getElementById('analysis-match-text');
-            const circleFg = document.getElementById('analysis-circle-fg');
-            
-            if (matchText) matchText.textContent = `${latest.match_percentage}%`;
-            if (circleFg) circleFg.style.strokeDasharray = `${latest.match_percentage}, 100`;
-
-            const { data: roadmap } = await db.from('skill_gaps').select('*').eq('analysis_id', latest.id);
-            if (roadmap?.length) renderCompactRoadmap(roadmap);
-        }
-
-        // Academic Suite
-        const { data: enroll } = await db.from('enrollments').select('*, courses(title)').eq('user_id', userId);
-        if (enroll?.length) {
-            const mainCourse = enroll[0];
-            
-            const courseCountBadge = document.getElementById('course-count-badge');
-            const attendanceValue = document.getElementById('attendance-value');
-            const attendanceBar = document.getElementById('attendance-bar');
-            const performanceValue = document.getElementById('performance-value');
-            const performanceBar = document.getElementById('performance-bar');
-            const suggestionsText = document.getElementById('suggestions-text');
-            
-            if (courseCountBadge) courseCountBadge.textContent = `${enroll.length} Tracks`;
-            if (attendanceValue) attendanceValue.textContent = `${mainCourse.attendance_percentage}%`;
-            if (attendanceBar) attendanceBar.style.width = `${mainCourse.attendance_percentage}%`;
-            if (performanceValue) performanceValue.textContent = `${mainCourse.performance_score}%`;
-            if (performanceBar) performanceBar.style.width = `${mainCourse.performance_score}%`;
-            if (suggestionsText) suggestionsText.textContent = mainCourse.suggestions || "Focus on building proof projects.";
-
-            const { data: proj } = await db.from('course_projects').select('*').eq('enrollment_id', mainCourse.id);
-            const projectsList = document.getElementById('projects-list');
-            if (projectsList) {
-                projectsList.innerHTML = proj?.map(p => `<div class="p-3 bg-slate-50 dark:bg-white/5 rounded-xl text-xs font-bold">${p.project_name}</div>`).join('') || '<p class="text-xs text-slate-400">None started.</p>';
-            }
-
-            const { data: exams } = await db.from('course_exams').select('*').eq('enrollment_id', mainCourse.id);
-            const examsList = document.getElementById('exams-list');
-            if (examsList) {
-                examsList.innerHTML = exams?.map(e => `<div class="flex justify-between p-2 text-xs font-bold border-b border-slate-50 dark:border-white/5 last:border-0"><span>${e.exam_title}</span><span class="text-secondary">${e.result_grade || 'Pending'}</span></div>`).join('') || '<p class="text-xs text-slate-400">No exams.</p>';
-            }
-        }
-
-    } catch (e) {
-        console.error(e);
+        });
     }
 }
 
+export async function handleHustlerFormSubmit(event) {
+    event.preventDefault();
+    
+    const btn = document.getElementById('hustler-submit-btn');
+    const status = document.getElementById('hustler-form-status');
+
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Submitting...";
+    }
+    if (status) status.classList.add('hidden');
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        alert("Session expired. Please login again.");
+        if (btn) btn.disabled = false;
+        return;
+    }
+
+    const payload = {
+        user_id: user.id,
+        full_name: document.getElementById('hustler-name')?.value,
+        registration_id: document.getElementById('hustler-reg-id')?.value,
+        course_name: document.getElementById('hustler-course')?.value,
+        email_id: document.getElementById('hustler-email')?.value
+    };
+
+    const { error } = await supabase.from('hustler_id_applications').insert([payload]);
+
+    if (status) {
+        if (error) {
+            status.textContent = "Error: " + error.message;
+            status.className = "text-center text-xs font-bold mt-4 text-red-500 block";
+        } else {
+            status.textContent = "Application Submitted Successfully! We will review it shortly.";
+            status.className = "text-center text-xs font-bold mt-4 text-green-500 block";
+            setTimeout(() => toggleHustlerModal(false), 2000);
+        }
+    }
+    
+    if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = `Submit Application <i data-lucide="send" class="w-4 h-4"></i>`;
+        if (typeof window !== 'undefined' && window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
+}
+
+// Roadmap Rendering
 export function renderCompactRoadmap(roadmap) {
     const container = document.getElementById('roadmap-items-container');
     if (!container) return;
     
     container.innerHTML = '';
+    
     roadmap.forEach((item, i) => {
         const isEven = i % 2 === 0;
         const node = document.createElement('div');
@@ -268,35 +164,167 @@ export function renderCompactRoadmap(roadmap) {
         `;
         container.appendChild(node);
     });
-    initLucideIcons();
+    
+    if (typeof window !== 'undefined' && window.lucide) {
+        window.lucide.createIcons();
+    }
 }
 
+// Dashboard Data Fetching
+export async function fetchDashboardData(userId) {
+    try {
+        // Profile
+        const { data: profile } = await supabase.from('profiles').select('*').eq('id', userId).single();
+        if (profile) {
+            const welcomeMsg = document.getElementById('welcome-message');
+            if (welcomeMsg && profile.full_name) {
+                const firstName = profile.full_name.split(' ')[0];
+                welcomeMsg.textContent = `Welcome back, ${firstName}!`;
+            }
+            
+            if (profile.avatar_url) {
+                const desktopAvatar = document.getElementById('desktop-avatar-img');
+                const mobileAvatar = document.getElementById('mobile-nav-img');
+                const desktopContainer = document.getElementById('desktop-profile-avatar');
+                const mobileContainer = document.getElementById('mobile-nav-avatar');
+                
+                if (desktopAvatar) desktopAvatar.src = profile.avatar_url;
+                if (mobileAvatar) mobileAvatar.src = profile.avatar_url;
+                if (desktopContainer) desktopContainer.classList.remove('hidden');
+                if (mobileContainer) mobileContainer.classList.remove('hidden');
+            }
+            
+            // Prefill modal name
+            const hustlerNameInput = document.getElementById('hustler-name');
+            if (hustlerNameInput && profile.full_name) {
+                hustlerNameInput.value = profile.full_name;
+            }
+        }
+
+        // Skills
+        const { data: skills } = await supabase.from('user_skills').select('skill_name').eq('user_id', userId);
+        const skillContainer = document.getElementById('skills-container');
+        if (skillContainer) {
+            skillContainer.innerHTML = (skills?.length) 
+                ? skills.map(s => `<span class="px-3 py-1 bg-slate-100 dark:bg-white/5 rounded-full text-[10px] font-bold uppercase">${s.skill_name}</span>`).join('') 
+                : '<p class="text-xs text-slate-400">Add skills...</p>';
+        }
+
+        // Target Role
+        const { data: role } = await supabase.from('target_roles').select('*').eq('user_id', userId).single();
+        if (role) {
+            const roleNameEl = document.getElementById('target-role-name');
+            const roleDescEl = document.getElementById('target-role-desc');
+            const roadmapTitleEl = document.getElementById('roadmap-title');
+            
+            if (roleNameEl) roleNameEl.textContent = role.role_name;
+            if (roleDescEl) roleDescEl.textContent = role.description;
+            if (roadmapTitleEl) roadmapTitleEl.innerHTML = `Path to <span class="text-primary">${role.role_name}</span>`;
+        }
+
+        // Latest Analysis
+        const { data: latest } = await supabase.from('analyses').select('id, match_percentage').eq('user_id', userId).order('created_at', { ascending: false }).limit(1).single();
+        if (latest) {
+            const matchText = document.getElementById('analysis-match-text');
+            const circleFg = document.getElementById('analysis-circle-fg');
+            
+            if (matchText) matchText.textContent = `${latest.match_percentage}%`;
+            if (circleFg) circleFg.style.strokeDasharray = `${latest.match_percentage}, 100`;
+
+            // Roadmap
+            const { data: roadmap } = await supabase.from('skill_gaps').select('*').eq('analysis_id', latest.id);
+            if (roadmap?.length) {
+                renderCompactRoadmap(roadmap);
+            }
+        }
+
+        // Enrollments
+        const { data: enroll } = await supabase.from('enrollments').select('*, courses(title)').eq('user_id', userId);
+        if (enroll?.length) {
+            const mainCourse = enroll[0];
+            
+            const courseBadge = document.getElementById('course-count-badge');
+            const attendanceValue = document.getElementById('attendance-value');
+            const attendanceBar = document.getElementById('attendance-bar');
+            const performanceValue = document.getElementById('performance-value');
+            const performanceBar = document.getElementById('performance-bar');
+            const suggestionsText = document.getElementById('suggestions-text');
+            
+            if (courseBadge) courseBadge.textContent = `${enroll.length} Tracks`;
+            if (attendanceValue) attendanceValue.textContent = `${mainCourse.attendance_percentage}%`;
+            if (attendanceBar) attendanceBar.style.width = `${mainCourse.attendance_percentage}%`;
+            if (performanceValue) performanceValue.textContent = `${mainCourse.performance_score}%`;
+            if (performanceBar) performanceBar.style.width = `${mainCourse.performance_score}%`;
+            if (suggestionsText) suggestionsText.textContent = mainCourse.suggestions || "Focus on building proof projects.";
+
+            // Projects
+            const { data: proj } = await supabase.from('course_projects').select('*').eq('enrollment_id', mainCourse.id);
+            const projectsList = document.getElementById('projects-list');
+            if (projectsList) {
+                projectsList.innerHTML = proj?.map(p => `<div class="p-3 bg-slate-50 dark:bg-white/5 rounded-xl text-xs font-bold">${p.project_name}</div>`).join('') || '<p class="text-xs text-slate-400">None started.</p>';
+            }
+
+            // Exams
+            const { data: exams } = await supabase.from('course_exams').select('*').eq('enrollment_id', mainCourse.id);
+            const examsList = document.getElementById('exams-list');
+            if (examsList) {
+                examsList.innerHTML = exams?.map(e => `<div class="flex justify-between p-2 text-xs font-bold border-b border-slate-50 dark:border-white/5 last:border-0"><span>${e.exam_title}</span><span class="text-secondary">${e.result_grade || 'Pending'}</span></div>`).join('') || '<p class="text-xs text-slate-400">No exams.</p>';
+            }
+        }
+
+    } catch (e) {
+        console.error('Dashboard data fetch error:', e);
+    }
+}
+
+// Main Initialization
 export async function initDashboard() {
-    const { data: { user } } = await db.auth.getUser();
+    // Set current date
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+        dateEl.textContent = new Date().toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    }
+
+    // Initialize Lucide icons
+    if (typeof window !== 'undefined' && window.lucide) {
+        window.lucide.createIcons();
+    }
+
+    // Check authentication
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         window.location.href = '/login';
         return;
     }
 
-    const logoutButton = document.getElementById('logout-button');
-    if (logoutButton) logoutButton.onclick = handleLogout;
+    // Setup logout
+    const logoutBtn = document.getElementById('logout-button');
+    if (logoutBtn) {
+        logoutBtn.onclick = async () => {
+            await supabase.auth.signOut();
+            window.location.href = '/';
+        };
+    }
 
-    await fetchDashboardData(user.id);
-}
-
-export function initDashboardListeners() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const hustlerForm = document.getElementById('hustler-id-form');
-
-    if (themeToggle) themeToggle.onclick = toggleTheme;
-    if (hustlerForm) hustlerForm.onsubmit = handleHustlerIdForm;
-
+    // Initialize components
     initTheme();
     initSidebar();
-    setCurrentDate();
-    initLucideIcons();
-    
+
+    // Setup hustler form
+    const hustlerForm = document.getElementById('hustler-id-form');
+    if (hustlerForm) {
+        hustlerForm.onsubmit = handleHustlerFormSubmit;
+    }
+
+    // Expose toggleHustlerModal to window for onclick handlers
     if (typeof window !== 'undefined') {
         window.toggleHustlerModal = toggleHustlerModal;
     }
+
+    // Fetch dashboard data
+    await fetchDashboardData(user.id);
 }

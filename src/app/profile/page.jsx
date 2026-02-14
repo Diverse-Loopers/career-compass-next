@@ -1,57 +1,46 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import './profile.css';
-import Script from 'next/script';
-import { 
-  initDashboard, 
-  initDashboardListeners,
-  toggleHustlerModal 
-} from '@/lib/pages/profile';
+import Script from "next/script";
+import { useEffect } from "react";
+import "./profile.css";
+import { initDashboard } from "@/lib/pages/profile";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   useEffect(() => {
-    initDashboardListeners();
     initDashboard();
   }, []);
 
   return (
     <>
-      {/* External Scripts */}
-      <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
-      <Script src="https://unpkg.com/lucide@latest" strategy="beforeInteractive" />
+      {/* Fonts */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
+      {/* Scripts */}
+     
+      <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" />
+
       
-      {/* Tailwind Config */}
-      <Script id="tailwind-config" strategy="beforeInteractive">
-        {`
-          tailwind.config = {
-            darkMode: 'class',
-            theme: {
-              extend: {
-                colors: {
-                  primary: '#4f46e5',
-                  secondary: '#9333ea',
-                  dark: '#0c0d19'
-                }
-              }
-            }
-          }
-        `}
-      </Script>
 
       <div className="h-screen flex overflow-hidden">
-        
         {/* Mobile Sidebar Overlay */}
         <div id="sidebar-overlay" className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden"></div>
 
         {/* Hustler ID Application Modal */}
-        <div id="hustler-modal-overlay" className="fixed inset-0 z-[100] blur-backdrop flex items-center justify-center p-4">
+        <div
+          id="hustler-modal-overlay"
+          className="fixed inset-0 z-[100] blur-backdrop flex items-center justify-center p-4"
+        >
           <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden transform transition-all duration-300">
             <div className="p-8 md:p-10">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-black text-slate-900 dark:text-white italic">Hybrid Hustler ID</h2>
-                <button 
-                  onClick={() => toggleHustlerModal(false)}
+                <button
+                  onClick={() => window.toggleHustlerModal && window.toggleHustlerModal(false)}
                   className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition"
                 >
                   <i data-lucide="x"></i>
@@ -66,51 +55,51 @@ export default function Dashboard() {
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     Full Legal Name
                   </label>
-                  <input 
-                    type="text" 
-                    id="hustler-name" 
-                    required 
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition" 
+                  <input
+                    type="text"
+                    id="hustler-name"
+                    required
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition"
                   />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     Course Registration ID
                   </label>
-                  <input 
-                    type="text" 
-                    id="hustler-reg-id" 
-                    required 
-                    placeholder="ID from your welcome mail" 
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition" 
+                  <input
+                    type="text"
+                    id="hustler-reg-id"
+                    required
+                    placeholder="ID from your welcome mail"
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition"
                   />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     Enrolled Course
                   </label>
-                  <input 
-                    type="text" 
-                    id="hustler-course" 
-                    required 
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition" 
+                  <input
+                    type="text"
+                    id="hustler-course"
+                    required
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition"
                   />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     Email Address
                   </label>
-                  <input 
-                    type="email" 
-                    id="hustler-email" 
-                    required 
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition" 
+                  <input
+                    type="email"
+                    id="hustler-email"
+                    required
+                    className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary outline-none transition"
                   />
                 </div>
 
-                <button 
-                  type="submit" 
-                  id="hustler-submit-btn" 
+                <button
+                  type="submit"
+                  id="hustler-submit-btn"
                   className="w-full py-4 bg-primary text-white rounded-2xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-100 flex items-center justify-center gap-2 mt-4"
                 >
                   Submit Application <i data-lucide="send" className="w-4 h-4"></i>
@@ -134,43 +123,43 @@ export default function Dashboard() {
 
           <nav className="flex-1 px-4 space-y-2 mt-4 overflow-y-auto">
             <a 
-              href="/" 
+              href="/"
               className="sidebar-link w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-400 font-semibold hover:bg-white/5 transition text-left"
             >
               <i data-lucide="home" className="w-5 h-5"></i> Home
             </a>
             <a 
-              href="#" 
+              href="#"
               className="sidebar-link active w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-white font-semibold transition text-left"
             >
               <i data-lucide="layout-dashboard" className="w-5 h-5"></i> Dashboard
             </a>
             <a 
-              href="#roadmap-section" 
+              href="#roadmap-section"
               className="sidebar-link w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-400 font-semibold hover:bg-white/5 transition text-left"
             >
               <i data-lucide="milestone" className="w-5 h-5"></i> My Analysis
             </a>
             <a 
-              href="/career-analyzer" 
+              href="/career-analyzer"
               className="sidebar-link w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-400 font-semibold hover:bg-white/5 transition text-left"
             >
               <i data-lucide="search" className="w-5 h-5"></i> Explore Careers
             </a>
             <a 
-              href="/courses" 
+              href="/courses"
               className="sidebar-link w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-400 font-semibold hover:bg-white/5 transition text-left"
             >
               <i data-lucide="book-open" className="w-5 h-5"></i> Courses
             </a>
             <a 
-              href="#" 
+              href="#"
               className="sidebar-link w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-400 font-semibold hover:bg-white/5 transition text-left"
             >
               <i data-lucide="book-open" className="w-5 h-5"></i> My Courses
             </a>
             <a 
-              href="/settings" 
+              href="/settings"
               className="sidebar-link w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-slate-400 font-semibold hover:bg-white/5 transition text-left"
             >
               <i data-lucide="settings" className="w-5 h-5"></i> Settings
@@ -178,8 +167,8 @@ export default function Dashboard() {
           </nav>
 
           <div className="p-6 border-t border-white/5 space-y-4">
-            <button 
-              id="theme-toggle" 
+            <button
+              id="theme-toggle"
               className="w-full flex items-center justify-between px-4 py-3 bg-white/5 text-slate-300 rounded-xl font-medium hover:bg-white/10 transition"
             >
               <div className="flex items-center gap-2">
@@ -187,14 +176,14 @@ export default function Dashboard() {
                 <span id="theme-text">Dark Mode</span>
               </div>
               <div className="w-10 h-5 bg-slate-700 rounded-full relative p-1">
-                <div 
-                  id="theme-toggle-dot" 
+                <div
+                  id="theme-toggle-dot"
                   className="w-3 h-3 bg-white rounded-full transition-all duration-300 transform translate-x-0"
                 ></div>
               </div>
             </button>
-            <button 
-              id="logout-button" 
+            <button
+              id="logout-button"
               className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 text-red-400 rounded-xl font-bold hover:bg-red-500/20 transition"
             >
               <i data-lucide="log-out" className="w-4 h-4"></i> Logout
@@ -204,7 +193,6 @@ export default function Dashboard() {
 
         {/* Main Content */}
         <main id="main-scroll-area" className="flex-1 flex flex-col h-screen overflow-y-auto custom-scrollbar scroll-smooth">
-          
           {/* Top Bar (Mobile Only) */}
           <header className="lg:hidden bg-white dark:bg-dark border-b border-slate-200 dark:border-white/5 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
             <div className="flex items-center gap-3">
@@ -213,10 +201,7 @@ export default function Dashboard() {
               </div>
               <span className="font-black text-primary italic">DL Dashboard</span>
             </div>
-            <button 
-              id="open-sidebar" 
-              className="p-2 bg-slate-100 dark:bg-white/5 rounded-xl text-slate-600 dark:text-slate-300"
-            >
+            <button id="open-sidebar" className="p-2 bg-slate-100 dark:bg-white/5 rounded-xl text-slate-600 dark:text-slate-300">
               <i data-lucide="menu"></i>
             </button>
           </header>
@@ -226,19 +211,23 @@ export default function Dashboard() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div className="flex items-center gap-5">
                 {/* Desktop Avatar */}
-                <div 
-                  id="desktop-profile-avatar" 
-                  className="hidden md:block w-16 h-16 rounded-full border-2 border-primary/20 p-1 overflow-hidden"
-                >
-                  <img 
-                    id="desktop-avatar-img" 
-                    src="" 
-                    className="profile-avatar rounded-full bg-slate-100 dark:bg-white/5" 
-                  />
-                </div>
+               {/* Desktop Avatar - Only render if avatar exists */}
+<div
+  id="desktop-profile-avatar"
+  className="hidden md:block w-16 h-16 rounded-full border-2 border-primary/20 p-1 overflow-hidden"
+>
+  {/* Image will be shown/hidden via JS when avatar_url is loaded */}
+  <div className="w-full h-full bg-slate-100 dark:bg-white/5 rounded-full">
+    <img
+      id="desktop-avatar-img"
+      alt="Profile"
+      className="profile-avatar rounded-full w-full h-full hidden"
+    />
+  </div>
+</div>
                 <div>
-                  <h1 
-                    id="welcome-message" 
+                  <h1
+                    id="welcome-message"
                     className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white"
                   >
                     Welcome back!
@@ -249,8 +238,8 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="hidden md:block text-right">
-                <p 
-                  id="current-date" 
+                <p
+                  id="current-date"
                   className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]"
                 ></p>
               </div>
@@ -265,14 +254,14 @@ export default function Dashboard() {
                   Identify the exact skills you need to land your target job with our AI-driven analyzer.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <button 
-                    onClick={() => window.location.href='/analyzer'} 
+                  <button
+                    onClick={() => (window.location.href = '/analyzer')}
                     className="px-6 md:px-8 py-3 md:py-4 bg-white text-primary rounded-2xl font-bold hover:shadow-xl transition active:scale-95 text-sm md:text-base"
                   >
                     Start New Analysis
                   </button>
-                  <button 
-                    onClick={() => toggleHustlerModal(true)} 
+                  <button
+                    onClick={() => window.toggleHustlerModal && window.toggleHustlerModal(true)}
                     className="px-6 md:px-8 py-3 md:py-4 bg-primary text-white border border-white/20 rounded-2xl font-bold hover:bg-primary/90 transition active:scale-95 text-sm md:text-base flex items-center gap-2"
                   >
                     Apply for Hybrid Hustler ID <i data-lucide="id-card" className="w-5 h-5"></i>
@@ -295,10 +284,7 @@ export default function Dashboard() {
                   <div className="skeleton w-20 h-6 rounded-full"></div>
                   <div className="skeleton w-24 h-6 rounded-full"></div>
                 </div>
-                <a 
-                  href="/settings" 
-                  className="mt-6 text-xs font-bold text-primary flex items-center gap-1 hover:underline"
-                >
+                <a href="/settings" className="mt-6 text-xs font-bold text-primary flex items-center gap-1 hover:underline">
                   Edit Skills <i data-lucide="arrow-right" className="w-3 h-3"></i>
                 </a>
               </div>
@@ -319,10 +305,7 @@ export default function Dashboard() {
                     Defining destination...
                   </p>
                 </div>
-                <a 
-                  href="/settings" 
-                  className="mt-6 text-xs font-bold text-secondary flex items-center gap-1 hover:underline"
-                >
+                <a href="/settings" className="mt-6 text-xs font-bold text-secondary flex items-center gap-1 hover:underline">
                   Update Goal <i data-lucide="arrow-right" className="w-3 h-3"></i>
                 </a>
               </div>
@@ -332,22 +315,22 @@ export default function Dashboard() {
                 <h3 className="font-bold text-sm mb-4 w-full text-left">Match Confidence</h3>
                 <div className="relative w-24 h-24 md:w-28 md:h-28">
                   <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                    <path 
-                      className="stroke-slate-100 dark:stroke-white/5 fill-none" 
-                      strokeWidth="3" 
-                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" 
+                    <path
+                      className="stroke-slate-100 dark:stroke-white/5 fill-none"
+                      strokeWidth="3"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     />
-                    <path 
-                      id="analysis-circle-fg" 
-                      className="stroke-green-500 fill-none transition-all duration-1000" 
-                      strokeWidth="3" 
-                      strokeLinecap="round" 
-                      strokeDasharray="0, 100" 
-                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" 
+                    <path
+                      id="analysis-circle-fg"
+                      className="stroke-green-500 fill-none transition-all duration-1000"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeDasharray="0, 100"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     />
                   </svg>
-                  <div 
-                    id="analysis-match-text" 
+                  <div
+                    id="analysis-match-text"
                     className="absolute inset-0 flex items-center justify-center text-xl md:text-2xl font-black text-slate-900 dark:text-white"
                   >
                     --%
@@ -363,10 +346,7 @@ export default function Dashboard() {
                   <h3 className="font-bold flex items-center gap-2">
                     <i data-lucide="book-open" className="w-4 h-4 text-primary"></i> Active Learning
                   </h3>
-                  <span 
-                    id="course-count-badge" 
-                    className="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-lg"
-                  >
+                  <span id="course-count-badge" className="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-lg">
                     0 Courses
                   </span>
                 </div>
@@ -377,24 +357,28 @@ export default function Dashboard() {
 
               <div className="glass-card p-6 rounded-[2rem] text-center">
                 <h3 className="font-bold text-xs mb-4 uppercase text-slate-400">Attendance</h3>
-                <div className="text-3xl font-black text-primary mb-1" id="attendance-value">--%</div>
+                <div className="text-3xl font-black text-primary mb-1" id="attendance-value">
+                  --%
+                </div>
                 <div className="w-full bg-slate-100 dark:bg-white/5 h-2 rounded-full overflow-hidden">
-                  <div 
-                    id="attendance-bar" 
-                    className="h-full bg-primary transition-all duration-1000" 
-                    style={{ width: '0%' }}
+                  <div
+                    id="attendance-bar"
+                    className="h-full bg-primary transition-all duration-1000"
+                    style={{ width: "0%" }}
                   ></div>
                 </div>
               </div>
 
               <div className="glass-card p-6 rounded-[2rem] text-center">
                 <h3 className="font-bold text-xs mb-4 uppercase text-slate-400">Performance</h3>
-                <div className="text-3xl font-black text-secondary mb-1" id="performance-value">--%</div>
+                <div className="text-3xl font-black text-secondary mb-1" id="performance-value">
+                  --%
+                </div>
                 <div className="w-full bg-slate-100 dark:bg-white/5 h-2 rounded-full overflow-hidden">
-                  <div 
-                    id="performance-bar" 
-                    className="h-full bg-secondary transition-all duration-1000" 
-                    style={{ width: '0%' }}
+                  <div
+                    id="performance-bar"
+                    className="h-full bg-secondary transition-all duration-1000"
+                    style={{ width: "0%" }}
                   ></div>
                 </div>
               </div>
@@ -423,16 +407,13 @@ export default function Dashboard() {
             </div>
 
             {/* Redesigned Minimalist Roadmap */}
-            <div 
-              id="roadmap-section" 
+            <div
+              id="roadmap-section"
               className="py-12 bg-white dark:bg-slate-900/30 rounded-[3rem] border border-slate-100 dark:border-white/5"
             >
               <div className="px-8 md:px-12 mb-12 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div className="text-center md:text-left">
-                  <h2 
-                    id="roadmap-title" 
-                    className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white"
-                  >
+                  <h2 id="roadmap-title" className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
                     Career Milestone Track
                   </h2>
                   <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mt-1">
@@ -458,7 +439,7 @@ export default function Dashboard() {
                 <h4 className="text-lg font-bold mb-1">Hybrid Hustle</h4>
                 <p className="text-slate-400 text-xs mb-4">Real industry projects. Real pay.</p>
                 <a 
-                  href="/#hybrid-hustle" 
+                  href="/#hybrid-hustle"
                   className="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all"
                 >
                   Enroll Now <i data-lucide="arrow-right" className="w-4 h-4"></i>

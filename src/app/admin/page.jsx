@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Script from "next/script";
 import "./admin.css";
 import { initAdminLoginListeners } from "@/lib/pages/admin";
 
@@ -13,8 +12,7 @@ export default function AdminLoginPage() {
 
   return (
     <>
-      {/* Tailwind CDN if needed */}
-      <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
+ 
 
       <div className="login-container">
         <div className="login-header">

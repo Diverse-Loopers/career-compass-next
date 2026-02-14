@@ -21,30 +21,10 @@ export default function CoursesPage() {
       />
 
       {/* Scripts */}
-      <Script src="https://cdn.tailwindcss.com" strategy="beforeInteractive" />
+     
       <Script src="https://unpkg.com/lucide@latest" strategy="beforeInteractive" />
 
-      {/* Tailwind Config */}
-      <Script id="tailwind-config" strategy="beforeInteractive">
-        {`
-          tailwind.config = {
-            theme: {
-              extend: {
-                colors: {
-                  primary: '#2563eb',
-                  secondary: '#db2777',
-                  dark: '#0f172a',
-                  surface: '#f8fafc'
-                },
-                fontFamily: {
-                  sans: ['Inter', 'sans-serif'],
-                  heading: ['Poppins', 'sans-serif'],
-                }
-              }
-            }
-          }
-        `}
-      </Script>
+      
 
       <div className="bg-white font-sans text-slate-800 selection:bg-primary selection:text-white flex flex-col min-h-screen">
         {/* Navigation */}
@@ -56,7 +36,7 @@ export default function CoursesPage() {
               </a>
 
               <div className="hidden md:flex items-center space-x-8">
-                <a href="/index" className="text-slate-600 hover:text-primary font-semibold transition">
+                <a href="/" className="text-slate-600 hover:text-primary font-semibold transition">
                   Home
                 </a>
                 <a href="/courses" className="text-primary font-bold transition">
