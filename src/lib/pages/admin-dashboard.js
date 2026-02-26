@@ -924,58 +924,134 @@ export function initAdminDashboard() {
     }
 }
 
-function initDashboardCore() {
-    showSection('employees');
-    loadEmployees();
+// function initDashboardCore() {
+//     showSection('employees');
+//     loadEmployees();
     
-    setTimeout(() => {
-        loadFaceModels();
-    }, 500);
+//     setTimeout(() => {
+//         loadFaceModels();
+//     }, 500);
 
-    // Mobile menu
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    const main = document.querySelector('.main-content');
+//     // Mobile menu
+//     const menuBtn = document.getElementById('mobile-menu-btn');
+//     const sidebar = document.getElementById('sidebar');
+//     const main = document.querySelector('.main-content');
 
-    if (menuBtn && sidebar) {
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.toggle('active');
-        });
+//     if (menuBtn && sidebar) {
+//         menuBtn.addEventListener('click', (e) => {
+//             e.stopPropagation();
+//             sidebar.classList.toggle('active');
+//         });
 
-        main?.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('active');
+//         main?.addEventListener('click', () => {
+//             if (window.innerWidth <= 768) {
+//                 sidebar.classList.remove('active');
+//             }
+//         });
+//     }
+
+//     // Close notifications on outside click
+//     document.addEventListener('click', (e) => {
+//         const dropdown = document.getElementById('notif-dropdown');
+//         if (dropdown && !dropdown.classList.contains('hidden') && !e.target.closest('.notification-wrapper')) {
+//             dropdown.classList.add('hidden');
+//         }
+//     });
+
+//     // Expose functions to window
+//     if (typeof window !== 'undefined') {
+//         window.showSection = showSection;
+//         window.toggleNotifications = toggleNotifications;
+//         window.markAllRead = markAllRead;
+//         window.openAddEmployeeModal = openAddEmployeeModal;
+//         window.handleAddEmployee = handleAddEmployee;
+//         window.openResetPassword = openResetPassword;
+//         window.handleResetPassword = handleResetPassword;
+//         window.deleteEmployee = deleteEmployee;
+//         window.closeModal = closeModal;
+//         window.logoutAdmin = logoutAdmin;
+//         window.loadAttendance = loadAttendance;
+//         window.openAssignTaskModal = openAssignTaskModal;
+//         window.handleAssignTask = handleAssignTask;
+//         window.reviewTask = reviewTask;
+//         window.updateLeave = updateLeave;
+//         window.viewApplicantDetails = viewApplicantDetails; 
+//     window.deleteApplicant = deleteApplicant;
+//     }
+// }
+
+function initDashboardCore() {
+    // AUTH CHECK - must run first
+    (async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            window.location.href = '/hrms-login';
+            return;
+        }
+
+        const { data: adminCheck } = await supabase
+            .from('admin_list')
+            .select('user_id')
+            .eq('user_id', user.id)
+            .limit(1);
+
+        if (!adminCheck || adminCheck.length === 0) {
+            await supabase.auth.signOut();
+            window.location.href = '/hrms-login';
+            return;
+        }
+
+        // Auth passed - proceed with dashboard init
+        showSection('employees');
+        loadEmployees();
+        
+        setTimeout(() => {
+            loadFaceModels();
+        }, 500);
+
+        // Mobile menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const main = document.querySelector('.main-content');
+
+        if (menuBtn && sidebar) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('active');
+            });
+
+            main?.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('notif-dropdown');
+            if (dropdown && !dropdown.classList.contains('hidden') && !e.target.closest('.notification-wrapper')) {
+                dropdown.classList.add('hidden');
             }
         });
-    }
 
-    // Close notifications on outside click
-    document.addEventListener('click', (e) => {
-        const dropdown = document.getElementById('notif-dropdown');
-        if (dropdown && !dropdown.classList.contains('hidden') && !e.target.closest('.notification-wrapper')) {
-            dropdown.classList.add('hidden');
+        if (typeof window !== 'undefined') {
+            window.showSection = showSection;
+            window.toggleNotifications = toggleNotifications;
+            window.markAllRead = markAllRead;
+            window.openAddEmployeeModal = openAddEmployeeModal;
+            window.handleAddEmployee = handleAddEmployee;
+            window.openResetPassword = openResetPassword;
+            window.handleResetPassword = handleResetPassword;
+            window.deleteEmployee = deleteEmployee;
+            window.closeModal = closeModal;
+            window.logoutAdmin = logoutAdmin;
+            window.loadAttendance = loadAttendance;
+            window.openAssignTaskModal = openAssignTaskModal;
+            window.handleAssignTask = handleAssignTask;
+            window.reviewTask = reviewTask;
+            window.updateLeave = updateLeave;
+            window.viewApplicantDetails = viewApplicantDetails;
+            window.deleteApplicant = deleteApplicant;
         }
-    });
-
-    // Expose functions to window
-    if (typeof window !== 'undefined') {
-        window.showSection = showSection;
-        window.toggleNotifications = toggleNotifications;
-        window.markAllRead = markAllRead;
-        window.openAddEmployeeModal = openAddEmployeeModal;
-        window.handleAddEmployee = handleAddEmployee;
-        window.openResetPassword = openResetPassword;
-        window.handleResetPassword = handleResetPassword;
-        window.deleteEmployee = deleteEmployee;
-        window.closeModal = closeModal;
-        window.logoutAdmin = logoutAdmin;
-        window.loadAttendance = loadAttendance;
-        window.openAssignTaskModal = openAssignTaskModal;
-        window.handleAssignTask = handleAssignTask;
-        window.reviewTask = reviewTask;
-        window.updateLeave = updateLeave;
-        window.viewApplicantDetails = viewApplicantDetails; 
-    window.deleteApplicant = deleteApplicant;
-    }
+    })();
 }

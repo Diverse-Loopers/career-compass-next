@@ -459,17 +459,17 @@ export function switchView(viewName) {
 // --- Auth Guard ---
 export async function checkAuth() {
     const { data: { user } } = await supabase.auth.getUser();
-    // if (!user) { 
-    //     window.location.href = '/admin'; 
-    //     return; 
-    // }
+    if (!user) { 
+        window.location.href = '/admin'; 
+        return; 
+    }
 
-    // const { data: adminCheck } = await supabase.from('admin_list').select('user_id').eq('user_id', user.id).limit(1);
-    // if (!adminCheck || adminCheck.length === 0) {
-    //     await supabase.auth.signOut();
-    //     window.location.href = '/admin';
-    //     return;
-    // }
+    const { data: adminCheck } = await supabase.from('admin_list').select('user_id').eq('user_id', user.id).limit(1);
+    if (!adminCheck || adminCheck.length === 0) {
+        await supabase.auth.signOut();
+        window.location.href = '/admin';
+        return;
+    }
     switchView('dashboard');
 }
 
