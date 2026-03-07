@@ -1238,7 +1238,9 @@ async function loadAllJobPostings() {
     }
 }
 
+
 // export function editJobPosting(id) {
+//     console.log(`Editing job posting with ID: ${id}`);
 //     const job = allJobPostings.find(item => item.id === id);
 //     if (!job) return;
     
@@ -1249,7 +1251,7 @@ async function loadAllJobPostings() {
 //     const jobType = document.getElementById('job-type');
 //     const jobSalary = document.getElementById('job-salary');
 //     const jobEligibility = document.getElementById('job-eligibility');
-//     const responsibilities = document.getElementById('job-responsibility');
+//     const jobResponsibility = document.getElementById('job-responsibility');
 //     const jobRequiredSkills = document.getElementById('job-required-skills');
 //     const jobStatus = document.getElementById('job-status');
 //     const jobFormTitle = document.getElementById('job-form-title');
@@ -1263,8 +1265,21 @@ async function loadAllJobPostings() {
 //     if (jobType) jobType.value = job.type || 'Full Time';
 //     if (jobSalary) jobSalary.value = job.salary || '';
 //     if (jobEligibility) jobEligibility.value = job.eligibility || '';
-//     if (responsibilities) responsibilities.value = job.responsibility || '';
-//     if (jobRequiredSkills) jobRequiredSkills.value = job.required_skills || '';
+    
+//     // FIX: Handle responsibilities array properly
+//     if (jobResponsibility) {
+//         jobResponsibility.value = Array.isArray(job.responsibilities) 
+//             ? job.responsibilities.join(', ') 
+//             : (job.responsibilities || '');
+//     }
+    
+//     // FIX: Handle required_skills array properly
+//     if (jobRequiredSkills) {
+//         jobRequiredSkills.value = Array.isArray(job.required_skills) 
+//             ? job.required_skills.join(', ') 
+//             : (job.required_skills || '');
+//     }
+    
 //     if (jobStatus) jobStatus.value = job.status || 'draft';
 //     if (jobFormTitle) jobFormTitle.textContent = "Update Job Posting";
 //     if (jobSaveBtn) jobSaveBtn.textContent = "Apply Changes";
@@ -1272,8 +1287,21 @@ async function loadAllJobPostings() {
 // }
 
 export function editJobPosting(id) {
-    const job = allJobPostings.find(item => item.id === id);
-    if (!job) return;
+    console.log(`Editing job posting with ID: ${id}`);
+    // const job = allJobPostings.find(item => item.id === id);
+    // if (!job) {
+    //     console.error('Job not found:', id);
+    //     return;
+      const numericId = Number(id);   // FIX
+
+    const job = allJobPostings.find(item => item.id === numericId);
+
+    if (!job) {
+        console.error('Job not found:', id);
+        return;
+    }
+    
+    console.log('Job data:', job); // Debug log
     
     const jobId = document.getElementById('job-id');
     const jobTitle = document.getElementById('job-title');
@@ -1289,6 +1317,14 @@ export function editJobPosting(id) {
     const jobSaveBtn = document.getElementById('job-save-btn');
     const mainScrollArea = document.getElementById('main-scroll-area');
 
+    // Helper function to convert array to comma-separated string
+    const arrayToString = (arr) => {
+        if (!arr) return '';
+        if (Array.isArray(arr)) return arr.join(', ');
+        if (typeof arr === 'string') return arr;
+        return '';
+    };
+
     if (jobId) jobId.value = job.id;
     if (jobTitle) jobTitle.value = job.title || '';
     if (jobDepartment) jobDepartment.value = job.department || '';
@@ -1297,18 +1333,14 @@ export function editJobPosting(id) {
     if (jobSalary) jobSalary.value = job.salary || '';
     if (jobEligibility) jobEligibility.value = job.eligibility || '';
     
-    // FIX: Handle responsibilities array properly
+    // ✅ FIX: Convert array to comma-separated string
     if (jobResponsibility) {
-        jobResponsibility.value = Array.isArray(job.responsibilities) 
-            ? job.responsibilities.join(', ') 
-            : (job.responsibilities || '');
+        jobResponsibility.value = arrayToString(job.responsibilities);
     }
     
-    // FIX: Handle required_skills array properly
+    // ✅ FIX: Convert array to comma-separated string
     if (jobRequiredSkills) {
-        jobRequiredSkills.value = Array.isArray(job.required_skills) 
-            ? job.required_skills.join(', ') 
-            : (job.required_skills || '');
+        jobRequiredSkills.value = arrayToString(job.required_skills);
     }
     
     if (jobStatus) jobStatus.value = job.status || 'draft';
@@ -1329,53 +1361,7 @@ export function resetJobPostingForm() {
     if (jobSaveBtn) jobSaveBtn.textContent = "Publish Job";
 }
 
-// export async function handleJobPostingFormSubmit(e) {
-//     e.preventDefault();
-//     const btn = document.getElementById('job-save-btn');
-//     if (btn) {
-//         btn.disabled = true;
-//         btn.textContent = "Processing...";
-//     }
-    
-//     const id = document.getElementById('job-id')?.value;
-    
-//     const payload = {
-//         title: document.getElementById('job-title')?.value,
-//         department: document.getElementById('job-department')?.value,
-//         location: document.getElementById('job-location')?.value,
-//         type: document.getElementById('job-type')?.value,
-//         salary: document.getElementById('job-salary')?.value,
-//         eligibility: document.getElementById('job-eligibility')?.value,
-//         responsibilities: document.getElementById('job-responsibility')?.value.split(',')
-//         .map(s => s.trim())
-//         .filter(Boolean),
-//         // required_skills: document.getElementById('job-required-skills')?.value,
-//         required_skills: document
-//         .getElementById('job-skills')
-//         ?.value
-//         .split(',')
-//         .map(s => s.trim())
-//         .filter(Boolean),
-//         status: document.getElementById('job-status')?.value || 'draft'
-//     };
-    
-//     const { error } = id 
-//         ? await supabase.from('jobs').update(payload).eq('id', id) 
-//         : await supabase.from('jobs').insert([payload]);
-    
-//     if (error) {
-//         showMessageBox('Database Error: ' + error.message);
-//     } else {
-//         showMessageBox(id ? 'Job posting updated!' : 'Job posting published!'); 
-//         resetJobPostingForm(); 
-//         loadAllJobPostings();
-//     }
-    
-//     if (btn) {
-//         btn.disabled = false;
-//         btn.textContent = id ? "Apply Changes" : "Publish Job";
-//     }
-// }
+
 
 export async function handleJobPostingFormSubmit(e) {
     e.preventDefault();

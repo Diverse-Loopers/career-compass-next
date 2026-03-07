@@ -35,8 +35,10 @@ export default function RootLayout({ children }) {
       className={`scroll-smooth bg-[#0f172a] ${inter.variable} ${poppins.variable}`}
     >
       <head>
-        {/* Preconnect for performance (optional, fonts already optimized) */}
-        <link rel="icon" href="/favicon.ico" />
+        
+        <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
       </head>
 
       <body className="font-sans text-slate-800 bg-white min-h-screen overflow-x-hidden">

@@ -20,18 +20,26 @@ export default function HomePage() {
 
   return (
     <>
-      <a href="/" className="home-link">
+      <a href="/" className="home-link bg-white text-gray-800 font-bold py-2 px-4 rounded absolute top-4 left-4 flex items-center gap-2">
         <img 
           src="/DIVERSE LOOPERS (1) bg.png" 
           onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/40?text=DL')}
           alt="Logo" 
         />
       </a>
-      <a href="javascript:history.back()" className="back-link">
-        <i className='bx bx-arrow-back'></i> Back
-      </a>
+     
+      <a
+  href="#"
+  onClick={(e) => {
+    e.preventDefault();
+    window.history.back();
+  }}
+  className="back-link bg-white"
+>
+  <i className='bx bx-arrow-back'></i> Back
+</a>
 
-      <div className="auth-wrapper" id="authWrapper">
+      <div className="auth-wrapper " id="authWrapper">
         <div className="auth-form-box register-form-box">
           <form id="register-form">
             <h1>Create Account</h1>
@@ -121,7 +129,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div id="message-box" className="message-box"></div>
+      <div id="message-box" className="message-box "></div>
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white pt-20 pb-10">

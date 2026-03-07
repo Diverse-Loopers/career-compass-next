@@ -68,7 +68,7 @@ export async function handleAdminLogin(e) {
     } else if (adminError) {
       displayMessage("Database error during verification.");
     } else if (adminCheck) {
-      window.location.href = "/admin-dashboard";
+      window.location.href = "/site.admin";
     } else {
       await supabase.auth.signOut();
       displayMessage("Authorization failed.");

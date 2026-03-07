@@ -72,7 +72,8 @@
             width: 850px;
             max-width: 100%;
             min-height: 550px;
-            margin-top: 40px;
+            margin-top: 120px;
+            margin-bottom: 80px;
         }
 
         .auth-form-box {
@@ -318,6 +319,7 @@
             transition: all 0.4s ease;
             pointer-events: none;
             font-weight: 500;
+            /* margin-bottom: 50px; */
         }
 
         .message-box.error {

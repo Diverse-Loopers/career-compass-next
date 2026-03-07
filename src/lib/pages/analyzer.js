@@ -294,11 +294,23 @@ export function resetView() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// export function setTheme(isDark) {
+//     document.documentElement.classList.toggle('dark', isDark);
+//     const icons = document.querySelectorAll('#theme-icon, #mobile-theme-toggle i');
+//     icons.forEach(icon => icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon'));
+    
+//     if (typeof window !== 'undefined' && window.lucide) {
+//         window.lucide.createIcons();
+//     }
+    
+//     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+// }
 export function setTheme(isDark) {
     document.documentElement.classList.toggle('dark', isDark);
     const icons = document.querySelectorAll('#theme-icon, #mobile-theme-toggle i');
     icons.forEach(icon => icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon'));
     
+    // Re-create icons after attribute change
     if (typeof window !== 'undefined' && window.lucide) {
         window.lucide.createIcons();
     }

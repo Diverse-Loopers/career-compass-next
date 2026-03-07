@@ -1,3 +1,14 @@
+html {
+    background-color: var(--bg-body);
+    transition: background-color 0.3s;
+}
+
+html.dark {
+    --bg-body: #090a14;
+    --bg-card: #151726;
+    --text-main: #f1f5f9;
+    --border: #1e293b;
+}
 :root {
     --bg-body: #f8fafc;
     --bg-card: #ffffff;
