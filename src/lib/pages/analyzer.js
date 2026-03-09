@@ -115,7 +115,8 @@ export async function handleFormSubmit(event) {
     try {
         await supabase.from('analysis_requests').insert([analysisData]);
 
-        const response = await fetch('/api/analyze', {
+        // const response = await fetch('/api/analyze', {
+      const response =  await fetch('https://career-compass-app.onrender.com/api/analyze',{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
