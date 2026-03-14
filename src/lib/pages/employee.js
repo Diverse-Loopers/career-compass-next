@@ -9,7 +9,7 @@ export async function initEmployeeDashboard() {
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
     if (sessionError || !session) {
-        window.location.href = '/';
+        window.location.href = '/hrms-login';
         return;
     }
 
@@ -40,6 +40,8 @@ export async function initEmployeeDashboard() {
     if (welcomeName) welcomeName.textContent = profile.full_name;
     if (sidebarName) sidebarName.textContent = profile.full_name;
     if (sidebarId) sidebarId.textContent = profile.employee_id;
+
+    setUserInitials();
 
     showSection('dashboard');
     fetchNotifications();
@@ -94,6 +96,15 @@ export async function initEmployeeDashboard() {
         window.handleApplyLeave = handleApplyLeave;
         window.closeModal = closeModal;
         window.logoutUser = logoutUser;
+    }
+}
+
+function setUserInitials() {
+    const initialsEl = document.getElementById('user-initials');
+    if (initialsEl && profile && profile.full_name) {
+        const names = profile.full_name.split(' ');
+        const initials = names.map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        initialsEl.textContent = initials;
     }
 }
 
@@ -165,16 +176,22 @@ async function markAllRead() {
 
 export function showSection(sectionId) {
     document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
-    
+
     ['dashboard', 'tasks', 'leaves'].forEach(id => {
         document.getElementById(`${id}-section`)?.classList.add('hidden');
     });
     document.getElementById(`${sectionId}-section`)?.classList.remove('hidden');
+    const buttons = document.querySelectorAll('.nav-links button');
+    const sectionIndex = { 'dashboard': 0, 'tasks': 1, 'leaves': 2 };
+    if (buttons[sectionIndex[sectionId]]) {
+        buttons[sectionIndex[sectionId]].classList.add('active');
+    }
 
     if (sectionId === 'dashboard') loadDashboardStats();
     if (sectionId === 'tasks') loadMyTasks();
     if (sectionId === 'leaves') loadMyLeaves();
 }
+
 
 async function loadDashboardStats() {
     const { data: attData } = await supabase
@@ -319,7 +336,7 @@ async function verifyAndMarkAttendance() {
         const distance = window.faceapi.euclideanDistance(detection.descriptor, storedDescriptor);
 
         console.log("Face Distance:", distance);
-        
+
         if (distance < 0.6) {
             statusMsg.textContent = "✅ Verified! Marking attendance...";
             await completeAttendanceMarking();
@@ -369,7 +386,7 @@ async function loadMyTasks() {
 
     const tbody = document.querySelector('#my-tasks-table tbody');
     if (!tbody) return;
-    
+
     tbody.innerHTML = '';
 
     if (data) {
@@ -378,13 +395,21 @@ async function loadMyTasks() {
                 ? `<button class="btn-primary" style="font-size:0.8rem; padding: 0.25rem 0.5rem;" onclick="window.openSubmitTask('${task.id}')">Submit</button>`
                 : '-';
 
+                // Priority badge
+        const priorityClass = task.priority ? task.priority.toLowerCase() : 'medium';
+        const priorityBadge = `<span class="priority-badge priority-${priorityClass}">${task.priority || 'Medium'}</span>`;
+
+
+
+
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>${task.title}</td>
                 <td style="max-width: 200px; white-space: normal;">${task.description || '-'}</td>
                 <td>${formatDate(task.assigned_at)}</td>
                 <td>${formatDate(task.deadline)}</td>
-                <td>${task.priority}</td>
+               
+                <td>${priorityBadge}</td>
                 <td><span class="status-badge status-${task.status.toLowerCase()}">${task.status}</span></td>
                 <td>${action}</td>
             `;
@@ -396,7 +421,7 @@ async function loadMyTasks() {
 export function openSubmitTask(id) {
     const taskIdEl = document.getElementById('submit-task-id');
     const modal = document.getElementById('submit-task-modal');
-    
+
     if (taskIdEl) taskIdEl.value = id;
     if (modal) modal.classList.remove('hidden');
 }
@@ -437,7 +462,7 @@ async function loadMyLeaves() {
 
     const tbody = document.querySelector('#my-leaves-table tbody');
     if (!tbody) return;
-    
+
     tbody.innerHTML = '';
 
     if (data) {
