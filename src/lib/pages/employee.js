@@ -187,6 +187,13 @@ export function showSection(sectionId) {
         buttons[sectionIndex[sectionId]].classList.add('active');
     }
 
+       if (window.innerWidth <= 768) {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.remove('active');
+        }
+    }
+
     if (sectionId === 'dashboard') loadDashboardStats();
     if (sectionId === 'tasks') loadMyTasks();
     if (sectionId === 'leaves') loadMyLeaves();

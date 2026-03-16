@@ -33,9 +33,9 @@ export default function HRMSLoginPage() {
         <div className="login-container">
           <div className="header">
             <img
-              src="/assets/images/logo.png"
+              src="/images/logo.png"
               alt="Company Logo"
-              style={{ height: "80px", marginBottom: "1rem" }}
+              style={{ height: "80px",margin: "0 auto", marginBottom: "1rem" }}
             />
             <h1>HRMS Portal</h1>
             <p>Welcome back! Please login to continue.</p>
