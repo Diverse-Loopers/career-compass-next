@@ -159,7 +159,7 @@ export default function JobApplicationModal({ job, user, onClose }) {
   return (
     <div
   onClick={onClose}
-  className="fixed inset-0 bg-black/50 flex items-start justify-center z-50 p-6 overflow-y-auto"
+  className="fixed inset-0 bg-black/50 flex items-start justify-center z-50 p-6 mt-18 mb-6 overflow-y-auto"
 >
 
     <div
@@ -169,7 +169,7 @@ export default function JobApplicationModal({ job, user, onClose }) {
 
 
         {/* Header */}
-        <div className="flex items-start justify-between mb-6">
+        <div className="flex items-start justify-between  mb-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-1">Apply for {job.title}</h2>
             <p className="text-gray-600">Fill out the form below to submit your application</p>
