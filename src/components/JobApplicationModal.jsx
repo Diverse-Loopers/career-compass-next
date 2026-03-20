@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 
 export default function JobApplicationModal({ job, user, onClose }) {
+  const [resumeFile, setResumeFile] = useState(null);
   const [formData, setFormData] = useState({
     applicant_name: '',
     applicant_email: user?.email || '',
@@ -45,11 +46,16 @@ export default function JobApplicationModal({ job, user, onClose }) {
     }
 
     // Resume URL validation
-    if (!formData.resume_url.trim()) {
-      newErrors.resume_url = 'Resume URL is required';
-    } else if (!formData.resume_url.startsWith('http')) {
-      newErrors.resume_url = 'Please enter a valid URL starting with http:// or https://';
-    }
+    // if (!formData.resume_url.trim()) {
+    //   newErrors.resume_url = 'Resume URL is required';
+    // } else if (!formData.resume_url.startsWith('http')) {
+    //   newErrors.resume_url = 'Please enter a valid URL starting with http:// or https://';
+    // }
+    if (!resumeFile) {
+  newErrors.resume_url = 'Resume file is required';
+} else if (resumeFile.type !== 'application/pdf') {
+  newErrors.resume_url = 'Only PDF allowed';
+}
 
     // LinkedIn validation
     if (!formData.linkedin_url.trim()) {
@@ -100,6 +106,30 @@ export default function JobApplicationModal({ job, user, onClose }) {
 
     try {
       // Insert application data into Supabase 'applications' table
+// Upload resume to Supabase
+const fileExt = resumeFile.name.split('.').pop();
+const fileName = `${Date.now()}.${fileExt}`;
+
+const { data: uploadData, error: uploadError } = await supabase.storage
+  .from('resumes') // bucket name
+  .upload(fileName, resumeFile, {
+  cacheControl: '3600',
+  upsert: false,
+});
+
+if (uploadError) {
+  console.error(uploadError);
+  throw new Error('Resume upload failed');
+}
+
+// Get public URL
+const { data: publicUrlData } = supabase
+  .storage
+  .from('resumes')
+  .getPublicUrl(uploadData.path);
+
+const resumeUrl = publicUrlData.publicUrl;
+
       const { error: insertError } = await supabase
         .from('applications')
         .insert([
@@ -111,7 +141,8 @@ export default function JobApplicationModal({ job, user, onClose }) {
             applicant_phone: formData.applicant_phone.trim(),
             portfolio: formData.portfolio.trim() || null,
             reason: formData.reason.trim(),
-            resume_url: formData.resume_url.trim(),
+            // resume_url: formData.resume_url.trim(),
+            resume_url: resumeUrl,
             github_url: formData.github_url.trim() || null,
             linkedin_url: formData.linkedin_url.trim(),
             experience_years: formData.experience_years.trim(),
@@ -241,7 +272,7 @@ export default function JobApplicationModal({ job, user, onClose }) {
           </div>
 
           {/* Resume URL */}
-          <div>
+          {/* <div>
             <label htmlFor="resume_url" className="block text-sm font-medium text-gray-700 mb-1.5">
               Resume URL <span className="text-red-500">*</span>
             </label>
@@ -257,7 +288,26 @@ export default function JobApplicationModal({ job, user, onClose }) {
             />
             {errors.resume_url && <p className="text-red-500 text-sm mt-1">{errors.resume_url}</p>}
             <p className="text-xs text-gray-500 mt-1">Upload your resume to Google Drive, Dropbox, or any cloud storage and paste the public link here</p>
-          </div>
+          </div> */}
+          {/* Resume Upload */}
+<div>
+  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+    Upload Resume (PDF) <span className="text-red-500">*</span>
+  </label>
+
+  <input
+    type="file"
+    accept=".pdf"
+    onChange={(e) => setResumeFile(e.target.files[0])}
+    className={`w-full px-4 py-2.5 border rounded-lg ${
+      errors.resume_url ? 'border-red-500' : 'border-gray-300'
+    }`}
+  />
+
+  {errors.resume_url && (
+    <p className="text-red-500 text-sm mt-1">{errors.resume_url}</p>
+  )}
+</div>
 
           {/* LinkedIn */}
           <div>
