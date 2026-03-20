@@ -5,7 +5,7 @@ import { Mail, Linkedin, Github } from 'lucide-react'
 
 export default function FinalCTASection() {
   return (
-    <section className="relative px-23 py-20 md:py-28 lg:py-32 overflow-hidden">
+    <section className="relative px-4 md:px-10 lg:px-20 py-10 md:py-18 lg:py-28 overflow-hidden">
       {/* Gradient backgrounds */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/10 pointer-events-none" />
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-accent/20 rounded-full blur-3xl pointer-events-none" />
@@ -23,19 +23,14 @@ export default function FinalCTASection() {
 
           {/* Primary CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+           <a href="#open-roles">
             <Button 
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-4 text-lg font-semibold rounded-lg h-auto"
             >
               Apply Now
             </Button>
-            {/* <Button 
-              size="lg"
-              variant="outline"
-              className="border-2 border-foreground/20 hover:border-foreground/40 text-foreground px-10 py-6 text-lg font-semibold rounded-lg h-auto"
-            >
-              Schedule a Call
-            </Button> */}
+            </a>
           </div>
 
           {/* Contact info */}
@@ -58,13 +53,7 @@ export default function FinalCTASection() {
                 <Linkedin className="w-5 h-5" />
                 LinkedIn
               </a>
-              {/* <a
-                href="https://github.com"
-                className="flex items-center gap-3 px-6 py-3 rounded-lg bg-foreground/5 hover:bg-foreground/10 text-foreground font-medium transition-colors"
-              >
-                <Github className="w-5 h-5" />
-                GitHub
-              </a> */}
+             
             </div>
           </div>
 
@@ -100,7 +89,7 @@ export default function FinalCTASection() {
               "Applying to Diverse Loopers was one of the best decisions I made as a student. The experience, mentorship, and relationships I gained are invaluable. I'm now excited about my career in ways I never expected."
             </p>
             <p className="font-semibold text-foreground">
-              — Alex Okonkwo
+              — Ajit Singh
             </p>
             <p className="text-sm text-foreground/60">
               Former Intern, Now Software Engineer at Meta

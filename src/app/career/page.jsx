@@ -483,7 +483,7 @@ import Footer from '@/components/career/Footer'
 export default function CareersPage() {
   return (
     <>
-    <div className="career-page">
+    <div className="career-page ">
       <Navigation />
       <main className="min-h-screen bg-gradient-to-b from-background to-slate-50 dark:to-slate-950 pt-13">
         <HeroSection />

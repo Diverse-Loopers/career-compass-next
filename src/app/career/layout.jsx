@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Geist, Geist_Mono } from 'next/font/google'
+import SmoothScroll from '../SmoothScroll'
 // import { Analytics } from '@vercel/analytics/next'
 // import './globals.css'
 
@@ -42,11 +43,10 @@ export default function RootLayout({
   children,
 }) {
   return (
-    <html lang="en" className={_inter.variable}>
-      <body className="font-sans antialiased">
+  <div className={`${_inter.variable} font-sans antialiased`}>
+        <SmoothScroll />
         {children}
         {/* <Analytics /> */}
-      </body>
-    </html>
+     </div>
   )
 }
