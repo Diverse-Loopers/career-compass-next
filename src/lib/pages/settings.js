@@ -6,87 +6,30 @@ export function setCurrentUser(user) {
     currentUser = user;
 }
 
-export function showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    const icon = document.getElementById('toast-icon');
-    
-    if (!toast || !icon) return;
-    
-    toast.className = `fixed top-6 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-2xl shadow-2xl transform transition-all duration-500 flex items-center gap-3 font-bold text-sm ${type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`;
-    icon.setAttribute('data-lucide', type === 'success' ? 'check-circle' : 'alert-circle');
-    
-    const messageEl = document.getElementById('toast-message');
-    if (messageEl) {
-        messageEl.textContent = message;
-    }
-    
-    if (typeof window !== 'undefined' && window.lucide) {
-        window.lucide.createIcons();
-    }
-    
-    toast.style.transform = 'translate(-50%, 0)';
-    setTimeout(() => {
-        toast.style.transform = 'translate(-50%, -100px)';
-    }, 3000);
-}
+// ─── Profile ─────────────────────────────────────────────────────────────────
 
 export async function loadProfile() {
     if (!currentUser) return null;
 
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', currentUser.id)
         .single();
 
-    if (profileError && profileError.code !== 'PGRST116') {
-        console.error('Profile load error:', profileError);
+    if (error && error.code !== 'PGRST116') {
+        console.error('Profile load error:', error);
         return null;
     }
-
     return profile;
 }
 
-export async function loadTargetRole() {
-    if (!currentUser) return null;
-
-    const { data: role, error } = await supabase
-        .from('target_roles')
-        .select('*')
-        .eq('user_id', currentUser.id)
-        .single();
-
-    if (error && error.code !== 'PGRST116') {
-        console.error('Target role load error:', error);
-        return null;
-    }
-
-    return role;
-}
-
-export async function loadSkills() {
-    if (!currentUser) return [];
-
-    const { data: skills, error } = await supabase
-        .from('user_skills')
-        .select('*')
-        .eq('user_id', currentUser.id);
-
-    if (error) {
-        console.error('Skills load error:', error);
-        return [];
-    }
-
-    return skills || [];
-}
-
-export async function updateProfile(fullName, bio) {
+export async function updateProfile(fields) {
     if (!currentUser) return { error: 'No user' };
 
     const { error } = await supabase.from('profiles').upsert({
         id: currentUser.id,
-        full_name: fullName,
-        bio,
+        ...fields,
         updated_at: new Date().toISOString()
     });
 
@@ -99,13 +42,11 @@ export async function uploadAvatar(file) {
     const fExt = file.name.split('.').pop();
     const fPath = `${currentUser.id}/${Date.now()}.${fExt}`;
 
-    const { data, error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
         .from('avatars')
         .upload(fPath, file);
 
-    if (uploadError) {
-        return { error: uploadError };
-    }
+    if (uploadError) return { error: uploadError };
 
     const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(fPath);
     const avatar_url = urlData.publicUrl;
@@ -115,11 +56,49 @@ export async function uploadAvatar(file) {
         .update({ avatar_url })
         .eq('id', currentUser.id);
 
-    if (updateError) {
-        return { error: updateError };
-    }
-
+    if (updateError) return { error: updateError };
     return { avatar_url };
+}
+
+// ─── Target Role ─────────────────────────────────────────────────────────────
+
+export async function loadTargetRole() {
+    if (!currentUser) return null;
+
+    const { data: role, error } = await supabase
+        .from('target_roles')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .single();
+
+    if (error && error.code !== 'PGRST116') return null;
+    return role;
+}
+
+export async function updateCareerTargets(roleName, description) {
+    if (!currentUser) return { error: 'No user' };
+
+    const { error } = await supabase.from('target_roles').upsert({
+        user_id: currentUser.id,
+        role_name: roleName,
+        description
+    }, { onConflict: 'user_id' });
+
+    return { error };
+}
+
+// ─── Skills ───────────────────────────────────────────────────────────────────
+
+export async function loadSkills() {
+    if (!currentUser) return [];
+
+    const { data: skills, error } = await supabase
+        .from('user_skills')
+        .select('*')
+        .eq('user_id', currentUser.id);
+
+    if (error) return [];
+    return skills || [];
 }
 
 export async function addSkill(skillName) {
@@ -138,22 +117,68 @@ export async function removeSkill(skillId) {
     return { error };
 }
 
-export async function updateCareerTargets(roleName, description) {
+// ─── Notification Preferences ─────────────────────────────────────────────────
+
+export async function loadNotificationPrefs() {
+    if (!currentUser) return null;
+
+    const { data, error } = await supabase
+        .from('notification_preferences')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .single();
+
+    if (error && error.code !== 'PGRST116') return null;
+    return data;
+}
+
+export async function updateNotificationPrefs(prefs) {
     if (!currentUser) return { error: 'No user' };
 
-    const { error } = await supabase.from('target_roles').upsert({
+    const { error } = await supabase.from('notification_preferences').upsert({
         user_id: currentUser.id,
-        role_name: roleName,
-        description
+        ...prefs,
+        updated_at: new Date().toISOString()
     }, { onConflict: 'user_id' });
 
     return { error };
 }
 
+// ─── Career Analysis Results ───────────────────────────────────────────────────
+
+export async function loadLatestCareerAnalysis() {
+    if (!currentUser) return null;
+
+    const { data } = await supabase
+        .from('career_analysis')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+    return data || null;
+}
+
+export async function loadLatestPathAnalysis() {
+    if (!currentUser) return null;
+
+    const { data: latest } = await supabase
+        .from('analyses')
+        .select('id, match_percentage, created_at')
+        .eq('user_id', currentUser.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+    return latest || null;
+}
+
+// ─── Security ─────────────────────────────────────────────────────────────────
+
 export async function requestPasswordReset(email) {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/settings',
+        redirectTo: window.location.origin + '/update-password',
     });
-
     return { error };
 }
