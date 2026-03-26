@@ -596,8 +596,8 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
-
-.btn-generate {
+.btn-generate,
+a.btn-generate {
   width: 100%;
   background-color: var(--color-primary);
   color: #ffffff;
@@ -610,9 +610,14 @@ body {
   margin-top: 1rem;
   font-size: 1rem;
   transition: opacity 0.2s;
+  /* ↓ these two make <a> look identical to <button> */
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
 }
 
-.btn-generate:hover {
+.btn-generate:hover,
+a.btn-generate:hover {
   opacity: 0.9;
 }
 
@@ -685,8 +690,8 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
 }
-
-.btn-deep-dive {
+.btn-deep-dive,
+a.btn-deep-dive {
   width: 100%;
   border: 2px solid var(--color-secondary);
   color: var(--color-secondary);
@@ -699,12 +704,17 @@ body {
   margin-top: 1.5rem;
   font-size: 1rem;
   transition: background-color 0.2s;
+  /* ↓ makes <a> behave like <button> */
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-.btn-deep-dive:hover {
+.btn-deep-dive:hover,
+a.btn-deep-dive:hover {
   background-color: rgba(0, 81, 213, 0.05);
 }
-
 /* ===== Ecosystem Section ===== */
 .ecosystem-section {
   padding: 6rem 0;
