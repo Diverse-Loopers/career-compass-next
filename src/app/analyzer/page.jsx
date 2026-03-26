@@ -198,8 +198,8 @@ export default function AnalyzerPage() {
             <h1 className="text-primary font-black uppercase tracking-[0.3em] text-sm animate-fade-in">
               Path Analyzer
             </h1>
-            <h2 className="text-3xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white leading-tight">
-              Your Personalized Career Roadmap —{" "}
+            <h2 className="text-3xl md:text-7xl font-black tracking-tighter bg-clip-text bg-gradient-to-r from-primary to-secondary ">
+              Your Personalized Career Roadmap{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                 Powered by Real Industry Data
               </span>

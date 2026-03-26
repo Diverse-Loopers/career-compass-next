@@ -8,6 +8,11 @@ html {
   --bg-card: #ffffff;
   --text-main: #1e293b;
   --border: #e2e8f0;
+  /* ✅ ADD THESE */
+  --text: #1e293b;
+  --text-secondary: #334155;
+  --muted: #64748b;
+  --type-accent: #5b52e8;
 
   /* roadmap tokens — hardcoded so they never resolve to invisible */
   --rm-accent: #5b52e8;
@@ -31,6 +36,12 @@ html.dark,
   --bg-card: #151726;
   --text-main: #f1f5f9;
   --border: #1e293b;
+
+  /* ✅ ADD THESE */
+  --text: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --type-accent: #818cf8;
 
   --rm-label: #818cf8; /* lighter indigo — visible on dark bg */
   --rm-text: #f1f5f9;
