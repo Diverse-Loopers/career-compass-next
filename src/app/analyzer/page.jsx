@@ -52,19 +52,21 @@ export default function AnalyzerPage() {
               <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                 <a
                   href="/"
-                  className="text-slate-600 dark:text-slate-300 hover:text-primary font-medium transition text-sm"
+                  className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-secondary)] font-medium transition text-sm"
                 >
                   Home
                 </a>
+
                 <a
                   href="/#programs"
-                  className="text-slate-600 dark:text-slate-300 hover:text-primary font-medium transition text-sm"
+                  className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-secondary)] font-medium transition text-sm"
                 >
                   Programs
                 </a>
+
                 <a
                   href="/#events"
-                  className="text-slate-600 dark:text-slate-300 hover:text-primary font-medium transition text-sm"
+                  className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-secondary)] font-medium transition text-sm"
                 >
                   Events
                 </a>
@@ -470,13 +472,13 @@ export default function AnalyzerPage() {
                     </svg>
                     <div
                       id="result-match-text"
-                      className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-black text-slate-900 dark:text-white"
+                      className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-black text-[var(--color-on-background)]"
                     >
                       --%
                     </div>
                   </div>
                   <div className="space-y-3 text-center md:text-left">
-                    <h2 className="text-2xl md:text-3xl font-black italic text-slate-900 dark:text-white">
+                    <h2 className="text-2xl md:text-3xl font-black italic text-[var(--color-on-background)]">
                       Your Career Blueprint
                     </h2>
                     <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-lg">
@@ -488,7 +490,7 @@ export default function AnalyzerPage() {
                       ! Here is your personalized roadmap for the{" "}
                       <strong
                         id="user-role-result"
-                        className="text-dark dark:text-white"
+                        className="text-primary font-black"
                       ></strong>{" "}
                       role.
                     </p>
