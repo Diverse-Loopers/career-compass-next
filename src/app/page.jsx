@@ -42,7 +42,7 @@ export default function HomePage() {
 
               <div className="relative group">
                 <button className="flex items-center gap-1 text-slate-600 hover:text-primary font-medium">
-                  Tools 
+                  Tools
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -128,13 +128,13 @@ export default function HomePage() {
                 Empowering Talents for Tomorrow
               </span>
               <h1 className="text-5xl md:text-7xl font-heading font-extrabold text-slate-900 leading-tight mb-8 fade-in">
-                Transforming Ambitious Learners into <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Tech Professionals</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Transforming Ambitious Learners into Tech Professionals</span>
               </h1>
               <p className="text-xl text-slate-600 mb-10 leading-relaxed fade-in">
                 Stop guessing. Start planning your future with clarity, direction, and purpose through structured learning and real project exposure.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
-                <a href="/login" className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-blue-700 shadow-xl shadow-blue-200 transition flex items-center justify-center gap-2">
+                <a href="/login" className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-blue-700 shadow-blue-200 transition flex items-center justify-center gap-2">
                   Get Started
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -425,7 +425,7 @@ export default function HomePage() {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
-              <div className="bento-card bg-surface p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between" style={{backgroundColor:"#dbeafe"}}>
+              <div className="bento-card bg-surface p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between" style={{ backgroundColor: "#dbeafe" }}>
                 <div>
                   <span className="inline-block px-4 py-1.5 bg-blue-100 text-primary text-xs font-bold rounded-full mb-6">12 MONTHS</span>
                   <h3 className="text-3xl font-heading font-bold mb-4">Vision Builders Program</h3>
@@ -457,7 +457,7 @@ export default function HomePage() {
                     </li>
                   </ul>
                 </div>
-                <a href="/courses" className="w-full py-4 text-center bg-white border border-slate-200 rounded-2xl font-bold hover:border-primary hover:text-primary transition">Explore Curriculum</a>
+                <a href="/courses" className="w-full py-4 text-center bg-white border border-slate-200 rounded-2xl font-bold hover:border-primary hover:text-primary text-black transition">Explore Curriculum</a>
               </div>
 
               <div className="bento-card bg-slate-900 p-10 rounded-[2.5rem] text-white flex flex-col justify-between">
@@ -508,7 +508,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="md:col-span-2 bento-card bg-white p-10 rounded-[2.5rem] border border-slate-100 flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-4">Portfolio Builder</h3>
+                  <h3 className="text-2xl text-black font-bold mb-4">Portfolio Builder</h3>
                   <p className="text-slate-500">Create a professional project portfolio that showcases your real-world achievements to top recruiters.</p>
                 </div>
                 <div className="w-full md:w-1/3 h-32 bg-slate-100 rounded-2xl flex items-center justify-center">
@@ -528,16 +528,16 @@ export default function HomePage() {
                 <svg className="w-10 h-10 text-secondary mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                 </svg>
-                <h3 className="text-2xl font-bold mb-4">Mentorship Hub</h3>
+                <h3 className="text-2xl text-black font-bold mb-4">Mentorship Hub</h3>
                 <p className="text-slate-500 text-sm">Direct access to experienced professionals across multiple domains.</p>
               </div>
               <div className="md:col-span-2 bento-card bg-white p-10 rounded-[2.5rem] border border-slate-100 flex flex-col md:flex-row-reverse gap-8 items-center">
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-4">Skillsynth Activities</h3>
+                  <h3 className="text-2xl text-black font-bold mb-4">Skillsynth Activities</h3>
                   <p className="text-slate-500">Direct access to technical events, cultural events, seminars, webinars, hackathons and many more activities organised by us.</p>
                 </div>
-                <div className="w-full md:w-1/3 h-32 bg-slate-100 rounded-2xl flex items-center justify-center" style={{backgroundColor:"#83b6b626"}}>
-                  <svg className="w-12 h-12 text-slate-300" style={{color:"#e46962"}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-full md:w-1/3 h-32 bg-slate-100 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "#83b6b626" }}>
+                  <svg className="w-12 h-12 text-slate-300" style={{ color: "#e46962" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -569,7 +569,7 @@ export default function HomePage() {
             </div>
 
             <div id="events-grid-container" className="overflow-x-auto no-scrollbar scroll-smooth pb-8">
-              <div id="events-grid" className="flex gap-8" style={{width: "max-content"}}>
+              <div id="events-grid" className="flex gap-8" style={{ width: "max-content" }}>
                 {/* Dynamically Loaded */}
                 <div className="w-[350px] h-[400px] animate-pulse bg-slate-100 rounded-3xl"></div>
                 <div className="w-[350px] h-[400px] animate-pulse bg-slate-100 rounded-3xl"></div>
@@ -591,17 +591,17 @@ export default function HomePage() {
               <form id="contact-form" className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Full Name</label>
-                    <input type="text" id="name" required placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none" />
+                    <label className="text-sm font-semibold placeholder-black text-slate-700">Full Name</label>
+                    <input type="text" id="name" required placeholder="John Doe" className="w-full px-4 py-3 rounded-xl border border-slate-600 focus:ring-2 focus:ring-primary outline-none text-black placeholder-black/50" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-slate-700">Email Address</label>
-                    <input type="email" id="email" required placeholder="john@example.com" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none" />
+                    <input type="email" id="email" required placeholder="john@example.com" className="w-full px-4 py-3 rounded-xl border border-slate-600 focus:ring-2 focus:ring-primary outline-none text-black placeholder-black/50" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-slate-700">Message</label>
-                  <textarea id="message" rows="4" required placeholder="How can we help you?" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary outline-none"></textarea>
+                  <textarea id="message" rows="4" required placeholder="How can we help you?" className="w-full px-4 py-3 rounded-xl border border-slate-600 focus:ring-2 focus:ring-primary outline-none text-black placeholder-black/50"></textarea>
                 </div>
                 <button type="submit" className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-black transition">Send Message</button>
                 <p id="contact-status" className="text-center text-sm font-medium hidden"></p>
@@ -622,10 +622,10 @@ export default function HomePage() {
               </p>
               <div className="flex gap-4">
                 <a href="https://www.linkedin.com/company/105277450" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                 </a>
                 <a href="https://www.instagram.com/diverseloopers/" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
                 </a>
                 <a href="https://chat.whatsapp.com/B6XJSoLC2Hg7Wgg5lHRfSf" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
