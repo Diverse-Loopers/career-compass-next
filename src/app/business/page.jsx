@@ -8,39 +8,39 @@ import { initBusinessPage, handleBusinessFormSubmit, setInquiryType, scrollToSec
 export default function BusinessPage() {
   useEffect(() => {
     initBusinessPage();
-    
+
     // Smooth scroll for anchor links
     const handleAnchorClick = (e) => {
       const target = e.target.closest('a[href^="#"]')
       if (!target) return
-      
+
       const href = target.getAttribute('href')
       if (!href || href === '#') return
-      
+
       e.preventDefault()
-      
+
       const targetId = href.substring(1)
       const targetElement = document.getElementById(targetId)
-      
+
       if (targetElement) {
         const navbarHeight = 80
         const elementPosition = targetElement.getBoundingClientRect().top
         const offsetPosition = elementPosition + window.pageYOffset - navbarHeight
-        
+
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         })
-        
+
         const mobileMenu = document.getElementById('mobile-menu')
         if (mobileMenu) {
           mobileMenu.classList.add('hidden')
         }
       }
     }
-    
+
     document.addEventListener('click', handleAnchorClick)
-    
+
     return () => {
       document.removeEventListener('click', handleAnchorClick)
     }
@@ -84,7 +84,7 @@ export default function BusinessPage() {
                 <a href="#talent-hiring" className="text-slate-600 hover:text-primary font-medium transition text-sm">Hire Talent</a>
 
                 <div className="flex items-center gap-4">
-                  <a href="#contact" className="px-6 py-2.5 bg-primary text-white rounded-full font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-100">
+                  <a href="#contact" className="px-6 py-2.5  bg-primary text-white rounded-full font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-100">
                     Start a Project
                   </a>
                 </div>
@@ -210,7 +210,7 @@ export default function BusinessPage() {
                 <div className="fade-in sticky top-32">
                   <h2 className="text-primary font-bold uppercase tracking-widest text-sm mb-4">The Pipeline</h2>
                   <h3 className="text-4xl md:text-5xl font-heading font-black text-slate-900 mb-8 leading-tight">
-                    A Simple, Reliable, <br/>Repeatable Process.
+                    A Simple, Reliable, <br />Repeatable Process.
                   </h3>
                   <p className="text-lg text-slate-600 leading-relaxed mb-8">
                     Built for busy teams who need delivery without micro-management. Our workflow ensures risk prevention and performance validation.
@@ -284,7 +284,7 @@ export default function BusinessPage() {
                 <div className="fade-in space-y-6">
                   <h2 className="text-primary font-bold uppercase tracking-widest text-sm">Talent Acquisition</h2>
                   <h3 className="text-3xl md:text-5xl font-heading font-black text-slate-900 leading-tight">
-                    Hire Pre-Trained, <br/>Industry-Ready Talent
+                    Hire Pre-Trained, <br />Industry-Ready Talent
                   </h3>
                   <p className="text-lg text-slate-600 leading-relaxed">
                     Our community consists of carefully selected learners and early professionals who have demonstrated high learning capability, completed real mentored projects, and built verifiable work portfolios.
@@ -561,16 +561,16 @@ export default function BusinessPage() {
                 <div className="grid lg:grid-cols-2">
                   <div className="p-10 md:p-20 space-y-10">
                     <h2 className="text-3xl md:text-5xl font-heading font-black leading-tight italic">
-                      Build Projects. <br/>Hire Talent. <br/>Grow Faster.
+                      Build Projects. <br />Hire Talent. <br />Grow Faster.
                     </h2>
                     <p className="text-slate-400 text-lg leading-relaxed">
                       Whether you want an application delivered or need reliable emerging talent on your team, Diverse Loopers helps you build smarter and scale with confidence.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <button onClick={() => setInquiryType('Project Delivery')} className="px-6 py-4 bg-primary text-white rounded-2xl font-bold hover:bg-blue-600 transition shadow-lg shadow-blue-900/20">
+                      <button onClick={() => setInquiryType('Project Delivery')} className="px-6 py-4 bg-primary cursor-pointer text-white rounded-2xl font-bold hover:bg-blue-600 transition shadow-lg shadow-blue-900/20">
                         Start a Project
                       </button>
-                      <button onClick={() => setInquiryType('Talent Hiring')} className="px-6 py-4 bg-white text-slate-900 rounded-2xl font-bold hover:bg-slate-100 transition shadow-lg shadow-slate-900/20">
+                      <button onClick={() => setInquiryType('Talent Hiring')} className="px-6 py-4 bg-white cursor-pointer text-slate-900 rounded-2xl font-bold hover:bg-slate-100 transition shadow-lg shadow-slate-900/20">
                         Hire Our Talent
                       </button>
                     </div>
@@ -607,7 +607,7 @@ export default function BusinessPage() {
                           <input type="email" name="email" placeholder="Work Email" required className="input-field" />
                         </div>
                       </div>
-                      <button type="submit" className="w-full py-5 bg-primary text-white rounded-2xl font-black text-xl hover:bg-blue-600 transition shadow-2xl shadow-blue-900/40">
+                      <button type="submit" className="w-full py-5 bg-primary text-white cursor-pointer rounded-2xl font-black text-xl hover:bg-blue-600 transition shadow-2xl shadow-blue-900/40">
                         Launch Partnership
                       </button>
                       <div id="form-message" className="hidden text-center p-4 rounded-xl text-sm font-bold mt-4 animate-pulse"></div>
@@ -630,10 +630,10 @@ export default function BusinessPage() {
                 </p>
                 <div className="flex gap-4">
                   <a href="https://www.linkedin.com/company/105277450" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                    <i data-lucide="linkedin" className="w-4 h-4"></i>
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                   </a>
                   <a href="https://www.instagram.com/diverseloopers/" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                    <i data-lucide="instagram" className="w-4 h-4"></i>
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
                   </a>
                 </div>
               </div>
