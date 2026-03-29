@@ -62,10 +62,10 @@ export default function AboutPage() {
                 rel="stylesheet"
             />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-            
-            
-            <Script 
-                src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" 
+
+
+            <Script
+                src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
                 strategy="beforeInteractive"
             />
 
@@ -74,48 +74,100 @@ export default function AboutPage() {
                 <div id="canvas-container"></div>
 
                 {/* Navigation */}
-                <nav className="fixed w-full z-50 transition-all duration-300 glass-panel border-b-0" id="navbar">
+                <nav className="fixed top-0 left-0 w-full bg-white z-50 shadow-md border-b border-slate-200 transition-all duration-300" id="navbar">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between h-20">
+
                             {/* Logo Section */}
-                            <div className="flex-shrink-0 cursor-pointer flex items-center gap-3" onClick={() => window.scrollTo(0, 0)}>
-                                <img src="/Diverse Loopers Black BG (2).png" alt="Diverse Loopers Logo" className="h-10 w-10 object-contain" />
+                            <div
+                                className="flex-shrink-0 cursor-pointer flex items-center gap-3"
+                                onClick={() => window.scrollTo(0, 0)}
+                            >
+                                <img
+                                    src="/Diverse Loopers Black BG (2).png"
+                                    alt="Diverse Loopers Logo"
+                                    className="h-25 w-25 object-contain"
+                                />
                             </div>
+
+                            {/* Desktop Menu */}
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-8">
-                                    <a href="#mission" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Mission</a>
-                                    <a href="#hybrid-hustle" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Hybrid Hustle</a>
-                                    <a href="#join-hustle" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Register</a>
-                                    <a href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                                    <a href="/#contact" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact Us</a>
-                                    <a href="/login" className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-indigo-500/30">
+
+                                    <a href="#mission" className="text-slate-700 hover:text-primary px-3 py-2 text-sm font-medium transition">
+                                        Mission
+                                    </a>
+
+                                    <a href="#hybrid-hustle" className="text-slate-700 hover:text-primary px-3 py-2 text-sm font-medium transition">
+                                        Hybrid Hustle
+                                    </a>
+
+                                    <a href="#join-hustle" className="text-slate-700 hover:text-primary px-3 py-2 text-sm font-medium transition">
+                                        Register
+                                    </a>
+
+                                    <a href="/" className="text-slate-700 hover:text-primary px-3 py-2 text-sm font-medium transition">
+                                        Home
+                                    </a>
+
+                                    <a href="/#contact" className="text-slate-700 hover:text-primary px-3 py-2 text-sm font-medium transition">
+                                        Contact Us
+                                    </a>
+
+                                    {/* Login Button */}
+                                    <a
+                                        href="/login"
+                                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-medium transition-all hover:scale-105 shadow-md"
+                                    >
                                         Login
                                     </a>
+
                                 </div>
                             </div>
+
                             {/* Mobile menu button */}
                             <div className="-mr-2 flex md:hidden">
-                                <button 
+                                <button
                                     type="button"
-                                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+                                    className="p-2 rounded-md text-slate-700 hover:text-primary hover:bg-slate-100 transition"
                                     onClick={() => setShowMobileMenu(!showMobileMenu)}
                                 >
-                                    <span className="sr-only">Open main menu</span>
                                     <i className="fas fa-bars text-xl"></i>
                                 </button>
                             </div>
+
                         </div>
                     </div>
+
                     {/* Mobile Menu */}
                     {showMobileMenu && (
-                        <div className="md:hidden glass-panel">
-                            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                                <a href="#mission" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Mission</a>
-                                <a href="#hybrid-hustle" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Hybrid Hustle</a>
-                                <a href="#join-hustle" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Register</a>
-                                <a href="/" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                                <a href="/#contact" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact Us</a>
-                                <a href="/" className="text-indigo-400 font-bold block px-3 py-2 rounded-md text-base">Visit Main Site</a>
+                        <div className="md:hidden bg-white border-t border-slate-200 shadow-md">
+                            <div className="px-4 py-3 space-y-2">
+
+                                <a href="#mission" className="block text-slate-700 hover:text-primary px-3 py-2 text-base font-medium">
+                                    Mission
+                                </a>
+
+                                <a href="#hybrid-hustle" className="block text-slate-700 hover:text-primary px-3 py-2 text-base font-medium">
+                                    Hybrid Hustle
+                                </a>
+
+                                <a href="#join-hustle" className="block text-slate-700 hover:text-primary px-3 py-2 text-base font-medium">
+                                    Register
+                                </a>
+
+                                <a href="/" className="block text-slate-700 hover:text-primary px-3 py-2 text-base font-medium">
+                                    Home
+                                </a>
+
+                                <a href="/#contact" className="block text-slate-700 hover:text-primary px-3 py-2 text-base font-medium">
+                                    Contact Us
+                                </a>
+
+                                <a href="/" className="block text-indigo-600 font-semibold px-3 py-2">
+                                    Visit Main Site
+                                </a>
+
                             </div>
                         </div>
                     )}
@@ -361,49 +413,49 @@ export default function AboutPage() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label htmlFor="hustler-name" className="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                                        <input 
-                                            type="text" 
-                                            id="hustler-name" 
-                                            name="name" 
+                                        <input
+                                            type="text"
+                                            id="hustler-name"
+                                            name="name"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         />
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-college" className="block text-sm font-medium text-gray-300 mb-2">College Name</label>
-                                        <input 
-                                            type="text" 
-                                            id="hustler-college" 
-                                            name="college" 
+                                        <input
+                                            type="text"
+                                            id="hustler-college"
+                                            name="college"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         />
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-email" className="block text-sm font-medium text-gray-300 mb-2">Email ID</label>
-                                        <input 
-                                            type="email" 
-                                            id="hustler-email" 
-                                            name="email" 
+                                        <input
+                                            type="email"
+                                            id="hustler-email"
+                                            name="email"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         />
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-contact" className="block text-sm font-medium text-gray-300 mb-2">Contact Number</label>
-                                        <input 
-                                            type="tel" 
-                                            id="hustler-contact" 
-                                            name="contact" 
+                                        <input
+                                            type="tel"
+                                            id="hustler-contact"
+                                            name="contact"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         />
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-tech" className="block text-sm font-medium text-gray-300 mb-2">Core Technology</label>
-                                        <select 
-                                            id="hustler-tech" 
-                                            name="tech" 
+                                        <select
+                                            id="hustler-tech"
+                                            name="tech"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors appearance-none"
                                         >
@@ -419,9 +471,9 @@ export default function AboutPage() {
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-year" className="block text-sm font-medium text-gray-300 mb-2">Course Year</label>
-                                        <select 
-                                            id="hustler-year" 
-                                            name="year" 
+                                        <select
+                                            id="hustler-year"
+                                            name="year"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors appearance-none"
                                         >
@@ -435,22 +487,22 @@ export default function AboutPage() {
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-semester" className="block text-sm font-medium text-gray-300 mb-2">Semester</label>
-                                        <input 
-                                            type="number" 
-                                            id="hustler-semester" 
-                                            name="semester" 
-                                            min="1" 
-                                            max="8" 
+                                        <input
+                                            type="number"
+                                            id="hustler-semester"
+                                            name="semester"
+                                            min="1"
+                                            max="8"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         />
                                     </div>
                                     <div>
                                         <label htmlFor="hustler-roll" className="block text-sm font-medium text-gray-300 mb-2">Roll No.</label>
-                                        <input 
-                                            type="text" 
-                                            id="hustler-roll" 
-                                            name="roll" 
+                                        <input
+                                            type="text"
+                                            id="hustler-roll"
+                                            name="roll"
                                             required
                                             className="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
                                         />
@@ -458,7 +510,7 @@ export default function AboutPage() {
                                 </div>
 
                                 <div className="mt-8">
-                                    <button 
+                                    <button
                                         type="submit"
                                         className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-4 rounded-lg shadow-lg transform transition hover:scale-[1.02] duration-200"
                                     >
@@ -466,7 +518,7 @@ export default function AboutPage() {
                                     </button>
                                 </div>
                                 {formMessage.text && (
-                                    <p 
+                                    <p
                                         className="mt-4 text-center font-medium"
                                         style={{ color: formMessage.color }}
                                     >
@@ -679,7 +731,7 @@ export default function AboutPage() {
                             <div className="col-span-1 md:col-span-1">
                                 <h4 className="text-white font-bold mb-4">Connect</h4>
                                 <p className="text-gray-400 text-sm mb-4">Ready to start your journey? Visit our main platform.</p>
-                                <a href="/" target="_blank" className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                                <a href="/" className="hover:text-indigo-400 transition-colors text-white/50">
                                     Home
                                 </a>
                             </div>
