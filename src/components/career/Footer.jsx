@@ -34,10 +34,7 @@ export default function Footer() {
             <div>
               <h4 className="font-bold mb-6">Quick Navigation</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li><a href="/aboutus-std" className="hover:text-white transition">About Us</a></li>
-                <li><a href="mailto:contact@diverseloopers.com" className="hover:text-white transition">Contact Us</a></li>
-                <li><a href="#programs" className="hover:text-white transition">Programs</a></li>
-                <li><a href="#hybrid-hustle" className="hover:text-white transition">Hybrid Hustle</a></li>
+                <li><a href="/about" className="hover:text-white transition">About Us</a></li>
                 <li><a href="/skillsynth" className="hover:text-white transition">SkillSynth</a></li>
                 <li><a href="/analyzer" className="hover:text-white transition">Path Analyzer</a></li>
                 <li><a href="/career-analyzer" className="hover:text-white transition">Career Analyzer</a></li>
@@ -50,7 +47,6 @@ export default function Footer() {
                 <li><a href="/" className="hover:text-white transition">For Students</a></li>
                 <li><a href="/institute" className="hover:text-white transition">For Universities</a></li>
                 <li><a href="/business" className="hover:text-white transition">For Businesses</a></li>
-                <li><a href="#" className="hover:text-white transition">Placement Support</a></li>
               </ul>
             </div>
 

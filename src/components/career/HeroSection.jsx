@@ -44,19 +44,19 @@ export default function HeroSection() {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#open-roles">
-              <Button className="w-full sm:w-auto px-6 h-12">
-                Explore Roles
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+                <Button className="w-full cursor-pointer sm:w-auto px-6 h-12">
+                  Explore Roles
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
               </a>
 
-<Link href="/">
-              <Button
-                variant="outline"
-                className="w-full sm:w-auto px-6 h-12"
-              >
-                Learn About Us
-              </Button>
+              <Link href="/about">
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer sm:w-auto px-6 h-12"
+                >
+                  Learn About Us
+                </Button>
               </Link>
             </div>
 

@@ -73,10 +73,6 @@ export default function OpenRolesSection() {
 
   const handleApply = (job) => {
     console.log('Apply clicked for job:', job);
-    // if (!user) {
-    //   setIsLoginModalOpen(true);
-    //   return;
-    // }
     setSelectedJob(job);
     setIsModalOpen(true);
   };
@@ -120,9 +116,9 @@ export default function OpenRolesSection() {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                    className={`px-4 py-2 cursor-pointer rounded-full text-sm font-medium transition-all ${selectedCategory === category
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
                       }`}
                   >
                     {category}
@@ -167,15 +163,6 @@ export default function OpenRolesSection() {
               onClose={() => setIsModalOpen(false)}
             />
           )}
-
-          {/* Login Modal */}
-          {/* {isLoginModalOpen && (
-        <LoginModal onClose={() => setIsLoginModalOpen(false)} />
-      )} */}
-
-
-
-
         </div>
       </div>
     </section>
@@ -260,7 +247,7 @@ function JobCard({ job, isExpanded, onToggle, onApply }) {
         <div className="flex flex-row md:flex-col gap-3 md:ml-6 w-full md:w-auto">
           <button
             onClick={onApply}
-            className="flex items-center gap-2 bg-blue-600 text-white  py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors px-4 sm:px-6 text-sm sm:text-base"
+            className="flex items-center cursor-pointer gap-2 bg-blue-600 text-white  py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors px-4 sm:px-6 text-sm sm:text-base"
           >
             Apply
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
