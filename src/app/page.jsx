@@ -36,7 +36,7 @@ export default function HomePage() {
                 <a href="/institute" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">Universities</a>
                 <a href="/business" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">Businesses</a>
               </div>
-              <a href="#about" className="text-slate-600 hover:text-primary font-medium transition">About</a>
+              <a href="/about" className="text-slate-600 hover:text-primary font-medium transition">About</a>
               <a href="#programs" className="text-slate-600 hover:text-primary font-medium transition">Programs</a>
               <a href="/skillsynth" className="text-slate-600 hover:text-primary font-medium transition">SkillSynth</a>
 
@@ -48,8 +48,8 @@ export default function HomePage() {
                   </svg>
                 </button>
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <a href="/career-analyzer" className="block px-4 py-3 hover:bg-slate-50 text-sm rounded-t-xl">Career Analyzer</a>
-                  <a href="/analyzer" className="block px-4 py-3 hover:bg-slate-50 text-sm rounded-b-xl">Path Analyzer</a>
+                  <a href="/career-analyzer" className="block px-4 py-3 text-black hover:bg-slate-50 text-sm rounded-t-xl">Career Analyzer</a>
+                  <a href="/analyzer" className="block px-4 py-3 text-black hover:bg-slate-50 text-sm rounded-b-xl">Path Analyzer</a>
                 </div>
               </div>
 
@@ -639,7 +639,7 @@ export default function HomePage() {
             <div>
               <h4 className="font-bold mb-6">Quick Navigation</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li><a href="/aboutus-std" className="hover:text-white transition">About Us</a></li>
+                <li><a href="/about" className="hover:text-white transition">About Us</a></li>
                 <li><a href="mailto:contact@diverseloopers.com" className="hover:text-white transition">Contact Us</a></li>
                 <li><a href="#programs" className="hover:text-white transition">Programs</a></li>
                 <li><a href="#hybrid-hustle" className="hover:text-white transition">Hybrid Hustle</a></li>
