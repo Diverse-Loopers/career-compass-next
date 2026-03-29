@@ -32,7 +32,8 @@ export default function RootLayout({ children }) {
   return (
     <html 
       lang="en" 
-      className={`scroll-smooth bg-[#0f172a] ${inter.variable} ${poppins.variable}`}
+      className={`scroll-smooth ${inter.variable} ${poppins.variable}`}
+      suppressHydrationWarning
     >
       <head>
         
@@ -41,7 +42,7 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
       </head>
 
-      <body className="font-sans text-slate-800 bg-white min-h-screen overflow-x-hidden">
+      <body className="font-sans text-slate-800 bg-white dark:bg-[#090a14] dark:text-slate-200 min-h-screen overflow-x-hidden transition-colors duration-300" suppressHydrationWarning>
          <SmoothScroll />
         {children}
       </body>

@@ -16,6 +16,8 @@ export default function CareerAnalyzerPage() {
     answers: {},
   });
   const [results, setResults] = useState(null);
+  const [savingToProfile, setSavingToProfile] = useState(false);
+  const [savedToProfile, setSavedToProfile] = useState(false);
 
   const CAREER_DETAILS = {
     backend: {
@@ -185,15 +187,24 @@ export default function CareerAnalyzerPage() {
       }))
       .sort((a, b) => b.score - a.score);
 
+    // Auto-save with user_id if logged in
     try {
-      await supabase.from("career_analysis").insert([{
+      const { data: { user } } = await supabase.auth.getUser();
+      const insertPayload = {
         student_info: { name: formData.name, branch: formData.branch, year: formData.year },
         answers: formData.answers,
         scores: finalScores,
+        top_career: sortedCareers[0]?.key || null,
+        top_score: sortedCareers[0]?.score || null,
         created_at: new Date().toISOString(),
-      }]);
+      };
+      if (user) {
+        insertPayload.user_id = user.id;
+        setSavedToProfile(true);
+      }
+      await supabase.from("career_analysis").insert([insertPayload]);
     } catch (error) {
-      console.error("Error saving data:", error);
+      console.error("Error saving career analysis:", error);
     }
 
     setTimeout(() => {
@@ -205,6 +216,10 @@ export default function CareerAnalyzerPage() {
       setView('results');
     }, 2000);
   };
+
+  // saveToProfile is no longer needed — results auto-save in calculateResults.
+  // Keeping this as a no-op for backwards-compat if called anywhere.
+  const saveToProfile = () => {};
 
   const handleStartTest = () => {
     setView('form');
@@ -611,10 +626,22 @@ export default function CareerAnalyzerPage() {
 
               <div className="text-center pt-8 pb-12">
                 <h3 className="text-xl font-bold text-gray-800 mb-4">Ready to start?</h3>
+                {/* Auto-saved banner */}
+                {savedToProfile && (
+                  <div className="mb-5 inline-flex items-center gap-2 px-5 py-2.5 bg-green-50 border border-green-200 text-green-700 rounded-full text-sm font-semibold">
+                    <i className="fa-solid fa-circle-check"></i>
+                    Results automatically saved to your profile!
+                  </div>
+                )}
                 <div className="flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-4">
-                  <button className="px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition shadow-lg">
-                    Find Mentors
-                  </button>
+                  {/* View on Profile (shows after auto-save) */}
+                  <a
+                    href="/profile"
+                    className="px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <i className="fa-solid fa-user"></i>
+                    {savedToProfile ? 'View on Profile' : 'Go to Profile'}
+                  </a>
                   <button onClick={handleRetake} className="px-6 py-3 bg-white text-gray-900 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition">
                     Retake Test
                   </button>

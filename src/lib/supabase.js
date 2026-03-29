@@ -15,7 +15,7 @@ export function getSupabase() {
 
     supabaseInstance = createClient(supabaseUrl, supabaseKey, {
       auth: {
-        persistSession: true,
+        persistSession: typeof window !== 'undefined',
         autoRefreshToken: true,
       }
     });
@@ -24,5 +24,9 @@ export function getSupabase() {
   return supabaseInstance;
 }
 
-// Export for convenience
-export const supabase = getSupabase();
+// Lazy getter — avoids calling createClient during SSR module evaluation
+export const supabase = new Proxy({}, {
+  get(_, prop) {
+    return getSupabase()[prop];
+  }
+});
