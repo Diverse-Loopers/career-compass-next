@@ -42,9 +42,9 @@ function Navbar() {
           <a className="navbar__link" href="#">
             Products
           </a>
-          <a className="navbar__link" href="#">
+          {/* <a className="navbar__link" href="#">
             Partners
-          </a>
+          </a> */}
           <a className="navbar__link" href="/about">
             About
           </a>
