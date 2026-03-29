@@ -323,7 +323,7 @@ export default function CareerAnalyzerPage() {
                 <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
                   Not what is trending. Not what others say. But what matches your skills, interests, and learning style. A 5-7 minute assessment that gives you a clear career direction and next steps.
                 </p>
-                <button onClick={handleStartTest} className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-indigo-600 rounded-full hover:bg-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <button onClick={handleStartTest} className="inline-flex cursor-pointer items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-indigo-600 rounded-full hover:bg-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                   Start Free Career Fit Test
                 </button>
               </div>
@@ -378,17 +378,17 @@ export default function CareerAnalyzerPage() {
                 <div className="grid md:grid-cols-3 gap-8 text-center">
                   <div>
                     <div className="text-5xl font-black text-indigo-100 mb-4">01</div>
-                    <h3 className="text-xl font-bold mb-2">Answer smart questions</h3>
+                    <h3 className="text-xl font-bold text-black mb-2">Answer smart questions</h3>
                     <p className="text-gray-600">Takes only 5-7 minutes of your time.</p>
                   </div>
                   <div>
                     <div className="text-5xl font-black text-indigo-100 mb-4">02</div>
-                    <h3 className="text-xl font-bold mb-2">Get Fit Scores</h3>
+                    <h3 className="text-xl font-bold text-black mb-2">Get Fit Scores</h3>
                     <p className="text-gray-600">See how well different tech careers match you.</p>
                   </div>
                   <div>
                     <div className="text-5xl font-black text-indigo-100 mb-4">03</div>
-                    <h3 className="text-xl font-bold mb-2">Get a clear roadmap</h3>
+                    <h3 className="text-xl font-bold text-black mb-2">Get a clear roadmap</h3>
                     <p className="text-gray-600">Know what to learn next and where to focus.</p>
                   </div>
                 </div>
@@ -436,7 +436,7 @@ export default function CareerAnalyzerPage() {
             <section className="py-20 px-4 bg-gray-900 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Find Your Path?</h2>
               <p className="text-gray-400 mb-8 text-lg">Stop guessing. Start choosing with clarity.</p>
-              <button onClick={handleStartTest} className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-gray-900 transition-all duration-200 bg-white rounded-full hover:bg-gray-100 shadow-xl">
+              <button onClick={handleStartTest} className="inline-flex cursor-pointer items-center justify-center px-8 py-4 text-lg font-bold text-gray-900 transition-all duration-200 bg-white rounded-full hover:bg-gray-100 shadow-xl">
                 Start Your Free Career Fit Test
               </button>
             </section>
@@ -677,7 +677,7 @@ export default function CareerAnalyzerPage() {
                 <li><a href="/" className="text-gray-600 hover:text-indigo-600 transition-colors">Home</a></li>
                 <li><a href="/institute" className="text-gray-600 hover:text-indigo-600 transition-colors">For Universities</a></li>
                 <li><a href="/business" className="text-gray-600 hover:text-indigo-600 transition-colors">For Businesses</a></li>
-                <li><a href="/careers" className="text-gray-600 hover:text-indigo-600 transition-colors">Careers</a></li>
+                <li><a href="/career" className="text-gray-600 hover:text-indigo-600 transition-colors">Careers</a></li>
               </ul>
             </div>
 
@@ -694,9 +694,6 @@ export default function CareerAnalyzerPage() {
               <div className="flex space-x-4">
                 <a href="https://www.linkedin.com/company/105277450" className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 transition-all duration-300">
                   <i className="fa-brands fa-linkedin-in"></i>
-                </a>
-                <a href="#" className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 transition-all duration-300">
-                  <i className="fa-brands fa-twitter"></i>
                 </a>
                 <a href="https://www.instagram.com/diverseloopers/" className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-indigo-100 hover:text-indigo-600 transition-all duration-300">
                   <i className="fa-brands fa-instagram"></i>
