@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import './skillsynth.css';
 import Script from 'next/script';
-import { 
-    loadAchievers, 
-    loadEvents, 
+import {
+    loadAchievers,
+    loadEvents,
     submitHiringInquiry,
     getIconForEvent,
     initializeIntersectionObserver
@@ -31,7 +31,7 @@ export default function CommunityPage() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            
+
             const achieversResult = await loadAchievers();
             if (achieversResult.success) {
                 setAchievers(achieversResult.achievers);
@@ -69,7 +69,7 @@ export default function CommunityPage() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        
+
         setFormMessage({
             show: true,
             text: 'Processing talent request...',
@@ -107,20 +107,20 @@ export default function CommunityPage() {
         const eventDate = new Date(dateString);
         const now = new Date();
         const isPassed = eventDate < now;
-        
-        return isPassed 
+
+        return isPassed
             ? <span className="px-3 py-1 bg-red-50 text-red-600 text-[9px] font-bold rounded-lg uppercase tracking-wider">Passed</span>
             : <span className="px-3 py-1 bg-green-50 text-green-600 text-[9px] font-bold rounded-lg uppercase tracking-wider">Upcoming</span>;
     };
 
     const formatEventDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
+        return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
     };
 
     return (
         <>
-           
+
             <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" onLoad={() => {
                 if (window.lucide) window.lucide.createIcons();
             }} />
@@ -133,7 +133,7 @@ export default function CommunityPage() {
                             <a href="/" className="flex-shrink-0 flex items-center gap-2">
                                 <img src="/DIVERSE LOOPERS (1) bg.png" alt="Diverse Loopers" className="h-10 md:h-12 w-auto" />
                             </a>
-                            
+
                             <div className="hidden md:flex items-center space-x-8">
                                 <a href="/" className="text-slate-600 hover:text-primary font-medium transition text-sm">Home</a>
                                 <a href="#wall-of-fame" className="text-slate-600 hover:text-primary font-medium transition text-sm">Wall of Fame</a>
@@ -149,7 +149,7 @@ export default function CommunityPage() {
                             </button>
                         </div>
                     </div>
-                    
+
                     {/* Mobile Menu */}
                     {showMobileMenu && (
                         <div className="md:hidden bg-white border-b border-slate-100 p-6 space-y-4 shadow-xl text-center">
@@ -175,9 +175,9 @@ export default function CommunityPage() {
 
                         {/* Background Image & Overlay */}
                         <div className="absolute inset-0 z-0">
-                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" 
-                                 alt="Tech Network Background" 
-                                 className="w-full h-full object-cover opacity-60" />
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+                                alt="Tech Network Background"
+                                className="w-full h-full object-cover opacity-60" />
                             <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]"></div>
                         </div>
 
@@ -188,7 +188,7 @@ export default function CommunityPage() {
                                     <i data-lucide="sparkles" className="w-3 h-3"></i> Celebrating Excellence
                                 </div>
                                 <h1 className="text-4xl md:text-7xl font-heading font-black text-white leading-tight fade-in drop-shadow-2xl">
-                                    Celebrating Excellence. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">Showcasing Impact.</span>
+                                    Celebrating Excellence. <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">Showcasing Impact.</span>
                                 </h1>
                                 <p className="text-lg md:text-xl text-slate-300 leading-relaxed fade-in max-w-3xl mx-auto font-medium">
                                     Diverse Loopers is more than a learning ecosystem. It is a community where people build, achieve, contribute, and grow together.
@@ -235,7 +235,7 @@ export default function CommunityPage() {
                                             <div className="achiever-overlay">
                                                 <h4 className="text-2xl font-heading font-black text-white italic tracking-tight">{achiever.name}</h4>
                                                 <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-2">{achiever.role_track}</p>
-                                                
+
                                                 <div className="achiever-details">
                                                     <p className="text-xs text-slate-300 leading-relaxed mb-6 font-medium">{achiever.project_description}</p>
                                                     <div className="flex gap-3">
@@ -264,9 +264,9 @@ export default function CommunityPage() {
                     <section id="events" className="relative py-24 bg-slate-50 overflow-hidden">
                         {/* Events Background Image */}
                         <div className="absolute inset-0 z-0">
-                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop" 
-                                 alt="Events Background" 
-                                 className="w-full h-full object-cover opacity-5 grayscale" />
+                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop"
+                                alt="Events Background"
+                                className="w-full h-full object-cover opacity-5 grayscale" />
                         </div>
 
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -320,12 +320,12 @@ export default function CommunityPage() {
                     {/* Continue with remaining sections... */}
                     {/* Due to length limit, I'll provide the remaining sections in the next part */}
 
-{/* Milestones & Trust Section */}
+                    {/* Milestones & Trust Section */}
                     <section className="py-24 bg-white border-y border-slate-50">
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="grid lg:grid-cols-2 gap-16 items-center">
                                 <div className="reveal space-y-8 text-left">
-                                    <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 leading-tight">Community <br/>Milestones.</h2>
+                                    <h2 className="text-3xl md:text-5xl font-heading font-black text-slate-900 leading-tight">Community <br />Milestones.</h2>
                                     <p className="text-slate-500 font-medium text-lg leading-relaxed">Our programs help participants build verified evidence of capability needed to thrive in the modern tech landscape.</p>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-bold text-slate-700">
                                         <ul className="space-y-4">
@@ -408,25 +408,25 @@ export default function CommunityPage() {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div className="space-y-1">
                                             <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Company Name</label>
-                                            <input 
-                                                type="text" 
-                                                name="company_name" 
+                                            <input
+                                                type="text"
+                                                name="company_name"
                                                 value={formData.company_name}
                                                 onChange={handleInputChange}
-                                                required 
-                                                className="input-field" 
+                                                required
+                                                className="input-field"
                                                 placeholder="Organization"
                                             />
                                         </div>
                                         <div className="space-y-1">
                                             <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Hiring Contact Person</label>
-                                            <input 
-                                                type="text" 
-                                                name="contact_name" 
+                                            <input
+                                                type="text"
+                                                name="contact_name"
                                                 value={formData.contact_name}
                                                 onChange={handleInputChange}
-                                                required 
-                                                className="input-field" 
+                                                required
+                                                className="input-field"
                                                 placeholder="Full Name"
                                             />
                                         </div>
@@ -434,25 +434,25 @@ export default function CommunityPage() {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div className="space-y-1">
                                             <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Business Email</label>
-                                            <input 
-                                                type="email" 
-                                                name="contact_email" 
+                                            <input
+                                                type="email"
+                                                name="contact_email"
                                                 value={formData.contact_email}
                                                 onChange={handleInputChange}
-                                                required 
-                                                className="input-field" 
+                                                required
+                                                className="input-field"
                                                 placeholder="email@company.com"
                                             />
                                         </div>
                                         <div className="space-y-1">
                                             <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Contact Number</label>
-                                            <input 
-                                                type="tel" 
-                                                name="contact_phone" 
+                                            <input
+                                                type="tel"
+                                                name="contact_phone"
                                                 value={formData.contact_phone}
                                                 onChange={handleInputChange}
-                                                required 
-                                                className="input-field" 
+                                                required
+                                                className="input-field"
                                                 placeholder="+91 ..."
                                             />
                                         </div>
@@ -460,23 +460,23 @@ export default function CommunityPage() {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div className="space-y-1">
                                             <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Role / Requirement</label>
-                                            <input 
-                                                type="text" 
-                                                name="role_requirement" 
+                                            <input
+                                                type="text"
+                                                name="role_requirement"
                                                 value={formData.role_requirement}
                                                 onChange={handleInputChange}
-                                                required 
-                                                className="input-field" 
+                                                required
+                                                className="input-field"
                                                 placeholder="e.g. AI Analyst"
                                             />
                                         </div>
                                         <div className="space-y-1">
                                             <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Type of Hiring</label>
-                                            <select 
-                                                name="hiring_type" 
+                                            <select
+                                                name="hiring_type"
                                                 value={formData.hiring_type}
                                                 onChange={handleInputChange}
-                                                required 
+                                                required
                                                 className="input-field"
                                             >
                                                 <option value="Internship">Internship</option>
@@ -487,27 +487,27 @@ export default function CommunityPage() {
                                     </div>
                                     <div className="space-y-1">
                                         <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Preferred Skills / Stack</label>
-                                        <input 
-                                            type="text" 
-                                            name="preferred_skills" 
+                                        <input
+                                            type="text"
+                                            name="preferred_skills"
                                             value={formData.preferred_skills}
                                             onChange={handleInputChange}
-                                            className="input-field" 
+                                            className="input-field"
                                             placeholder="e.g. React, Python, Docker"
                                         />
                                     </div>
                                     <div className="space-y-1">
                                         <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Additional Notes</label>
-                                        <textarea 
-                                            name="notes" 
+                                        <textarea
+                                            name="notes"
                                             value={formData.notes}
                                             onChange={handleInputChange}
-                                            rows="4" 
-                                            className="input-field" 
+                                            rows="4"
+                                            className="input-field"
                                             placeholder="Any specific requirements..."
                                         />
                                     </div>
-                                    
+
                                     <div className="pt-6">
                                         <button type="submit" className="w-full py-5 bg-primary text-white rounded-3xl font-black text-xl uppercase tracking-widest hover:bg-indigo-700 transition shadow-xl">
                                             Submit Requirement
@@ -516,13 +516,12 @@ export default function CommunityPage() {
                                     <p className="text-[9px] text-center font-bold text-slate-400 uppercase tracking-wider italic mt-4">
                                         * We respect confidentiality. Your information is used only for collaboration and hiring support.
                                     </p>
-                                    
+
                                     {formMessage.show && (
-                                        <div className={`text-center p-4 rounded-2xl text-sm font-bold mt-4 ${
-                                            formMessage.type === 'loading' ? 'bg-indigo-50 text-primary animate-pulse' :
-                                            formMessage.type === 'success' ? 'bg-green-50 text-green-600' :
-                                            'bg-red-50 text-red-600'
-                                        }`}>
+                                        <div className={`text-center p-4 rounded-2xl text-sm font-bold mt-4 ${formMessage.type === 'loading' ? 'bg-indigo-50 text-primary animate-pulse' :
+                                                formMessage.type === 'success' ? 'bg-green-50 text-green-600' :
+                                                    'bg-red-50 text-red-600'
+                                            }`}>
                                             {formMessage.text}
                                         </div>
                                     )}
@@ -560,13 +559,16 @@ export default function CommunityPage() {
                                 </p>
                                 <div className="flex gap-4">
                                     <a href="https://www.linkedin.com/company/105277450" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                                        <i data-lucide="linkedin" className="w-4 h-4"></i>
+                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
                                     </a>
                                     <a href="https://www.instagram.com/diverseloopers/" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                                        <i data-lucide="instagram" className="w-4 h-4"></i>
+                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
                                     </a>
-                                    <a href="#" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                                        <i data-lucide="twitter" className="w-4 h-4"></i>
+                                    <a href="https://chat.whatsapp.com/B6XJSoLC2Hg7Wgg5lHRfSf" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                                            <path d="M16.7 13.4c-.3-.2-1.7-.8-2-1-.3-.2-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.2-1.3-1-1-1.3-1.9-1.4-2.2-.1-.3 0-.5.2-.7.2-.2.6-.7.8-1 .2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.1-.2-.4-.4-.3-.7-.3-.3 0-.6 0-.9.3-.3.3-1.1 1.1-1.1 2.6 0 1.5.9 3 1.1 3.2.1.2 2.1 3.2 5.1 4.4 1.9.8 2.6.9 3.5.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.4z" />
+                                            <path d="M21 12a9 9 0 1 0-16.5 5.2L3 21l3.8-1.5A9 9 0 0 0 21 12z" />
+                                        </svg>
                                     </a>
                                 </div>
                             </div>
@@ -575,9 +577,7 @@ export default function CommunityPage() {
                             <div>
                                 <h4 className="font-bold mb-6">Quick Navigation</h4>
                                 <ul className="space-y-4 text-slate-400 text-sm">
-                                    <li><a href="/#about-us" className="hover:text-white transition">About Us</a></li>
-                                    <li><a href="mailto:contact@diverseloopers.com" className="hover:text-white transition">Contact Us</a></li>
-                                    <li><a href="/skillsynth" className="hover:text-white transition">SkillSynth</a></li>
+                                    <li><a href="/about" className="hover:text-white transition">About Us</a></li>
                                     <li><a href="/analyzer" className="hover:text-white transition">Path Analyzer</a></li>
                                     <li><a href="/career-analyzer" className="hover:text-white transition">Career Analyzer</a></li>
                                 </ul>
@@ -590,7 +590,6 @@ export default function CommunityPage() {
                                     <li><a href="/" className="hover:text-white transition">For Students</a></li>
                                     <li><a href="/institute" className="hover:text-white transition">For Universities</a></li>
                                     <li><a href="/business" className="hover:text-white transition">For Businesses</a></li>
-                                    <li><a href="#" className="hover:text-white transition">Placement Support</a></li>
                                 </ul>
                             </div>
 
