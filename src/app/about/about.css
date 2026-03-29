@@ -2,15 +2,15 @@
     --primary: #6366f1;
     --secondary: #a855f7;
     --accent: #14b8a6;
-    --bg-dark: #0f172a;
+    --bg-dark: #fff;
 }
 
 body {
     margin: 0;
     overflow-x: hidden;
-    font-family: "Inter", sans-serif;
+    font-family: poppins;
     background-color: var(--bg-dark);
-    color: #e2e8f0;
+    color: #0b0626;
 }
 
 h1,
@@ -18,7 +18,7 @@ h2,
 h3,
 h4,
 .brand-font {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: poppins;
 }
 
 /* 3D Canvas Container */
@@ -29,20 +29,20 @@ h4,
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 /* Glassmorphism Cards */
 .glass-panel {
-    background: rgba(15, 23, 42, 0.65);
+    background: rgba(0, 3, 11, 0.65);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(250, 238, 0, 0.05);
+    box-shadow: 0 4px 30px rgba(205, 193, 193, 0.1);
 }
 
 .glass-card {
-    background: rgba(30, 41, 59, 0.4);
+    background: rgba(0, 5, 12, 0.4);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: transform 0.3s ease, border-color 0.3s ease;
@@ -51,18 +51,18 @@ h4,
 .glass-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary);
-    background: rgba(30, 41, 59, 0.6);
+    background: rgba(47, 50, 56, 0.6);
 }
 
 /* Gradient Text */
 .text-gradient {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #1f2341 0%, #312042 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-accent {
-    background: linear-gradient(135deg, #2dd4bf 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #0c3832 0%, #09182e 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -85,7 +85,7 @@ h4,
 }
 
 ::-webkit-scrollbar-track {
-    background: #0f172a;
+    background: #2a0f28;
 }
 
 ::-webkit-scrollbar-thumb {

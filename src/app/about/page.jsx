@@ -124,7 +124,7 @@ export default function AboutPage() {
                 {/* Hero Section */}
                 <header className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                        <div className="inline-flex items-center px-4 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 mb-8 backdrop-blur-sm reveal active">
+                        <div className="inline-flex items-center px-4 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-600 mb-8 backdrop-blur-sm reveal active">
                             <span className="flex h-2 w-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
                             Student-First Tech & Career Platform
                         </div>
@@ -133,14 +133,14 @@ export default function AboutPage() {
                             <span className="text-gradient">Do Real Work.</span> <br />
                             Earn & Grow.
                         </h1>
-                        <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 reveal active" style={{ transitionDelay: '200ms' }}>
+                        <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-600 reveal active" style={{ transitionDelay: '200ms' }}>
                             Bridging the gap between college education and real-world careers. Move beyond theory into practical application.
                         </p>
                         <div className="mt-10 flex justify-center gap-4 reveal active" style={{ transitionDelay: '300ms' }}>
                             <a href="#mission" className="px-8 py-3.5 rounded-lg bg-white text-gray-900 font-bold hover:bg-gray-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                                 Our Mission
                             </a>
-                            <a href="#join-hustle" className="px-8 py-3.5 rounded-lg border border-gray-600 text-white font-medium hover:bg-white/10 transition-colors backdrop-blur-sm">
+                            <a href="#join-hustle" className="px-8 py-3.5 rounded-lg border border-gray-600 text-black font-medium hover:bg-black/10 transition-colors backdrop-blur-sm">
                                 Join the Hustle
                             </a>
                         </div>
@@ -153,7 +153,7 @@ export default function AboutPage() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div className="reveal">
                                 <h2 className="text-3xl md:text-4xl font-bold mb-6">More Than Just a Platform</h2>
-                                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+                                <p className="text-lg text-gray-500 mb-6 leading-relaxed">
                                     Diverse Loopers is built to solve a critical problem: the gap between academic theory and industry reality. We help students move beyond textbooks by combining practical skill training, real industry projects, and earning opportunities into one structured journey.
                                 </p>
                                 <div className="glass-panel p-6 rounded-xl border-l-4 border-indigo-500">
@@ -166,22 +166,22 @@ export default function AboutPage() {
                                 <div className="glass-card p-6 rounded-xl">
                                     <i className="fas fa-laptop-code text-4xl text-indigo-400 mb-4"></i>
                                     <h3 className="text-xl font-bold mb-2">Real Skills</h3>
-                                    <p className="text-gray-400 text-sm">Industry-relevant training focused on tools used in the workplace.</p>
+                                    <p className="text-gray-700 text-sm">Industry-relevant training focused on tools used in the workplace.</p>
                                 </div>
                                 <div className="glass-card p-6 rounded-xl">
                                     <i className="fas fa-briefcase text-4xl text-purple-400 mb-4"></i>
                                     <h3 className="text-xl font-bold mb-2">Live Projects</h3>
-                                    <p className="text-gray-400 text-sm">Hands-on experience through real client and internal projects.</p>
+                                    <p className="text-gray-700 text-sm">Hands-on experience through real client and internal projects.</p>
                                 </div>
                                 <div className="glass-card p-6 rounded-xl">
                                     <i className="fas fa-wallet text-4xl text-teal-400 mb-4"></i>
                                     <h3 className="text-xl font-bold mb-2">Earn</h3>
-                                    <p className="text-gray-400 text-sm">Performance-based earning opportunities as you grow.</p>
+                                    <p className="text-gray-700 text-sm">Performance-based earning opportunities as you grow.</p>
                                 </div>
                                 <div className="glass-card p-6 rounded-xl">
                                     <i className="fas fa-rocket text-4xl text-pink-400 mb-4"></i>
                                     <h3 className="text-xl font-bold mb-2">Career Growth</h3>
-                                    <p className="text-gray-400 text-sm">Clear pathways instead of confusion. Build a real portfolio.</p>
+                                    <p className="text-gray-700 text-sm">Clear pathways instead of confusion. Build a real portfolio.</p>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@ export default function AboutPage() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16 reveal">
                             <h2 className="text-3xl md:text-5xl font-bold mb-4">Why Diverse Loopers Exists</h2>
-                            <p className="text-gray-400 max-w-2xl mx-auto">
+                            <p className="text-gray-700 max-w-2xl mx-auto">
                                 We saw a pattern of challenges students face today, and we decided to build the solution.
                             </p>
                         </div>
@@ -205,10 +205,10 @@ export default function AboutPage() {
                                 </div>
                                 <div className="relative z-10">
                                     <h3 className="text-xl font-bold mb-3 text-red-400">The Problem</h3>
-                                    <p className="text-gray-300 text-sm">Students learn concepts but lack real experience.</p>
+                                    <p className="text-gray-100 text-sm">Students learn concepts but lack real experience.</p>
                                     <div className="my-4 h-px bg-gray-700"></div>
                                     <h3 className="text-xl font-bold mb-3 text-green-400">Our Solution</h3>
-                                    <p className="text-gray-300 text-sm">Careers are built through doing real work, not just courses.</p>
+                                    <p className="text-gray-100 text-sm">Careers are built through doing real work, not just courses.</p>
                                 </div>
                             </div>
 
@@ -218,10 +218,10 @@ export default function AboutPage() {
                                 </div>
                                 <div className="relative z-10">
                                     <h3 className="text-xl font-bold mb-3 text-red-400">The Problem</h3>
-                                    <p className="text-gray-300 text-sm">Struggling to build meaningful portfolios.</p>
+                                    <p className="text-gray-100 text-sm">Struggling to build meaningful portfolios.</p>
                                     <div className="my-4 h-px bg-gray-700"></div>
                                     <h3 className="text-xl font-bold mb-3 text-green-400">Our Solution</h3>
-                                    <p className="text-gray-300 text-sm">Strong portfolios backed by real proof of work.</p>
+                                    <p className="text-gray-100 text-sm">Strong portfolios backed by real proof of work.</p>
                                 </div>
                             </div>
 
@@ -231,10 +231,10 @@ export default function AboutPage() {
                                 </div>
                                 <div className="relative z-10">
                                     <h3 className="text-xl font-bold mb-3 text-red-400">The Problem</h3>
-                                    <p className="text-gray-300 text-sm">Want to earn, but lack credible opportunities.</p>
+                                    <p className="text-gray-100 text-sm">Want to earn, but lack credible opportunities.</p>
                                     <div className="my-4 h-px bg-gray-700"></div>
                                     <h3 className="text-xl font-bold mb-3 text-green-400">Our Solution</h3>
-                                    <p className="text-gray-300 text-sm">Structured earning based on contribution and skill.</p>
+                                    <p className="text-gray-100 text-sm">Structured earning based on contribution and skill.</p>
                                 </div>
                             </div>
 
@@ -244,10 +244,10 @@ export default function AboutPage() {
                                 </div>
                                 <div className="relative z-10">
                                     <h3 className="text-xl font-bold mb-3 text-red-400">The Problem</h3>
-                                    <p className="text-gray-300 text-sm">Feeling unprepared despite having degrees.</p>
+                                    <p className="text-gray-100 text-sm">Feeling unprepared despite having degrees.</p>
                                     <div className="my-4 h-px bg-gray-700"></div>
                                     <h3 className="text-xl font-bold mb-3 text-green-400">Our Solution</h3>
-                                    <p className="text-gray-300 text-sm">Preparation for real professional environments.</p>
+                                    <p className="text-gray-100 text-sm">Preparation for real professional environments.</p>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +263,7 @@ export default function AboutPage() {
                             <h2 className="text-4xl md:text-6xl font-bold mt-2 mb-6">
                                 Hybrid <span className="text-gradient-accent">Hustle</span>
                             </h2>
-                            <p className="text-gray-300 max-w-3xl mx-auto text-lg">
+                            <p className="text-gray-700 max-w-3xl mx-auto text-lg">
                                 Our structured "learn-work-earn" pathway. It's not a shortcut, it's how real careers are built.
                             </p>
                         </div>
@@ -275,8 +275,8 @@ export default function AboutPage() {
                                 {/* Step 1 */}
                                 <div className="relative flex flex-col md:flex-row items-center reveal">
                                     <div className="flex-1 text-center md:text-right md:pr-12 order-2 md:order-1 mt-6 md:mt-0">
-                                        <h3 className="text-2xl font-bold text-white">1. Learn</h3>
-                                        <p className="text-gray-400 mt-2">
+                                        <h3 className="text-2xl font-bold text-blue">1. Learn</h3>
+                                        <p className="text-gray-700 mt-2">
                                             Start with structured training focused on tools, workflows, and industry standards.
                                         </p>
                                     </div>
@@ -293,8 +293,8 @@ export default function AboutPage() {
                                         2
                                     </div>
                                     <div className="flex-1 text-center md:text-left md:pl-12 order-2 md:order-3 mt-6 md:mt-0">
-                                        <h3 className="text-2xl font-bold text-white">2. Apply</h3>
-                                        <p className="text-gray-400 mt-2">
+                                        <h3 className="text-2xl font-bold text-blue">2. Apply</h3>
+                                        <p className="text-gray-700 mt-2">
                                             Complete tasks and internal projects to prove your readiness.
                                         </p>
                                     </div>
@@ -303,8 +303,8 @@ export default function AboutPage() {
                                 {/* Step 3 */}
                                 <div className="relative flex flex-col md:flex-row items-center reveal">
                                     <div className="flex-1 text-center md:text-right md:pr-12 order-2 md:order-1 mt-6 md:mt-0">
-                                        <h3 className="text-2xl font-bold text-white">3. Work</h3>
-                                        <p className="text-gray-400 mt-2">
+                                        <h3 className="text-2xl font-bold text-blue">3. Work</h3>
+                                        <p className="text-gray-700 mt-2">
                                             Join live projects and contribute as a real team member.
                                         </p>
                                     </div>
@@ -321,8 +321,8 @@ export default function AboutPage() {
                                         4
                                     </div>
                                     <div className="flex-1 text-center md:text-left md:pl-12 order-2 md:order-3 mt-6 md:mt-0">
-                                        <h3 className="text-2xl font-bold text-white">4. Earn</h3>
-                                        <p className="text-gray-400 mt-2">
+                                        <h3 className="text-2xl font-bold text-blue">4. Earn</h3>
+                                        <p className="text-gray-700 mt-2">
                                             Get paid based on skill level, work quality, and responsibility.
                                         </p>
                                     </div>
@@ -331,8 +331,8 @@ export default function AboutPage() {
                                 {/* Step 5 */}
                                 <div className="relative flex flex-col md:flex-row items-center reveal">
                                     <div className="flex-1 text-center md:text-right md:pr-12 order-2 md:order-1 mt-6 md:mt-0">
-                                        <h3 className="text-2xl font-bold text-white">5. Grow</h3>
-                                        <p className="text-gray-400 mt-2">
+                                        <h3 className="text-2xl font-bold text-blue">5. Grow</h3>
+                                        <p className="text-gray-700 mt-2">
                                             Build portfolios, gain experience, and unlock advanced opportunities.
                                         </p>
                                     </div>
@@ -559,20 +559,20 @@ export default function AboutPage() {
                                 <p className="font-medium">Core Team Access</p>
                             </div>
                         </div>
-                        <p className="mt-12 text-xl text-gray-300 font-light italic reveal">
+                        <p className="mt-12 text-xl text-gray-700 font-light italic reveal">
                             "For many students, Diverse Loopers becomes more than a platform — it becomes a career launchpad."
                         </p>
                     </div>
                 </section>
 
                 {/* Our Tools Section */}
-                <section className="py-20 bg-black/20 relative z-10">
+                <section className="py-20 bg-black/40 relative z-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16 reveal">
                             <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
                                 Tools By Diverse Loopers For Learners
                             </h2>
-                            <p className="text-gray-400 max-w-2xl mx-auto">
+                            <p className="text-white max-w-2xl mx-auto">
                                 We have created custom tools to enhance the learning experience for our Learners. These tools are designed to provide data-backed suggestions for your future.
                             </p>
                         </div>
