@@ -1,247 +1,273 @@
 "use client";
 
-import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./fame-wall.css";
 import { initFameWallPage } from "@/lib/pages/fame-wall";
 
 export default function FameWallPage() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled,   setScrolled]   = useState(false);
+
   useEffect(() => {
     initFameWallPage();
+
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const closeMobile = () => setMobileOpen(false);
+
+  /* nav items */
+  const navItems = [
+    { href: "/skillsynth", label: "Home"         },
+    { href: "/fame-wall",  label: "Wall of Fame", active: true },
+    { href: "/events",     label: "Events"        },
+    { href: "#hiring-form",label: "Hire Talent"   },
+  ];
 
   return (
     <>
-      {/* Fonts */}
+      {/* Fonts — Poppins only as per requirement */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet"
       />
+      {/* Font Awesome for icons */}
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
 
-      {/* Scripts */}
-    
-      <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" />
+      {/* ═══════════════ NAV ═══════════════ */}
+      {/* FIX: white bg nav, links have proper gap via .nav-links { gap: 2rem } */}
+      <nav
+        className={`glass-nav${scrolled ? " scrolled" : ""}`}
+        role="navigation"
+        aria-label="Fame Wall navigation"
+      >
+        <div className="nav-inner">
+          {/* Logo */}
+          <a href="/" aria-label="Diverse Loopers home">
+            <img
+              src="/Diverse Loopers Black BG (2).png"
+              onError={(e) => { e.currentTarget.src = "/DIVERSE LOOPERS (1) bg.png"; }}
+              alt="Diverse Loopers"
+              style={{ height: 40, width: "auto", display: "block" }}
+            />
+          </a>
 
-      {/* Tailwind Config */}
-      
-
-      <div className="font-sans bg-slate-900 text-slate-300 min-h-screen flex flex-col">
-        {/* Navigation */}
-        <nav className="fixed top-0 w-full z-50 glass-nav">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-20">
-              <a href="/" className="flex-shrink-0 flex items-center gap-2">
-                <img
-                  src="/Diverse Loopers Black BG (2).png"
-                  onError={(e) => {
-                    e.target.src = '/DIVERSE LOOPERS (1) bg.png';
-                  }}
-                  alt="Diverse Loopers"
-                  className="h-10 w-auto"
-                />
+          {/* Desktop links — FIX: now wrapped in .nav-links with gap: 2rem */}
+          <div className="nav-links hidden md:flex">
+            {navItems.map(({ href, label, active }) => (
+              <a
+                key={href}
+                href={href}
+                className={`nav-link${active ? " nav-link--active" : ""}`}
+              >
+                {label}
               </a>
-
-              <div className="hidden md:flex items-center space-x-8">
-                <a href="/skillsynth" className="text-slate-300 hover:text-white font-medium transition text-sm">
-                  Home
-                </a>
-                <a
-                  href="/fame-wall"
-                  className="text-white font-bold transition text-sm border-b-2 border-primary pb-1"
-                >
-                  Wall of Fame
-                </a>
-                <a href="/#events" className="text-slate-300 hover:text-white font-medium transition text-sm">
-                  Events
-                </a>
-                <a href="#hiring-form" className="text-slate-300 hover:text-white font-medium transition text-sm">
-                  Hire Talent
-                </a>
-              </div>
-
-              <button id="mobile-menu-toggle" className="md:hidden p-2 text-slate-300">
-                <i data-lucide="menu"></i>
-              </button>
-            </div>
+            ))}
           </div>
 
-          {/* Mobile Menu */}
-          <div
-            id="mobile-menu"
-            className="hidden md:hidden bg-slate-900 border-b border-slate-800 p-6 space-y-4 shadow-xl text-center"
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            className="md:hidden p-2 rounded-lg"
+            style={{ background: "none", border: "none", cursor: "pointer", color: "#64748b" }}
+            onClick={() => setMobileOpen(v => !v)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            <a href="/skillsynth" className="block font-bold text-white">
-              Home
-            </a>
-            <a href="/fame-wall" className="block font-bold text-primary">
-              Wall of Fame
-            </a>
-            <a href="/#events" className="block font-bold text-white">
-              Events
-            </a>
-            <a href="#hiring-form" className="block font-bold text-white">
-              Hire Talent
-            </a>
-          </div>
-        </nav>
+            <i className={`fas ${mobileOpen ? "fa-times" : "fa-bars"} text-lg`} aria-hidden="true"></i>
+          </button>
+        </div>
 
-        <main className="flex-grow pt-32 pb-20">
-          {/* Go Back Button */}
-          <div className="max-w-7xl mx-auto px-6 mb-8">
+        {/* Mobile menu */}
+        <div id="mobile-menu" className={mobileOpen ? "open" : ""}>
+          <div className="mobile-menu-inner">
+            {navItems.map(({ href, label, active }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={closeMobile}
+                className={`mobile-nav-link${active ? " mobile-nav-link--active" : ""}`}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* ═══════════════ PAGE BODY ═══════════════ */}
+      {/* FIX: page-wrapper has padding-top = nav height so content isn't hidden */}
+      <div className="page-wrapper">
+        <main className="flex-grow" style={{ paddingBottom: "4rem" }}>
+
+          {/* Back button — FIX: proper type + alignment */}
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "1.5rem 1.5rem 0" }}>
             <button
+              type="button"
+              className="back-btn"
               onClick={() => window.history.back()}
-              className="flex items-center gap-2 text-slate-400 hover:text-white transition group text-sm font-bold uppercase tracking-widest"
+              aria-label="Go back"
             >
-              <i data-lucide="arrow-left" className="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+              <i className="fas fa-arrow-left" aria-hidden="true"></i>
               Go Back
             </button>
           </div>
 
-          {/* Header */}
-          <div className="max-w-7xl mx-auto px-6 mb-20 text-center">
-            <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary border border-primary/20 text-[10px] font-black uppercase tracking-widest mb-6 fade-in">
+          {/* ── Hero header ── */}
+          <div className="hero-section">
+            <div className="section-label mb-5" style={{ justifyContent: "center" }}>
               Hall of Excellence
-            </span>
-            <h1 className="text-4xl md:text-6xl font-heading font-black text-white mb-6 fade-in">
+            </div>
+
+            <h1 className="hero-title fade-in">
               The Full{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Wall of Fame
-              </span>
+              <span className="hero-title-accent">Wall of Fame</span>
             </h1>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg fade-in">
-              A chronological archive of brilliance. Every week, we highlight the individuals who went above and beyond.
+
+            <p className="hero-sub fade-in" style={{ transitionDelay: "100ms" }}>
+              A chronological archive of brilliance. Every week, we highlight the
+              individuals who went above and beyond.
             </p>
           </div>
 
-          {/* Timeline Container */}
-          <div id="wall-container" className="max-w-7xl mx-auto px-6 space-y-24 min-h-[30vh] mb-32">
-            {/* Dynamic Content Injected Here */}
-            <div className="text-center py-20">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary mb-4"></div>
-              <p className="text-slate-500 text-sm uppercase tracking-widest">Loading History...</p>
+          {/* ── Wall content ──
+              FIX: #wall-container is now max-width:1200 + padded
+              Cards injected by initFameWallPage() should use .week-group + .cards-grid classes.
+              JS must call:
+                container.innerHTML with week-group > week-block + cards-grid structure.
+          */}
+          <div
+            id="wall-container"
+            style={{ marginBottom: "3rem" }}
+            aria-busy="true"
+            aria-live="polite"
+            aria-label="Hall of fame entries"
+          >
+            {/* Loading placeholder */}
+            <div style={{ textAlign: "center", padding: "5rem 1.5rem" }}>
+              <div className="fw-spinner" role="status" aria-label="Loading"></div>
+              <p style={{
+                fontFamily: "var(--font)", fontSize: "0.72rem",
+                fontWeight: 700, letterSpacing: "0.14em",
+                textTransform: "uppercase", color: "var(--text-dim)"
+              }}>
+                Loading History…
+              </p>
             </div>
           </div>
 
-          {/* Hiring Form Section */}
-          <section id="hiring-form" className="py-12 relative border-t border-slate-800">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="bg-slate-800/50 backdrop-blur-xl p-8 md:p-12 rounded-[3rem] border border-slate-700 shadow-2xl reveal">
-                <div className="mb-10 text-center space-y-2">
-                  <h3 className="text-3xl font-heading font-black text-white italic">Hire Talent Requirements</h3>
-                  <p className="text-slate-400 font-medium">
-                    See potential here? Share your hiring needs and our team will connect you with these profiles.
-                  </p>
+          {/* ═══════════════ HIRING FORM ═══════════════ */}
+          <section
+            id="hiring-form"
+            style={{ padding: "4rem 1.5rem" }}
+            aria-labelledby="hiring-heading"
+          >
+            {/* FIX: hiring-card is properly centered with max-width */}
+            <div className="hiring-card reveal">
+              <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+                <div className="section-label mb-4" style={{ justifyContent: "center" }}>
+                  For Recruiters
+                </div>
+                <h2
+                  id="hiring-heading"
+                  style={{
+                    fontFamily: "var(--font)", fontWeight: 800,
+                    fontSize: "clamp(1.5rem, 3.5vw, 2rem)",
+                    color: "var(--text)", marginBottom: "0.6rem",
+                    letterSpacing: "-0.02em"
+                  }}
+                >
+                  Hire Talent Requirements
+                </h2>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>
+                  See potential here? Share your hiring needs and our team will connect you with these profiles.
+                </p>
+              </div>
+
+              <form id="talent-request-form" noValidate>
+                <div
+                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
+                >
+                  <div>
+                    <label htmlFor="f-company" className="form-label">Company Name</label>
+                    <input id="f-company" type="text" name="company_name" required className="dark-input" placeholder="Organization" />
+                  </div>
+                  <div>
+                    <label htmlFor="f-contact" className="form-label">Hiring Contact Person</label>
+                    <input id="f-contact" type="text" name="contact_name" required className="dark-input" placeholder="Full Name" />
+                  </div>
                 </div>
 
-                <form id="talent-request-form" className="space-y-6 text-left">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Company Name
-                      </label>
-                      <input type="text" name="company_name" required className="dark-input" placeholder="Organization" />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Hiring Contact Person
-                      </label>
-                      <input type="text" name="contact_name" required className="dark-input" placeholder="Full Name" />
-                    </div>
+                <div
+                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
+                >
+                  <div>
+                    <label htmlFor="f-email" className="form-label">Business Email</label>
+                    <input id="f-email" type="email" name="contact_email" required className="dark-input" placeholder="email@company.com" autoComplete="email" />
                   </div>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Business Email
-                      </label>
-                      <input
-                        type="email"
-                        name="contact_email"
-                        required
-                        className="dark-input"
-                        placeholder="email@company.com"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Contact Number
-                      </label>
-                      <input type="tel" name="contact_phone" required className="dark-input" placeholder="+91 ..." />
-                    </div>
+                  <div>
+                    <label htmlFor="f-phone" className="form-label">Contact Number</label>
+                    <input id="f-phone" type="tel" name="contact_phone" required className="dark-input" placeholder="+91 …" pattern="[+]?[0-9\s\-]{8,15}" />
                   </div>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Role / Requirement
-                      </label>
-                      <input
-                        type="text"
-                        name="role_requirement"
-                        required
-                        className="dark-input"
-                        placeholder="e.g. AI Analyst"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Type of Hiring
-                      </label>
-                      <select name="hiring_type" required className="dark-input">
-                        <option value="Internship">Internship</option>
-                        <option value="Contract">Contract / Project Based</option>
-                        <option value="Full-Time">Trial to Full-Time</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                      Preferred Skills / Stack
-                    </label>
-                    <input
-                      type="text"
-                      name="preferred_skills"
-                      className="dark-input"
-                      placeholder="e.g. React, Python, Docker"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                      Additional Notes
-                    </label>
-                    <textarea
-                      name="notes"
-                      rows={4}
-                      className="dark-input"
-                      placeholder="Any specific requirements..."
-                    ></textarea>
-                  </div>
+                </div>
 
-                  <div className="pt-6">
-                    <button
-                      type="submit"
-                      className="w-full py-5 bg-primary text-white rounded-3xl font-black text-xl uppercase tracking-widest hover:bg-indigo-600 transition shadow-xl shadow-indigo-900/20"
-                    >
-                      Submit Requirement
-                    </button>
+                <div
+                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
+                >
+                  <div>
+                    <label htmlFor="f-role" className="form-label">Role / Requirement</label>
+                    <input id="f-role" type="text" name="role_requirement" required className="dark-input" placeholder="e.g. AI Analyst" />
                   </div>
-                  <p className="text-[9px] text-center font-bold text-slate-500 uppercase tracking-wider italic mt-4">
-                    * We respect confidentiality. Your information is used only for collaboration and hiring support.
-                  </p>
-                  <div id="form-msg" className="hidden text-center p-4 rounded-2xl text-sm font-bold mt-4 animate-pulse"></div>
-                </form>
-              </div>
+                  <div>
+                    <label htmlFor="f-hiring" className="form-label">Type of Hiring</label>
+                    <select id="f-hiring" name="hiring_type" required className="dark-input">
+                      <option value="" disabled>Select type…</option>
+                      <option value="Internship">Internship</option>
+                      <option value="Contract">Contract / Project Based</option>
+                      <option value="Full-Time">Trial to Full-Time</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: "1.25rem" }}>
+                  <label htmlFor="f-skills" className="form-label">Preferred Skills / Stack</label>
+                  <input id="f-skills" type="text" name="preferred_skills" className="dark-input" placeholder="e.g. React, Python, Docker" />
+                </div>
+
+                <div style={{ marginBottom: "2rem" }}>
+                  <label htmlFor="f-notes" className="form-label">Additional Notes</label>
+                  <textarea id="f-notes" name="notes" rows={4} className="dark-input" placeholder="Any specific requirements…"></textarea>
+                </div>
+
+                <button type="submit" className="submit-btn">
+                  Submit Requirement
+                </button>
+
+                <p style={{
+                  fontFamily: "var(--font)", fontSize: "0.72rem",
+                  textAlign: "center", color: "var(--text-dim)",
+                  fontStyle: "italic", marginTop: "1rem"
+                }}>
+                  * We respect confidentiality. Your information is used only for collaboration and hiring support.
+                </p>
+
+                <div id="form-msg" role="alert" aria-live="polite"></div>
+              </form>
             </div>
           </section>
         </main>
 
         {/* Footer */}
-        <footer className="bg-slate-950 text-white py-12 border-t border-white/5">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">
-              &copy; 2024 Diverse Loopers. Celebrating Talent.
-            </p>
-          </div>
+        <footer className="fw-footer" aria-label="Footer">
+          <p>&copy; 2024 Diverse Loopers. Celebrating Talent.</p>
         </footer>
       </div>
     </>
