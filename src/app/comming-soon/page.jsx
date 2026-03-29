@@ -15,12 +15,12 @@ function Navbar() {
           <a className="navbar__link" href="/">
             Home
           </a>
-          <a className="navbar__link" href="#">
+          <a className="navbar__link" href="/products">
             Products
           </a>
-          <a className="navbar__link" href="#">
+          {/* <a className="navbar__link" href="#">
             Partners
-          </a>
+          </a> */}
           <a className="navbar__link" href="/about">
             About
           </a>
@@ -54,37 +54,55 @@ export default function ComingSoon() {
 
   return (
     <>
+      <br />
+
       <Navbar />
 
-      <section className="coming">
-        <div className="coming__blob coming__blob--1"></div>
-        <div className="coming__blob coming__blob--2"></div>
+      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4">
 
-        <div className="coming__card">
-          <span className="coming__badge">🚀 Launching Soon</span>
+        {/* Background Glow */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl"></div>
 
-          <h1 className="coming__title text-gradient">
+        {/* Card */}
+        <div className="relative z-10 max-w-xl w-full bg-white/80 backdrop-blur-xl border border-slate-200 shadow-xl rounded-3xl p-8 text-center">
+
+          {/* Badge */}
+          <span className="inline-block mb-4 px-4 py-1 text-sm font-semibold text-indigo-600 bg-indigo-100 rounded-full">
+            🚀 Launching Soon
+          </span>
+
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
             Something Amazing is Coming
           </h1>
 
-          <p className="coming__desc">
-            We're building something powerful. Be the first to know when we go
-            live.
+          {/* Description */}
+          <p className="text-slate-500 mb-6">
+            We're building something powerful. Be the first to know when we go live.
           </p>
 
-          <form className="coming__form" onSubmit={handleSubmit}>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+
+            {/* Input */}
             <input
               type="email"
               placeholder="Enter your email"
               required
-              className="coming__input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 px-4 py-3 rounded-xl border border-slate-300 text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 outline-none"
             />
 
-            <button type="submit" className="coming__btn">
+            {/* Button */}
+            <button
+              type="submit"
+              className="px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow-md hover:bg-indigo-700 hover:scale-105 transition-all duration-300"
+            >
               Remind Me
             </button>
+
           </form>
         </div>
       </section>
