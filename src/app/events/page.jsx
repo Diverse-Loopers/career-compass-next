@@ -42,59 +42,6 @@ const FEATURED_EVENT = {
 // Supabase URL — used directly in the registration POST
 const SUPABASE_URL = 'https://tjqsmkaiajdpotmafqvw.supabase.co';
 
-// ─── Fallback events used when /api/events returns 404 or fails ───────────────
-const FALLBACK_EVENTS = [
-  {
-    id: 'ca4b273f-fe4f-45a0-b711-631871f76ca1',
-    title: 'The Tech Career Compass: Finding Your Niche',
-    date: '2025-12-13T05:30:00+00:00',
-    description: 'Join our upcoming webinar to explore diverse career paths in the tech industry.',
-    category: 'Webinar',
-  },
-  {
-    id: '8eb6594c-79d1-407f-92d9-a8eec206e4e1',
-    title: 'Workshop on AR & VR Technologies',
-    date: '2025-11-19T04:00:00+00:00',
-    description: 'Learn the basics of immersive tech, game development, and Unity through live demos.',
-    category: 'Workshop',
-    key_highlights: ['Gain Experience on AR.', 'Gain Experience in VR.', 'Learn How the Virtual World Works.'],
-    who_should_attend: ['Students.', 'Professors.', 'Anyone interested in Game Development.'],
-    what_you_will_gain: ['Certificate of Attendance.', 'Certificate of Best Performer (Conditions Applied).'],
-    main_media_url: 'https://tjqsmkaiajdpotmafqvw.supabase.co/storage/v1/object/public/events-images/events/8eb6594c-79d1-407f-92d9-a8eec206e4e1-1763146873158.png',
-    gallery_urls: [
-      'https://i.ibb.co/FkFqGZ9r/Screenshot-20260103-042953-Drive.png',
-      'https://i.ibb.co/ymMBWt3D/Screenshot-20260103-042941-Drive.png',
-      'https://i.ibb.co/fzdC8DQM/Screenshot-20260103-042816-Drive.png',
-      'https://i.ibb.co/dw06pWPy/Screenshot-20260103-043103-Drive.png',
-    ],
-  },
-  {
-    id: '049476c1-eee3-4833-bb13-6bb09fa038a1',
-    title: 'AI/ML Project Development Workshop',
-    date: '2025-09-13T05:17:00+00:00',
-    description: 'Fundamentals of machine learning, model building, and real-world AI applications.',
-    category: 'Workshop',
-  },
-  {
-    id: '7c8a6cbf-b656-4be6-a4c5-0557fd8d2643',
-    title: '2-D Game Development Workshop Using Unity',
-    date: '2025-01-28T03:00:00+00:00',
-    description: 'Hands-on 2D Game Development Workshop at IGSM Auditorium, IILM University.',
-    category: 'Workshop',
-    main_media_url: 'https://tjqsmkaiajdpotmafqvw.supabase.co/storage/v1/object/public/events-images/events/7c8a6cbf-b656-4be6-a4c5-0557fd8d2643-1763147603037.png',
-    gallery_urls: [
-      'https://i.ibb.co/fVL077xk/IMG-20250128-WA0035.jpg',
-      'https://i.ibb.co/v6m4cLkY/IMG-20250128-WA0039.jpg',
-      'https://i.ibb.co/5X55LNcJ/IMG-20250128-WA0061.jpg',
-      'https://i.ibb.co/6RgnYG9r/IMG-20250128-WA0029.jpg',
-    ],
-    key_highlights: ['Learn to build simple 2-D Games.', 'Exposure of the development sector under Gaming.', '0 to advance knowledge on Unity'],
-    who_should_attend: ['Beginners.', 'Students.', 'Anyone interested in Gaming.'],
-    what_you_will_gain: ['Certificate of Attendance.', 'Meaningful knowledge of Unity and Games.', '2 complete Projects on game development.'],
-    video_url: 'https://youtu.be/YZllJWpAwY4?si=OhDTfHTvULc4fiJb',
-  },
-];
-
 // ═══════════════════════════════════════════════════════════════════════════════
 //  HELPER FUNCTIONS
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -635,21 +582,20 @@ function EventsListingPage({ onViewDetail, onEventsLoaded }) {
       try {
         const res = await fetch('/api/events');
         if (res.status === 404) {
-          // API route not set up yet — use fallback data
-          setAllEvents(FALLBACK_EVENTS);
-          onEventsLoaded(FALLBACK_EVENTS);
+          setAllEvents([]);
+          onEventsLoaded([]);
           return;
         }
         if (!res.ok) throw new Error(`Server error ${res.status}`);
         const data = await res.json();
         const sorted = Array.isArray(data) && data.length > 0
           ? [...data].sort((a, b) => new Date(b.date) - new Date(a.date))
-          : FALLBACK_EVENTS;
+          : [];
         setAllEvents(sorted);
         onEventsLoaded(sorted);
       } catch {
-        setAllEvents(FALLBACK_EVENTS);
-        onEventsLoaded(FALLBACK_EVENTS);
+        setAllEvents([]);
+        onEventsLoaded([]);
       } finally {
         setLoading(false);
       }
@@ -869,25 +815,21 @@ function EventDetailPage({ id, onBack, allEvents }) {
         const res = await fetch(`/api/events/${id}`);
 
         if (res.status === 404) {
-          // API route /api/events/[id]/route.js not created yet
-          // Fall back to the events already loaded on the listing page
-          const found = allEvents.find((e) => e.id === id)
-            || FALLBACK_EVENTS.find((e) => e.id === id);
+          const found = allEvents.find((e) => e.id === id);
           if (found) { setEvent(found); }
           else        { setError('Event not found'); }
           return;
-        }
+        } 
 
         if (!res.ok) throw new Error(`Server error ${res.status}`);
         setEvent(await res.json());
 
       } catch (e) {
-        // Network error — try local data
-        const found = allEvents.find((ev) => ev.id === id)
-          || FALLBACK_EVENTS.find((ev) => ev.id === id);
+        const found = allEvents.find((ev) => ev.id === id);
         if (found) { setEvent(found); }
         else        { setError(e.message); }
-      } finally {
+      }
+        finally {
         setLoading(false);
       }
     })();
