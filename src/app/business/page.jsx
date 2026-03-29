@@ -440,7 +440,7 @@ export default function BusinessPage() {
 
               <div className="fade-in mt-12 text-center">
                 <p className="text-slate-400 text-sm mb-6 italic">Requirement not listed? We design custom solutions.</p>
-                <button onClick={() => scrollToSection('contact')} className="px-8 py-3.5 bg-slate-900 text-white rounded-2xl font-bold hover:bg-black transition shadow-lg">
+                <button onClick={() => scrollToSection('contact')} className="px-8 py-3.5 cursor-pointer bg-slate-900 text-white rounded-2xl font-bold hover:bg-black transition shadow-lg">
                   Discuss a Custom Requirement
                 </button>
               </div>
@@ -648,7 +648,7 @@ export default function BusinessPage() {
               <div className="flex flex-col items-center sm:items-start">
                 <h4 className="font-bold mb-6 text-xs uppercase tracking-widest text-slate-500">Company</h4>
                 <ul className="space-y-4 text-slate-400 text-sm">
-                  <li><a href="/aboutus-std" className="hover:text-white transition">About Us</a></li>
+                  <li><a href="/about" className="hover:text-white transition">About Us</a></li>
                   <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
                   <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
                 </ul>
