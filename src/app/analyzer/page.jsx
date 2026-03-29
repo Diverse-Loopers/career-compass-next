@@ -65,7 +65,7 @@ export default function AnalyzerPage() {
                 </a>
 
                 <a
-                  href="/#events"
+                  href="/events"
                   className="text-[var(--color-on-surface-variant)] hover:text-[var(--color-secondary)] font-medium transition text-sm"
                 >
                   Events
@@ -92,7 +92,7 @@ export default function AnalyzerPage() {
                 <div className="flex items-center gap-4 border-l border-slate-200 dark:border-white/10 pl-6 lg:pl-8">
                   <button
                     id="theme-toggle"
-                    className="p-2 rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5 transition"
+                    className="p-2 rounded-xl cursor-pointer text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5 transition"
                   >
                     <i
                       data-lucide="moon"
@@ -103,7 +103,7 @@ export default function AnalyzerPage() {
                   <a
                     href="/login"
                     id="login-btn"
-                    className="text-sm font-bold text-slate-600 dark:text-slate-300"
+                    className="text-sm font-semibold text-slate-700 hover:text-primary transition-all duration-200"
                   >
                     Login
                   </a>
@@ -221,7 +221,7 @@ export default function AnalyzerPage() {
               </a>
               <a
                 href="#how-it-works"
-                className="w-full sm:w-auto px-10 py-5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl font-bold text-lg hover:bg-slate-50 transition"
+                className="w-full sm:w-auto px-10 cursor-default py-5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl font-bold text-lg hover:bg-slate-50 transition"
               >
                 Learn How It Works
               </a>
