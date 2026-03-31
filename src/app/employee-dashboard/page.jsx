@@ -281,7 +281,7 @@ export default function EmployeeDashboardPage() {
               <textarea
                 id="submission-link"
                 rows={4}
-                placeholder="Paste drive link or describe work..."
+                placeholder="Paste drive link or document link..."
                 required
               ></textarea>
             </div>

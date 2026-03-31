@@ -149,6 +149,7 @@ export default function AdminDashboard() {
                     <th>Deadline</th>
                     <th>Priority</th>
                     <th>Status</th>
+                    <th>Submission</th>
                     <th>Actions</th>
                   </tr>
                 </thead>

@@ -438,6 +438,7 @@ async function loadTasks() {
             <td>${formatDate(task.deadline)}</td>
             <td>${task.priority}</td>
             <td><span class="status-badge status-${task.status.toLowerCase()}">${task.status}</span></td>
+            <td>${submissionDisplay}</td>
             <td>
                 ${task.status === 'Submitted' ? `<button class="btn-primary" style="font-size:0.8rem; padding: 0.25rem 0.5rem;" onclick="window.reviewTask('${task.id}')">Review</button>` : '-'}
             </td>
