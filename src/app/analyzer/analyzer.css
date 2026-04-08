@@ -415,10 +415,13 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: 8px 0;
+  margin-bottom: 2px;
+  border-radius: 14px;
+  padding: 10px 8px;
   border-bottom: 1px solid var(--border);
   font-size: 13px;
   color: var(--rm-text);
+  
 }
 .rm-goal-item:last-child {
   border-bottom: none;
@@ -528,13 +531,15 @@ body {
   display: block;
 }
 .rm-sem-focus {
-  background: rgba(91, 82, 232, 0.06);
+  /* background: rgba(91, 82, 232, 0.06);
+   */
+   background:  var(--rm-pill-bg)  !important;
   border-left: 3px solid #5b52e8;
   padding: 10px 14px;
   border-radius: 0 8px 8px 0;
   margin-bottom: 14px;
   font-size: 13px;
-  color: var(--rm-text);
+  color: var(--rm-text)  !important;
 }
 
 /* month card */
@@ -596,6 +601,24 @@ body {
 #roadmap-sections [style*="color:var(--text-secondary)"],
 #roadmap-sections [style*="color: var(--text-secondary)"] {
   color: var(--rm-text-secondary) !important;
+}
+
+.rm-sem-focus {
+  background: rgba(91, 82, 232, 0.08);
+  color: var(--rm-text) !important;
+  border-left: 3px solid #5b52e8;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 14px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+html.dark .rm-sem-focus,
+.dark .rm-sem-focus, .dark .rm-goal-item {
+  background: #1c1e30 !important;
+  color: #f1f5f9 !important;
+  border-left-color: #818cf8 !important;
 }
 
 /* ─── responsive ─── */

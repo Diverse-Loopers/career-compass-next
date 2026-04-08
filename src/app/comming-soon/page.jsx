@@ -1,16 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./comming-soon.css";
+
+
+function FontLoader() {
+  useEffect(() => {
+    const hrefs = [
+      "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap",
+    ];
+    hrefs.forEach((href) => {
+      if (!document.querySelector(`link[href="${href}"]`)) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+      }
+    });
+  }, []);
+  return null;
+}
+
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e) => {
+      if (e.target.closest('.navbar__menu-btn')) return;
+      setMenuOpen(false);
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [menuOpen]);
+
   return (
+    <>
     <nav className="navbar">
       <div className="navbar__inner">
-        <div className="navbar__logo">Diverse Loopers</div>
-
+        {/* <div className="navbar__logo">Diverse Loopers</div> */}
+<div className="flex items-center gap-2">
+            <img
+              src="/images/logo.png"
+              alt="Company Logo"
+              className="h-12 object-contain"
+            />
+          </div>
         <div className="navbar__links">
           <a className="navbar__link" href="/">
             Home
@@ -34,12 +71,28 @@ function Navbar() {
 
         <button
           className="navbar__menu-btn"
-          onClick={() => setMenuOpen(!menuOpen)}
+         onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
         >
-          <span className="material-symbols-outlined">menu</span>
+          <span className="material-symbols-outlined">
+            {menuOpen ? "close" : "menu"}
+          </span>
         </button>
       </div>
+      
     </nav>
+
+    {menuOpen && (
+        <div className="navbar__mobile">
+          <a className="navbar__mobile-link" href="/" onClick={() => setMenuOpen(false)}>Home</a>
+          <a className="navbar__mobile-link" href="#" onClick={() => setMenuOpen(false)}>Products</a>
+          <a className="navbar__mobile-link" href="/about" onClick={() => setMenuOpen(false)}>About</a>
+          <a className="navbar__mobile-link" href="/login" onClick={() => setMenuOpen(false)}>Login</a>
+          <a className="navbar__mobile-cta" href="/login" onClick={() => setMenuOpen(false)}>Register</a>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -55,6 +108,7 @@ export default function ComingSoon() {
   return (
     <>
       <br />
+      <FontLoader/>
 
       <Navbar />
 
@@ -69,7 +123,7 @@ export default function ComingSoon() {
 
           {/* Badge */}
           <span className="inline-block mb-4 px-4 py-1 text-sm font-semibold text-indigo-600 bg-indigo-100 rounded-full">
-            🚀 Launching Soon
+            Launching Soon
           </span>
 
           {/* Title */}

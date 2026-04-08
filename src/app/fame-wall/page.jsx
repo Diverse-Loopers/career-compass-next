@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Footer from "@/components/ui/Footer";
 import "./fame-wall.css";
 import { initFameWallPage } from "@/lib/pages/fame-wall";
 
@@ -20,7 +21,7 @@ export default function FameWallPage() {
 
   /* nav items */
   const navItems = [
-    { href: "/skillsynth", label: "Home"         },
+    { href: "/", label: "Home"         },
     { href: "/fame-wall",  label: "Wall of Fame", active: true },
     { href: "/events",     label: "Events"        },
     { href: "#hiring-form",label: "Hire Talent"   },
@@ -52,10 +53,10 @@ export default function FameWallPage() {
           {/* Logo */}
           <a href="/" aria-label="Diverse Loopers home">
             <img
-              src="/Diverse Loopers Black BG (2).png"
-              onError={(e) => { e.currentTarget.src = "/DIVERSE LOOPERS (1) bg.png"; }}
+              src="/DIVERSE LOOPERS (1) bg.png"
+              className="h-12 w-auto"
               alt="Diverse Loopers"
-              style={{ height: 40, width: "auto", display: "block" }}
+              
             />
           </a>
 
@@ -194,7 +195,7 @@ export default function FameWallPage() {
 
               <form id="talent-request-form" noValidate>
                 <div
-                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
+                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%),1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
                 >
                   <div>
                     <label htmlFor="f-company" className="form-label">Company Name</label>
@@ -207,7 +208,7 @@ export default function FameWallPage() {
                 </div>
 
                 <div
-                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
+                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%),1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
                 >
                   <div>
                     <label htmlFor="f-email" className="form-label">Business Email</label>
@@ -220,7 +221,7 @@ export default function FameWallPage() {
                 </div>
 
                 <div
-                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
+                  style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(240px, 100%),1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}
                 >
                   <div>
                     <label htmlFor="f-role" className="form-label">Role / Requirement</label>
@@ -266,10 +267,11 @@ export default function FameWallPage() {
         </main>
 
         {/* Footer */}
-        <footer className="fw-footer" aria-label="Footer">
-          <p>&copy; 2024 Diverse Loopers. Celebrating Talent.</p>
-        </footer>
+
+         <Footer/>
+       
       </div>
+     
     </>
   );
 }

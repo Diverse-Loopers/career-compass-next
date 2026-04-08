@@ -2,8 +2,11 @@
 
 import { useEffect } from 'react'
 import Script from 'next/script'
+import Footer from '@/components/ui/Footer'
 import './business.css'
 import { initBusinessPage, handleBusinessFormSubmit, setInquiryType, scrollToSection } from '@/lib/pages/business'
+import { ArrowRight, BarChart3, BrainCircuit, CheckCircle, Code2, Coins, Menu, Plus, Palette, Server, Settings2, ShieldAlert, ShieldCheck, Users, Zap } from 'lucide-react'
+
 
 export default function BusinessPage() {
   useEffect(() => {
@@ -68,10 +71,11 @@ export default function BusinessPage() {
         <nav className="glass-nav fixed top-0 w-full z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
+              <div>
               <a href="/" className="flex-shrink-0 flex items-center gap-2">
-                <img src="/DIVERSE LOOPERS (1) bg.png" alt="Diverse Loopers" className="h-10 w-auto" />
+                <img src="/DIVERSE LOOPERS (1) bg.png" alt="Diverse Loopers" className="h-12 w-auto" />
               </a>
-
+</div>
               {/* Desktop Nav */}
               <div className="hidden md:flex items-center space-x-8">
                 <div className="flex space-x-1 p-1 bg-slate-100 rounded-full text-xs font-semibold mr-4">
@@ -79,19 +83,21 @@ export default function BusinessPage() {
                   <a href="/institute" className="px-4 py-1.5 text-slate-500 hover:text-slate-700 transition">Universities</a>
                   <a href="/business" className="px-4 py-1.5 bg-white text-primary rounded-full shadow-sm">Businesses</a>
                 </div>
-                <a href="/business" className="text-slate-600 hover:text-primary font-medium transition text-sm">Home</a>
-                <a href="#solutions" className="text-slate-600 hover:text-primary font-medium transition text-sm">Solutions</a>
+                <a href="/" className="text-slate-600 hover:text-primary font-medium transition text-sm">Home</a>
+                <a href="#services" className="text-slate-600 hover:text-primary font-medium transition text-sm">Solutions</a>
                 <a href="#talent-hiring" className="text-slate-600 hover:text-primary font-medium transition text-sm">Hire Talent</a>
 
-                <div className="flex items-center gap-4">
+                
+              </div>
+              
+              <div className="hidden md:flex items-center gap-4">
                   <a href="#contact" className="px-6 py-2.5  bg-primary text-white rounded-full font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-100">
                     Start a Project
                   </a>
                 </div>
-              </div>
 
               <button id="mobile-menu-toggle" className="md:hidden p-2 text-slate-600">
-                <i data-lucide="menu" className="w-6 h-6"></i>
+                <Menu className="w-6 h-6"/>
               </button>
             </div>
           </div>
@@ -103,8 +109,8 @@ export default function BusinessPage() {
               <a href="/institute" className="flex-1 py-2 text-slate-500 text-xs font-bold">Universities</a>
               <a href="/business" className="flex-1 py-2 bg-white text-primary rounded-lg text-xs font-bold shadow-sm">Businesses</a>
             </div>
-            <a href="/business" className="block font-bold py-2">Home</a>
-            <a href="#solutions" className="block font-bold py-2">Our Solutions</a>
+            <a href="/" className="block font-bold py-2">Home</a>
+            <a href="#services" className="block font-bold py-2">Our Services</a>
             <a href="#talent-hiring" className="block font-bold py-2">Hire Talent</a>
             <a href="#contact" className="block py-4 bg-primary text-white text-center rounded-2xl font-bold shadow-lg">Start a Project</a>
           </div>
@@ -127,13 +133,13 @@ export default function BusinessPage() {
                 </p>
                 <div className="fade-in flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a href="#contact" className="w-full sm:w-auto px-10 py-5 bg-primary text-white rounded-full font-black text-lg hover:bg-blue-700 shadow-xl shadow-blue-100 flex items-center justify-center gap-2 group transition">
-                    Start a Project <i data-lucide="zap" className="w-5 h-5"></i>
+                    Start a Project <Zap className="w-5 h-5"/>
                   </a>
                   <button onClick={() => scrollToSection('contact')} className="w-full sm:w-auto px-10 py-5 bg-white text-slate-700 border border-slate-200 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition">
                     Talk to Our Team
                   </button>
                   <a href="/skillsynth" className="w-full sm:w-auto px-10 py-5 bg-primary text-white rounded-full font-black text-lg hover:bg-blue-700 shadow-xl shadow-blue-100 flex items-center justify-center gap-2 group transition">
-                    Our Top Performers <i data-lucide="zap" className="w-5 h-5"></i>
+                    Our Top Performers <Zap className="w-5 h-5"/>
                   </a>
                 </div>
               </div>
@@ -152,7 +158,7 @@ export default function BusinessPage() {
                 </div>
                 <div className="flex-shrink-0">
                   <a href="#talent-hiring" className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-black transition shadow-lg shadow-slate-200 flex items-center gap-2">
-                    Hire From Diverse Loopers <i data-lucide="users" className="w-5 h-5"></i>
+                    Hire From Diverse Loopers <Users className="w-5 h-5"/>
                   </a>
                 </div>
               </div>
@@ -173,28 +179,28 @@ export default function BusinessPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bento-card fade-in p-8 rounded-[2.5rem]">
                   <div className="w-12 h-12 bg-blue-50 text-primary rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="users"></i>
+                    <Users/>
                   </div>
                   <h4 className="font-bold text-slate-900 mb-3 text-lg leading-tight">Trained on Real Projects</h4>
                   <p className="text-sm text-slate-500">Every contributor has worked on structured, supervised projects — not just classroom exercises.</p>
                 </div>
                 <div className="bento-card fade-in p-8 rounded-[2.5rem]">
                   <div className="w-12 h-12 bg-pink-50 text-secondary rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="shield-check"></i>
+                    <ShieldCheck/>
                   </div>
                   <h4 className="font-bold text-slate-900 mb-3 text-lg leading-tight">Guided by Experts</h4>
                   <p className="text-sm text-slate-500">Industry mentors review strategy, code quality, timelines, and deliverables at every stage.</p>
                 </div>
                 <div className="bento-card fade-in p-8 rounded-[2.5rem]">
                   <div className="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="bar-chart-3"></i>
+                    <BarChart3/>
                   </div>
                   <h4 className="font-bold text-slate-900 mb-3 text-lg leading-tight">Outcome-Driven Workflows</h4>
                   <p className="text-sm text-slate-500">Clear milestones, transparent communication, and measurable results for every sprint.</p>
                 </div>
                 <div className="bento-card fade-in p-8 rounded-[2.5rem]">
                   <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="coins"></i>
+                    <Coins/>
                   </div>
                   <h4 className="font-bold text-slate-900 mb-3 text-lg leading-tight">Cost-Efficient</h4>
                   <p className="text-sm text-slate-500">Our hybrid execution model reduces operational costs while maintaining professional quality.</p>
@@ -219,16 +225,16 @@ export default function BusinessPage() {
                     <h4 className="font-bold text-slate-900 mb-4 italic">What You Get With Every Project</h4>
                     <ul className="space-y-3 text-sm font-medium">
                       <li className="flex items-center gap-3">
-                        <i data-lucide="check-circle" className="text-primary w-5 h-5"></i> Dedicated project coordinator
+                        <CheckCircle className="text-primary w-5 h-5"/> Dedicated project coordinator
                       </li>
                       <li className="flex items-center gap-3">
-                        <i data-lucide="check-circle" className="text-primary w-5 h-5"></i> Clear timelines and deliverables
+                        <CheckCircle className="text-primary w-5 h-5"/> Clear timelines and deliverables
                       </li>
                       <li className="flex items-center gap-3">
-                        <i data-lucide="check-circle" className="text-primary w-5 h-5"></i> Regular review meetings
+                        <CheckCircle className="text-primary w-5 h-5"/> Regular review meetings
                       </li>
                       <li className="flex items-center gap-3">
-                        <i data-lucide="check-circle" className="text-primary w-5 h-5"></i> Full documentation & handover
+                        <CheckCircle className="text-primary w-5 h-5"/> Full documentation & handover
                       </li>
                     </ul>
                   </div>
@@ -245,7 +251,7 @@ export default function BusinessPage() {
                       Tell us what you need delivered. We analyze scope, complexity, and expected outcomes to assemble the right execution team.
                     </p>
                     <a href="#contact" className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
-                      Submit Requirements <i data-lucide="arrow-right" className="w-4 h-4"></i>
+                      Submit Requirements <ArrowRight className="w-4 h-4"/>
                     </a>
                   </div>
 
@@ -291,13 +297,13 @@ export default function BusinessPage() {
                   </p>
                   <ul className="space-y-4 text-sm font-semibold text-slate-700">
                     <li className="flex items-center gap-3">
-                      <i data-lucide="check-circle" className="text-primary"></i> Documented Mentored Projects
+                      <CheckCircle className="text-primary"/> Documented Mentored Projects
                     </li>
                     <li className="flex items-center gap-3">
-                      <i data-lucide="check-circle" className="text-primary"></i> Structured Delivery Training
+                      <CheckCircle className="text-primary"/> Structured Delivery Training
                     </li>
                     <li className="flex items-center gap-3">
-                      <i data-lucide="check-circle" className="text-primary"></i> Collaboration Discipline
+                      <CheckCircle className="text-primary"/> Collaboration Discipline
                     </li>
                   </ul>
                 </div>
@@ -350,7 +356,7 @@ export default function BusinessPage() {
                 <div className="bento-card fade-in p-8 rounded-[3rem]">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-10 h-10 bg-blue-50 text-primary rounded-xl flex items-center justify-center">
-                      <i data-lucide="code-2" className="w-5 h-5"></i>
+                      <Code2 className="w-5 h-5"/>
                     </div>
                     <h4 className="font-bold text-slate-900">Tech & Product</h4>
                   </div>
@@ -365,7 +371,7 @@ export default function BusinessPage() {
                 <div className="bento-card fade-in p-8 rounded-[3rem]">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-10 h-10 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
-                      <i data-lucide="server" className="w-5 h-5"></i>
+                      <Server className="w-5 h-5"/>
                     </div>
                     <h4 className="font-bold text-slate-900">Cloud & DevOps</h4>
                   </div>
@@ -380,7 +386,7 @@ export default function BusinessPage() {
                 <div className="bento-card fade-in p-8 rounded-[3rem]">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-10 h-10 bg-pink-50 text-secondary rounded-xl flex items-center justify-center">
-                      <i data-lucide="brain-circuit" className="w-5 h-5"></i>
+                      <BrainCircuit className="w-5 h-5"/>
                     </div>
                     <h4 className="font-bold text-slate-900">AI, Data & Auto</h4>
                   </div>
@@ -395,7 +401,7 @@ export default function BusinessPage() {
                 <div className="bento-card fade-in p-8 rounded-[3rem]">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center">
-                      <i data-lucide="shield-alert" className="w-5 h-5"></i>
+                      <ShieldAlert className="w-5 h-5"/>
                     </div>
                     <h4 className="font-bold text-slate-900">Cybersecurity</h4>
                   </div>
@@ -410,7 +416,7 @@ export default function BusinessPage() {
                 <div className="bento-card fade-in p-8 rounded-[3rem]">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-10 h-10 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center">
-                      <i data-lucide="palette" className="w-5 h-5"></i>
+                      <Palette className="w-5 h-5"/>
                     </div>
                     <h4 className="font-bold text-slate-900">Digital & Creative</h4>
                   </div>
@@ -425,7 +431,7 @@ export default function BusinessPage() {
                 <div className="bento-card fade-in p-8 rounded-[3rem]">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-10 h-10 bg-green-50 text-green-600 rounded-xl flex items-center justify-center">
-                      <i data-lucide="settings-2" className="w-5 h-5"></i>
+                      <Settings2 className="w-5 h-5"/>
                     </div>
                     <h4 className="font-bold text-slate-900">Ops & Support</h4>
                   </div>
@@ -513,7 +519,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Is Diverse Loopers cheaper than agencies?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"/>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     Yes — our hybrid execution model significantly reduces costs while maintaining high quality through expert industry review cycles.
@@ -523,7 +529,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Will I have to manage students directly?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"/>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     No. All work is guided, supervised, and reviewed by industry mentors and project leads who act as your primary point of contact.
@@ -533,7 +539,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Can we hire the top performers?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"/>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     Yes — we help businesses connect with pre-trained candidates from their project teams when hiring needs arise.
@@ -543,7 +549,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none text-left">
                     Is the work original and secure?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition flex-shrink-0"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition flex-shrink-0"/>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     All work follows ethical practices, NDAs if needed, and original output policies to protect your intellectual property.
@@ -620,7 +626,7 @@ export default function BusinessPage() {
         </main>
 
         {/* Footer */}
-        <footer className="bg-slate-900 text-white pt-20 pb-10 mt-auto border-t border-white/5">
+        {/* <footer className="bg-slate-900 text-white pt-20 pb-10 mt-auto border-t border-white/5">
           <div className="max-w-7xl mx-auto px-6 sm:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-center sm:text-left">
               <div className="flex flex-col items-center sm:items-start">
@@ -663,7 +669,8 @@ export default function BusinessPage() {
               &copy; 2024 Diverse Loopers Inc. Your Gateway to Talent, Innovation & Results.
             </div>
           </div>
-        </footer>
+        </footer> */}
+        <Footer/>
       </div>
     </>
   )

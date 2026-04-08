@@ -127,7 +127,7 @@ export default function CommunityPage() {
 
             <div className="font-sans text-slate-700 bg-white min-h-screen flex flex-col scroll-smooth overflow-x-hidden">
                 {/* Navigation */}
-                <nav className="fixed top-0 w-full z-50 glass-nav">
+                <nav className="fixed top-0 w-full z-50 glass-nav bg-white">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center h-20">
                             <a href="/" className="flex-shrink-0 flex items-center gap-2">
@@ -167,7 +167,7 @@ export default function CommunityPage() {
                     <section className="relative pt-40 pb-24 overflow-hidden text-center bg-slate-900">
                         {/* Go Back Button */}
                         <div className="absolute top-24 left-4 md:left-8 z-30">
-                            <button onClick={() => window.history.back()} className="flex items-center gap-2 text-slate-500 hover:text-primary transition font-bold text-sm group backdrop-blur-sm px-4 py-2 rounded-full border border-slate-200 shadow-sm hover:shadow-md">
+                            <button onClick={() => window.history.back()} className="flex items-center gap-2 text-white hover:text-primary transition font-bold text-sm group backdrop-blur-sm px-4 py-2 rounded-full border border-slate-200 shadow-sm hover:shadow-md">
                                 <i data-lucide="arrow-left" className="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
                                 Go Back
                             </button>
@@ -531,7 +531,7 @@ export default function CommunityPage() {
                     </section>
 
                     {/* Partner Section */}
-                    <section className="py-24 bg-slate-900 text-white rounded-t-[4rem]">
+                    <section className="py-24 bg-slate-900 text-white rounded-t-[4rem] mb-2">
                         <div className="max-w-7xl mx-auto px-6 text-center">
                             <div className="max-w-3xl mx-auto space-y-10 reveal">
                                 <h2 className="text-4xl md:text-6xl font-heading font-black italic">Collaborate Beyond Hiring</h2>

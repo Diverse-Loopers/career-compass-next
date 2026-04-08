@@ -810,8 +810,8 @@ function renderSemesterTabsHTML(sems) {
          </div>`
         : "";
       return `<div class="rm-sem-panel${i === 0 ? " active" : ""}" data-sem-panel="${i}">
-      <div class="rm-sem-focus">🎯 ${sanitize(sem.focus)}</div>
-      ${sem.dsa_focus ? `<div style="margin-bottom:14px;padding:9px 14px;background:rgba(91,82,232,0.06);border-radius:8px;font-size:13px;color:var(--type-accent)">⚡ DSA: ${sanitize(sem.dsa_focus)}</div>` : ""}
+      <div class="rm-sem-focus ">🎯 ${sanitize(sem.focus)}</div>
+      ${sem.dsa_focus ? `<div );border-radius:8px;font-size:13px;color:var(--type-accent)">⚡ DSA: ${sanitize(sem.dsa_focus)}</div>` : ""}
       ${mbHTML}
       ${(sem.topics || []).map(topicHTML).join("")}
       ${(sem.practical_goals || []).map(goalItem).join("")}

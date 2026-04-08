@@ -1,6 +1,7 @@
 // lib/pages/fame-wall.js
 
 import { supabase } from '../supabase';
+import {Linkedin}  from 'lucide-react'
 
 export function setupMobileMenu() {
     const mobileToggle = document.getElementById('mobile-menu-toggle');
@@ -83,8 +84,8 @@ export async function loadFullWall() {
             
             // Header for the Week
             section.innerHTML = `
-                <div class="week-line">
-                    <h2 class="text-2xl md:text-3xl font-heading font-bold text-white flex items-center gap-3">
+                <div class="week-line ">
+                    <h2 class="text-2xl md:text-3xl font-heading font-bold text-black flex items-center gap-3">
                         <span class="bg-primary/20 text-primary w-10 h-10 rounded-lg flex items-center justify-center text-sm font-black border border-primary/30">#${Object.keys(grouped).length - index}</span>
                         ${week}
                     </h2>
@@ -99,9 +100,9 @@ export async function loadFullWall() {
                                 
                                 <div class="achiever-details">
                                     <p class="text-xs text-slate-300 leading-relaxed mb-4 line-clamp-3">${c.project_description || 'Outstanding contribution to the community.'}</p>
-                                    <div class="flex gap-2">
-                                        ${c.project_link ? `<a href="${c.project_link}" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 bg-white text-slate-900 text-center rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition">Project</a>` : ''}
-                                        ${c.linkedin_url ? `<a href="${c.linkedin_url}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 flex items-center justify-center bg-white/10 text-white rounded-lg hover:bg-[#0077b5] transition"><i data-lucide="linkedin" class="w-4 h-4"></i></a>` : ''}
+                                    <div class="flex items-center gap-2">
+                                        ${c.project_link ? `<a href="${c.project_link}" target="_blank" rel="noopener noreferrer" class="flex-1 items-center py-2 bg-white text-slate-900 text-center rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition">Project</a>` : ''}
+                                        ${c.linkedin_url ? `<a href="${c.linkedin_url}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 flex items-center justify-center bg-white/10 text-white rounded-lg hover:bg-[#0077b5] transition"><Linkedin class="w-4 h-4"/></a>` : ''}
                                     </div>
                                 </div>
                             </div>

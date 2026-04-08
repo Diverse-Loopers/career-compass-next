@@ -10,5 +10,6 @@
   --font-heading: Poppins, sans-serif;
 }
 
-/* Rest of your global styles */
-
+body{
+  overflow-x: hidden;
+}

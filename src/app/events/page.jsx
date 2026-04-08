@@ -187,8 +187,43 @@ const NAV_LINKS = [
   { label: 'Events',  href: '/events', active: true },
 ];
 
+// function Navbar({ cls = 'ev' }) {
+//   const [scrolled, setScrolled] = useState(false);
+
+//   useEffect(() => {
+//     const fn = () => setScrolled(window.scrollY > 8);
+//     window.addEventListener('scroll', fn, { passive: true });
+//     return () => window.removeEventListener('scroll', fn);
+//   }, []);
+
+//   return (
+//     <nav className={`${cls}-nav${scrolled ? ` ${cls}-nav--scrolled` : ''}`}>
+//       <div className={`${cls}-nav__inner`}>
+//         <Link href="/" className={`${cls}-nav__logo`}>
+//           <Image
+//             src="/DIVERSE LOOPERS (1) bg.png"
+//             alt="Diverse Loopers"
+//             width={120} height={48} priority
+//             className={`${cls}-nav__logo-img`}
+//           />
+//         </Link>
+//         <div className={`${cls}-nav__links`}>
+//           {NAV_LINKS.map((l) => (
+//             <Link key={l.label} href={l.href}
+//               className={`${cls}-nav__link${l.active ? ` ${cls}-nav__link--active` : ''}`}>
+//               {l.label}
+//             </Link>
+//           ))}
+//           <Link href="/login" className={`${cls}-nav__cta`}>Login</Link>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// }
+
 function Navbar({ cls = 'ev' }) {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled,   setScrolled]   = useState(false);
+  const [menuOpen,   setMenuOpen]   = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 8);
@@ -196,28 +231,59 @@ function Navbar({ cls = 'ev' }) {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  // Close menu on route-style navigation (clicking a link)
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav className={`${cls}-nav${scrolled ? ` ${cls}-nav--scrolled` : ''}`}>
-      <div className={`${cls}-nav__inner`}>
-        <Link href="/" className={`${cls}-nav__logo`}>
-          <Image
-            src="/DIVERSE LOOPERS (1) bg.png"
-            alt="Diverse Loopers"
-            width={120} height={40} priority
-            className={`${cls}-nav__logo-img`}
-          />
-        </Link>
-        <div className={`${cls}-nav__links`}>
-          {NAV_LINKS.map((l) => (
-            <Link key={l.label} href={l.href}
-              className={`${cls}-nav__link${l.active ? ` ${cls}-nav__link--active` : ''}`}>
-              {l.label}
-            </Link>
-          ))}
-          <Link href="/login" className={`${cls}-nav__cta`}>Login</Link>
+    <>
+      <nav className={`${cls}-nav${scrolled ? ` ${cls}-nav--scrolled` : ''}`}>
+        <div className={`${cls}-nav__inner`}>
+          <Link href="/" className={`${cls}-nav__logo`}>
+            <Image
+              src="/DIVERSE LOOPERS (1) bg.png"
+              alt="Diverse Loopers"
+              width={120} height={48} priority
+              className={`${cls}-nav__logo-img`}
+            />
+          </Link>
+
+          {/* Desktop links */}
+          <div className={`${cls}-nav__links`}>
+            {NAV_LINKS.map((l) => (
+              <Link key={l.label} href={l.href}
+                className={`${cls}-nav__link${l.active ? ` ${cls}-nav__link--active` : ''}`}>
+                {l.label}
+              </Link>
+            ))}
+            <Link href="/login" className={`${cls}-nav__cta`}>Login</Link>
+          </div>
+
+          {/* Hamburger button — visible only on mobile via CSS */}
+          <button
+            className={`${cls}-nav__hamburger${menuOpen ? ` ${cls}-nav__hamburger--open` : ''}`}
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span /><span /><span />
+          </button>
         </div>
+      </nav>
+
+      {/* Mobile dropdown menu */}
+      <div className={`${cls}-nav__mobile${menuOpen ? ` ${cls}-nav__mobile--open` : ''}`}>
+        {NAV_LINKS.map((l) => (
+          <Link key={l.label} href={l.href}
+            className={`${cls}-nav__mobile-link${l.active ? ` ${cls}-nav__mobile-link--active` : ''}`}
+            onClick={closeMenu}>
+            {l.label}
+          </Link>
+        ))}
+        <Link href="/login" className={`${cls}-nav__mobile-cta`} onClick={closeMenu}>
+          Login
+        </Link>
       </div>
-    </nav>
+    </>
   );
 }
 

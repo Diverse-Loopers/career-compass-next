@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Footer from "@/components/ui/Footer";
 import "./product.css";
 import { useRouter } from "next/navigation"; // ✅ NOT next/router
 
@@ -29,51 +30,56 @@ function FontLoader() {
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+  if (!menuOpen) return;
+  const handleClickOutside = () => setMenuOpen(false);
+  document.addEventListener('click', handleClickOutside);
+  return () => document.removeEventListener('click', handleClickOutside);
+}, [menuOpen]);
 
   return (
-    <nav className="navbar">
-      <div className="navbar__inner">
-        {/* <div className="navbar__logo">Diverse Loopers</div> */}
-        <div className="flex items-center gap-2">
+    <>
+      <nav className="navbar">
+        <div className="navbar__inner">
+          <div className="flex items-center gap-2">
+            <img
+              src="/images/logo.png"
+              alt="Company Logo"
+              className="h-12 object-contain"
+            />
+          </div>
 
-          <img
-            src="/images/logo.png"
-            alt="Company Logo"
+          <div className="navbar__links">
+            <a className="navbar__link" href="/">Home</a>
+            <a className="navbar__link" href="#">Products</a>
+            <a className="navbar__link" href="/about">About</a>
+            <a className="navbar__link" href="/login">Login</a>
+            <a className="navbar__btn-register" href="/comming-soon">Explore ETS</a>
+          </div>
 
-            className="h-12 object-contain"
-          />
+          <button
+            className="navbar__menu-btn"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span className="material-symbols-outlined">
+              {menuOpen ? 'close' : 'menu'}
+            </span>
+          </button>
         </div>
+      </nav>
 
-        <div className="navbar__links">
-          <a className="navbar__link" href="/">
-            Home
-          </a>
-          <a className="navbar__link" href="#">
-            Products
-          </a>
-          {/* <a className="navbar__link" href="#">
-            Partners
-          </a> */}
-          <a className="navbar__link" href="/about">
-            About
-          </a>
-          <a className="navbar__link" href="/login">
-            Login
-          </a>
-          <a className="navbar__btn-register" href="/login">
-            Register
-          </a>
+      {menuOpen && (
+        <div className="navbar__mobile">
+          <a className="navbar__mobile-link" href="/" onClick={() => setMenuOpen(false)}>Home</a>
+          <a className="navbar__mobile-link" href="#" onClick={() => setMenuOpen(false)}>Products</a>
+          <a className="navbar__mobile-link" href="/about" onClick={() => setMenuOpen(false)}>About</a>
+          <a className="navbar__mobile-link" href="/login" onClick={() => setMenuOpen(false)}>Login</a>
+          <a className="navbar__mobile-cta" href="/comming-soon" onClick={() => setMenuOpen(false)}>Explore ETS</a>
         </div>
-
-        <button
-          className="navbar__menu-btn"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className="material-symbols-outlined">menu</span>
-        </button>
-      </div>
-    </nav>
+      )}
+    </>
   );
 }
 
@@ -432,6 +438,7 @@ export default function Page() {
         <EcosystemSection />
         <TrustSection />
       </main>
+      <Footer/>
     </>
   );
 }

@@ -1,12 +1,32 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
 import "./analyzer.css";
 import { initAnalyzerPage } from "@/lib/pages/analyzer";
 
+
+
 export default function AnalyzerPage() {
+  
+  const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
+     const applyTheme = () => {
+    const dark = document.documentElement.classList.contains("dark");
+    setIsDark(dark);
+  };
+
+  applyTheme(); // initial
+
+  // 👇 listen for theme change
+  const observer = new MutationObserver(applyTheme);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+
+  setMounted(true);
     initAnalyzerPage();
   }, []);
 
@@ -43,11 +63,28 @@ export default function AnalyzerPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
               <a href="/" className="flex-shrink-0 flex items-center gap-2">
-                <img
+
+<img
+  src={
+    isDark
+      ? "/Diverse Loopers Black BG (2).png"
+      : "/DIVERSE LOOPERS (1) bg.png"
+  }
+  alt="Diverse Loopers"
+  className="h-10 md:h-12 w-auto"
+/>
+             
+                {/* <img
                   src="/DIVERSE LOOPERS (1) bg.png"
                   alt="Diverse Loopers"
-                  className="h-10 md:h-12 w-auto"
+                  className="block dark:hidden h-10 md:h-12 w-auto"
                 />
+                <img
+                  src="/Diverse Loopers Black BG (2).png"
+                  alt="Diverse Loopers"
+                  className="hidden dark:block h-10 md:h-12 w-auto"
+                /> */}
+              
               </a>
               <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                 <a
@@ -219,12 +256,18 @@ export default function AnalyzerPage() {
               >
                 Start My Analysis <i data-lucide="zap" className="w-5 h-5"></i>
               </a>
-              <a
+              {/* <a
                 href="#how-it-works"
-                className="w-full sm:w-auto px-10 cursor-default py-5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl font-bold text-lg hover:bg-slate-50 transition"
+                className="w-full sm:w-auto px-10 cursor-default py-5 bg-white dark:!bg-black border border-slate-200 dark:border-white/10 rounded-2xl font-bold text-lg hover:bg-slate-50 transition dark:text-red-700"
               >
                 Learn How It Works
-              </a>
+              </a> */}
+    <a
+  href="#how-it-works"
+  className="w-full sm:w-auto px-10 cursor-default py-5 bg-[var(--bg-card)] border border-slate-200 dark:border-white/10 rounded-2xl font-bold text-lg hover:bg-slate-400 dark:hover:bg-red transition cursor-pointer"
+>
+  Learn How It Works
+</a>
             </div>
           </section>
 

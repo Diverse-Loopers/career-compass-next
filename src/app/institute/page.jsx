@@ -4,6 +4,8 @@ import Script from "next/script";
 import { useEffect } from "react";
 import "./institute.css";
 import { initBusinessPage } from "@/lib/pages/institute";
+import Footer from "@/components/ui/Footer";
+import { AlertCircle, TrendingUp, LucideGem, CheckCircle, Hammer, BarChart3, Menu, GraduationCap, Award, UserPlus, UserCheck, Coins, Compass, Plus} from "lucide-react";
 
 export default function BusinessPage() {
   useEffect(() => {
@@ -26,7 +28,7 @@ export default function BusinessPage() {
 
 
 
-      <div className="font-sans text-slate-600 bg-white selection:bg-primary selection:text-white min-h-screen flex flex-col overflow-x-hidden">
+      <div className="font-sans text-slate-600 bg-white selection:bg-primary selection:text-white  ">
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-50 glass-nav">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,17 +59,20 @@ export default function BusinessPage() {
                 <a href="#blueprint" className="text-slate-600 hover:text-primary font-medium transition text-sm">
                   Blueprint
                 </a>
+               
+              </div> 
+              <div className="hidden md:flex items-center">
                 <a
                   href="#contact"
                   className="px-5 py-2.5 bg-primary text-white rounded-full font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-200"
                 >
                   Become a Partner
                 </a>
-              </div>
+                </div>
 
               <div className="md:hidden flex items-center">
                 <button id="mobile-menu-toggle" className="p-2 text-slate-600">
-                  <i data-lucide="menu" className="w-6 h-6"></i>
+                  <Menu className="w-6 h-6"/>
                 </button>
               </div>
             </div>
@@ -120,17 +125,19 @@ export default function BusinessPage() {
           </div>
         </nav>
 
-        <main className="flex-grow">
+        <main >
           {/* Hero Section */}
           <section id="hero-section" className="relative pt-40 pb-24 overflow-hidden hero-gradient">
-            <canvas id="hero-canvas" className="absolute inset-0 pointer-events-none opacity-40"></canvas>
+            <canvas id="hero-canvas" className="absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <div className="text-center max-w-4xl mx-auto">
                 <span className="inline-block py-1 px-4 rounded-full bg-blue-50 text-primary text-xs font-bold tracking-widest uppercase mb-6 fade-in">
                   Academic Transformation Model
                 </span>
-                <h1 className="text-4xl md:text-7xl font-heading font-black text-slate-900 leading-tight mb-8 fade-in">
-                  Build Graduates Who Don't Just Graduate —{" "}
+                {/* <h1 className="text-4xl md:text-7xl font-heading font-black text-slate-900 leading-tight mb-8 fade-in">
+                  Build Graduates Who Don't Just Graduate —{" "} */}
+                  <h1 className="text-3xl sm:text-5xl md:text-7xl font-heading font-black text-slate-900 leading-tight mb-8 fade-in break-words w-full">
+  Build Graduates Who Don't Just Graduate —{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                     They Lead.
                   </span>
@@ -171,13 +178,13 @@ export default function BusinessPage() {
                 </div>
                 <div className="grid grid-cols-1 gap-4">
                   <div className="flex gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
-                    <i data-lucide="alert-circle" className="text-secondary w-6 h-6 flex-shrink-0"></i>
+                    < AlertCircle className="text-secondary w-6 h-6 flex-shrink-0"/>
                     <p className="text-sm text-slate-600">
                       Employers demand applied skills and verifiable portfolios over scores.
                     </p>
                   </div>
                   <div className="flex gap-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
-                    <i data-lucide="trending-up" className="text-primary w-6 h-6 flex-shrink-0"></i>
+                    <TrendingUp className="text-primary w-6 h-6 flex-shrink-0"/>
                     <p className="text-sm text-slate-600">
                       Bridging the widening gap between traditional curricula and market needs.
                     </p>
@@ -187,12 +194,12 @@ export default function BusinessPage() {
 
               {/* Trusted By Institutions */}
               <div className="mt-24 pt-10 border-t border-slate-100 text-center fade-in">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8">Who We Work With</p>
-                <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition duration-500 mb-8">
-                  <span className="text-lg font-bold text-slate-700">Engineering Institutes</span>
-                  <span className="text-lg font-bold text-slate-700">Business Schools</span>
-                  <span className="text-lg font-bold text-slate-700">Innovation Cells</span>
-                  <span className="text-lg font-bold text-slate-700">Technical Universities</span>
+                <p className="text-primary font-bold text-sm mb-8">Who We Work With</p>
+                <div className="flex flex-wrap justify-center gap-3 sm:gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition duration-500 mb-8">
+                  <span className="text-sm sm:text-lg font-bold text-slate-700">Engineering Institutes</span>
+                  <span className="text-sm sm:text-lg font-bold text-slate-700">Business Schools</span>
+                  <span className="text-sm sm:text-lg font-bold text-slate-700">Innovation Cells</span>
+                  <span className="text-sm sm:text-lg font-bold text-slate-700">Technical Universities</span>
                 </div>
                 <p className="text-sm text-slate-500 max-w-2xl mx-auto italic">
                   We collaborate closely with academic leaders to design practical, outcome-driven ecosystems tailored to
@@ -210,8 +217,8 @@ export default function BusinessPage() {
                 <h3 className="text-3xl md:text-5xl font-heading font-bold text-slate-900 mb-6">
                   Why Diverse Loopers Exists
                 </h3>
-                <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                  Diverse Loopers is a business and education ecosystem that blends real-world project execution, career
+                <p className="text-lg text-slate-600 leading-relaxed mb-4">
+                  Diverse Loopers is a business and education ecosystem that blends <br/> real-world project execution, career
                   pathways, and applied learning environments.
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
@@ -224,7 +231,7 @@ export default function BusinessPage() {
                 {/* Phil 1 */}
                 <div className="bento-card p-10 rounded-[2.5rem] fade-in">
                   <div className="w-14 h-14 bg-blue-50 text-primary rounded-2xl flex items-center justify-center mb-8">
-                    <i data-lucide="gem" className="w-8 h-8"></i>
+                    <LucideGem className="w-8 h-8"/>
                   </div>
                   <h4 className="text-xl font-bold text-slate-900 mb-4">Skill is the New Academic Currency</h4>
                   <p className="text-sm text-slate-500 leading-relaxed mb-6">
@@ -233,13 +240,13 @@ export default function BusinessPage() {
                   </p>
                   <ul className="space-y-2 text-xs font-semibold text-slate-700">
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-primary"></i> Verified projects
+                      <CheckCircle className="w-4 h-4 text-primary" /> Verified projects
                     </li>
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-primary"></i> Real industry exposure
+                      <CheckCircle className="w-4 h-4 text-primary" /> Real industry exposure
                     </li>
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-primary"></i> Demonstrable outcomes
+                      <CheckCircle className="w-4 h-4 text-primary" /> Demonstrable outcomes
                     </li>
                   </ul>
                 </div>
@@ -247,7 +254,7 @@ export default function BusinessPage() {
                 {/* Phil 2 */}
                 <div className="bento-card p-10 rounded-[2.5rem] fade-in">
                   <div className="w-14 h-14 bg-pink-50 text-secondary rounded-2xl flex items-center justify-center mb-8">
-                    <i data-lucide="hammer" className="w-8 h-8"></i>
+                    <Hammer className="w-8 h-8"/>
                   </div>
                   <h4 className="text-xl font-bold text-slate-900 mb-4">Industry Must Shape, Not Observe</h4>
                   <p className="text-sm text-slate-500 leading-relaxed mb-6">
@@ -255,13 +262,13 @@ export default function BusinessPage() {
                   </p>
                   <ul className="space-y-2 text-xs font-semibold text-slate-700">
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-secondary"></i> Industry mentors
+                      <CheckCircle className="w-4 h-4 text-secondary" /> Industry mentors
                     </li>
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-secondary"></i> Real project assignments
+                      <CheckCircle className="w-4 h-4 text-secondary" /> Real project assignments
                     </li>
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-secondary"></i> Feedback loops
+                      <CheckCircle className="w-4 h-4 text-secondary" /> Feedback loops
                     </li>
                   </ul>
                 </div>
@@ -269,7 +276,7 @@ export default function BusinessPage() {
                 {/* Phil 3 */}
                 <div className="bento-card p-10 rounded-[2.5rem] fade-in">
                   <div className="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-8">
-                    <i data-lucide="bar-chart-3" className="w-8 h-8"></i>
+                    <BarChart3 className="w-8 h-8"/>
                   </div>
                   <h4 className="text-xl font-bold text-slate-900 mb-4">Education Must Show Measurable ROI</h4>
                   <p className="text-sm text-slate-500 leading-relaxed mb-6">
@@ -278,13 +285,13 @@ export default function BusinessPage() {
                   </p>
                   <ul className="space-y-2 text-xs font-semibold text-slate-700">
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-green-600"></i> Placement performance
+                      <CheckCircle className="w-4 h-4 text-green-600" /> Placement performance
                     </li>
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-green-600"></i> Internship quality
+                      <CheckCircle className="w-4 h-4 text-green-600" /> Internship quality
                     </li>
                     <li className="flex items-center gap-2">
-                      <i data-lucide="check-circle" className="w-4 h-4 text-green-600"></i> Competency levels
+                      <CheckCircle className="w-4 h-4 text-green-600" /> Competency levels
                     </li>
                   </ul>
                 </div>
@@ -301,10 +308,10 @@ export default function BusinessPage() {
           </section>
 
           {/* Blueprint Section */}
-          <section id="blueprint" className="py-24 bg-white">
+          <section id="blueprint" className="py-24 bg-white overflow-visible">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-16 items-start">
-                <div className="sticky top-32 fade-in">
+                <div className="lg:sticky lg:top-32">
                   <h2 className="text-primary font-bold uppercase tracking-widest text-sm mb-4">The Blueprint</h2>
                   <h3 className="text-4xl md:text-5xl font-heading font-black text-slate-900 mb-8 leading-tight">
                     We co-design academic <br />
@@ -321,7 +328,7 @@ export default function BusinessPage() {
                   </div>
                 </div>
 
-                <div className="space-y-12 relative">
+                <div className="space-y-12 ">
                   {/* Phase 1 */}
                   <div className="p-8 bento-card rounded-[2rem] fade-in">
                     <div className="flex items-center gap-4 mb-6">
@@ -416,21 +423,21 @@ export default function BusinessPage() {
                     </h3>
                     <div className="space-y-6">
                       <div className="flex gap-4">
-                        <i data-lucide="graduation-cap" className="w-6 h-6 text-primary flex-shrink-0"></i>
+                        <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
                         <div>
                           <p className="text-slate-900 font-bold">Future-Ready Graduates</p>
                           <p className="text-sm">Strong portfolios and applied real-world experience.</p>
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <i data-lucide="award" className="text-primary flex-shrink-0"></i>
+                        <Award className="w-6 h-6 text-primary flex-shrink-0" />
                         <div>
                           <p className="text-slate-900 font-bold">Institutional Reputation</p>
                           <p className="text-sm">Be recognized for innovation, not tradition alone.</p>
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <i data-lucide="user-plus" className="text-primary flex-shrink-0"></i>
+                        <UserPlus className="w-6 h-6 text-primary flex-shrink-0" />
                         <div>
                           <p className="text-slate-900 font-bold">Faculty Empowerment & Support</p>
                           <p className="text-sm">
@@ -448,21 +455,21 @@ export default function BusinessPage() {
                     </h3>
                     <div className="space-y-6">
                       <div className="flex gap-4">
-                        <i data-lucide="user-check" className="text-secondary flex-shrink-0"></i>
+                        <UserCheck className="text-secondary flex-shrink-0"/>
                         <div>
                           <p className="text-slate-900 font-bold">Guided Practitioner Mentorship</p>
                           <p className="text-sm">Exposure to modern tools and industrial workflows.</p>
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <i data-lucide="coins" className="text-secondary flex-shrink-0"></i>
+                        <Coins className="text-secondary flex-shrink-0"/>
                         <div>
                           <p className="text-slate-900 font-bold">Hybrid Hustle Access</p>
                           <p className="text-sm">Opportunities to earn through verified project pathways.</p>
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <i data-lucide="compass" className="text-secondary flex-shrink-0"></i>
+                        <Compass className="text-secondary flex-shrink-0"/>
                         <div>
                           <p className="text-slate-900 font-bold">Career Direction & Confidence</p>
                           <p className="text-sm">Graduate with purpose instead of uncertainty.</p>
@@ -565,7 +572,7 @@ export default function BusinessPage() {
           </section>
 
           {/* Case Study */}
-          <section className="py-24 bg-surface">
+          {/* <section className="py-24 bg-surface">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="bg-white p-12 rounded-[3rem] border border-slate-100 shadow-sm fade-in">
                 <div className="flex items-center gap-3 mb-6">
@@ -599,7 +606,87 @@ export default function BusinessPage() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
+          {/* Case Study */}
+<section className="py-24 bg-surface">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-white border border-slate-200 rounded-[2rem] overflow-hidden fade-in">
+
+      {/* Top gradient accent bar */}
+      <div className="h-1 bg-gradient-to-r from-primary to-secondary" />
+
+      <div className="p-8 md:p-10">
+
+        {/* Label + Title */}
+        <div className="mb-8">
+          <span className="inline-block text-[11px] font-bold tracking-widest uppercase text-green-700 bg-green-50 border border-green-200 px-4 py-1.5 rounded-full mb-4">
+            Success Story
+          </span>
+          <h3 className="text-2xl md:text-3xl font-heading font-black text-slate-900 mb-2 leading-snug">
+            Case Study: Pilot Department Deployment
+          </h3>
+          <p className="text-slate-500 text-base leading-relaxed">
+            Within one year of hybrid curriculum integration, our partner institution achieved measurable, real-world results.
+          </p>
+        </div>
+
+        {/* 4 Stat Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5 text-center">
+            <p className="text-4xl font-black text-primary leading-none mb-1">72%</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-blue-500 leading-snug">Portfolios Built</p>
+          </div>
+          <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5 text-center">
+            <p className="text-4xl font-black text-secondary leading-none mb-1">38+</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-pink-400 leading-snug">Startup Partners</p>
+          </div>
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-5 text-center">
+            <p className="text-4xl font-black text-green-600 leading-none mb-1">↑</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-green-500 leading-snug">Internship Rate</p>
+          </div>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 text-center">
+            <p className="text-4xl font-black text-yellow-600 leading-none mb-1">★</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-yellow-500 leading-snug">Engagement Score</p>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-slate-100 mb-7" />
+
+        {/* Outcome bullets — 2 col */}
+        <div className="grid sm:grid-cols-2 gap-3 mb-8">
+          {[
+            "Students built demo portfolios from day one",
+            "38+ startup partnerships activated within the year",
+            "Measurable increase in internship conversion rates",
+            "Significantly improved overall learning engagement",
+          ].map((item, i) => (
+            <div key={i} className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+              <div className="w-5 h-5 bg-primary rounded-full flex-shrink-0 flex items-center justify-center mt-0.5">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path d="M1 4l2.5 2.5L9 1" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <p className="text-sm font-semibold text-slate-700 leading-snug">{item}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom quote */}
+        <div className="bg-slate-900 rounded-2xl p-6 flex items-start gap-4">
+          <div className="w-0.5 h-10 bg-primary rounded-full flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-slate-400 italic leading-relaxed">
+            "The most impactful shift was seeing students stop asking{" "}
+            <span className="text-white not-italic font-semibold">'What should I do?'</span>
+            {" "}and start asking{" "}
+            <span className="text-white not-italic font-semibold">'What can I build?'</span>"
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
           {/* FAQ Section */}
           <section id="faq" className="py-24 bg-white">
@@ -611,7 +698,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Is Diverse Loopers replacing faculty or curriculum?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"/>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     No. We strengthen existing structures and collaborate with faculty. We align industrial modules with
@@ -621,7 +708,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Do students have to pay individually?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"></Plus>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     Partnership models vary—some are institution-funded while others are student-led. The financial
@@ -631,7 +718,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Does this guarantee placements?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"></Plus>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     We don't make unrealistic guarantees. We build verified capability, create industry pipelines, and
@@ -641,7 +728,7 @@ export default function BusinessPage() {
                 <details className="group bg-surface border border-slate-100 rounded-2xl overflow-hidden">
                   <summary className="flex justify-between items-center p-6 cursor-pointer font-bold text-slate-900 select-none">
                     Can non-technical programs participate?
-                    <i data-lucide="plus" className="w-5 h-5 text-primary group-open:rotate-45 transition"></i>
+                    <Plus className="w-5 h-5 text-primary group-open:rotate-45 transition"></Plus>
                   </summary>
                   <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
                     Yes. Hybrid learning models benefit innovation, business, research, and design domains equally by
@@ -668,7 +755,7 @@ export default function BusinessPage() {
           {/* Contact Section */}
           <section id="contact" className="py-24 bg-white">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-gradient-to-br from-primary to-secondary rounded-[3rem] p-px shadow-2xl fade-in overflow-hidden">
+              <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl md:rounded-[3rem] p-px shadow-2xl fade-in overflow-hidden">
                 <div className="bg-white rounded-[3rem] grid lg:grid-cols-2 overflow-hidden">
                   {/* CTA Text */}
                   <div className="p-10 lg:p-16 flex flex-col justify-center bg-slate-900 text-white">
@@ -785,67 +872,7 @@ export default function BusinessPage() {
         </main>
 
         {/* Footer */}
-        <footer className="bg-slate-900 text-white pt-20 pb-10 mt-auto block">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-sm">
-              <div className="col-span-1 lg:col-span-1">
-                <img src="/Diverse Loopers Black BG (2).png" alt="Diverse Loopers" className="h-12 w-auto mb-6" />
-                <p className="text-slate-400 leading-relaxed">
-                  Empowering talents for tomorrow through future-ready career pathways.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="font-bold mb-6">Quick Navigation</h4>
-                <ul className="space-y-4 text-slate-400">
-                  <li>
-                    <a href="/" className="hover:text-white transition">
-                      For Students
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/business" className="hover:text-white transition">
-                      For Businesses
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold mb-6">Contact Us</h4>
-                <ul className="space-y-4 text-slate-400">
-                  <li className="flex gap-3">
-                    <i data-lucide="mail" className="w-4 h-4 text-primary"></i>
-                    contact@diverseloopers.com
-                  </li>
-                  <li className="flex gap-3">
-                    <i data-lucide="phone" className="w-4 h-4 text-primary"></i> +91 98393 50961
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <p className="text-xs text-slate-500 font-bold">&copy; 2024 Diverse Loopers Inc.</p>
-                <p className="text-[10px] text-slate-500 mt-2 italic leading-relaxed">
-                  Creating an ecosystem where students do not simply pass examinations, but thrive as innovators, leaders,
-                  and professionals.
-                </p>
-              </div>
-              <div className="flex gap-4">
-                <a href="https://www.linkedin.com/company/105277450" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                </a>
-                <a href="https://www.instagram.com/diverseloopers/" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
-                </a>
-                <a href="https://chat.whatsapp.com/B6XJSoLC2Hg7Wgg5lHRfSf" className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M16.7 13.4c-.3-.2-1.7-.8-2-1-.3-.2-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.2-1.3-1-1-1.3-1.9-1.4-2.2-.1-.3 0-.5.2-.7.2-.2.6-.7.8-1 .2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.1-.2-.4-.4-.3-.7-.3-.3 0-.6 0-.9.3-.3.3-1.1 1.1-1.1 2.6 0 1.5.9 3 1.1 3.2.1.2 2.1 3.2 5.1 4.4 1.9.8 2.6.9 3.5.8.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.1-.3-.2-.6-.4z" />
-                    <path d="M21 12a9 9 0 1 0-16.5 5.2L3 21l3.8-1.5A9 9 0 0 0 21 12z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
