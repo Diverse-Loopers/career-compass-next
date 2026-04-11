@@ -1,0 +1,66 @@
+// Datasource (PostgreSQL)
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_IDENTITY")
+}
+
+// Prisma Client Generator
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/identity"
+}
+
+
+enum GovernmentIdType {
+  Aadhaar
+  PAN
+  Passport
+  Driving_License
+}
+
+model Candidate {
+  // Primary Identifier
+  employee_id String @id @db.VarChar(50)
+
+  // Entity ID (generated in backend)
+  entity_id   String @unique @db.VarChar(60)
+
+  // Basic Info
+  full_name String @db.VarChar(255)
+  email     String @unique @db.VarChar(255)
+  mobile    String @unique @db.VarChar(20)
+
+  // Government Identity
+  government_id_type        GovernmentIdType
+  government_id_number      String @db.VarChar(100)
+  government_id_image_url   String @db.VarChar(1000)
+
+  // Identity Security
+  identity_fingerprint String @unique @db.VarChar(255)
+
+  // Authentication
+  password_hash String @db.VarChar(255)
+
+  // Personal Details
+  date_of_birth DateTime @db.Date
+
+  // Education Details
+  education           String? @db.VarChar(255)
+  education_roll_no   String? @db.VarChar(100)
+  education_image_url String? @db.VarChar(1000)
+
+  // Status
+  is_active Boolean @default(true)
+
+  // Metadata
+  created_at DateTime @default(now())
+
+  // Prevent duplicate government IDs
+  @@unique([government_id_type, government_id_number])
+
+
+  @@index([email])
+  @@index([mobile])
+
+  @@map("candidates")
+}
