@@ -19,9 +19,6 @@ export const register = async (req, res) => {
     console.log("📁 Files:", files);
     console.log("================================\n");
 
-    // =========================
-    // ✅ BASIC VALIDATION
-    // =========================
     const errors = {};
 
     if (!data.full_name) errors.full_name = "Full name is required";
@@ -39,25 +36,11 @@ export const register = async (req, res) => {
       });
     }
 
-    // =========================
-    // ✅ FILE URLS
-    // =========================
-    const eduFileUrl = eduFile
-      ? `http://localhost:5000/uploads/${eduFile.filename}`
-      : null;
+    const eduFileUrl = eduFile ? eduFile.path : null;
+    const idFileUrl = idFile ? idFile.path : null;
 
-    const idFileUrl = idFile
-      ? `http://localhost:5000/uploads/${idFile.filename}`
-      : null;
-
-    // =========================
-    // ✅ HASH PASSWORD
-    // =========================
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    // =========================
-    // ✅ UNIQUE EMPLOYEE ID
-    // =========================
     let employee_id;
     let exists = true;
 
@@ -71,14 +54,8 @@ export const register = async (req, res) => {
       if (!existing) exists = false;
     }
 
-    // =========================
-    // ✅ ENTITY ID
-    // =========================
     const entity_id = "REG-" + crypto.randomUUID();
 
-    // =========================
-    // ✅ FINGERPRINT
-    // =========================
     const identity_fingerprint = generateFingerprint(
       data.government_id_number,
       data.date_of_birth,
@@ -95,9 +72,6 @@ export const register = async (req, res) => {
       });
     }
 
-    // =========================
-    // ✅ NORMALIZE ID TYPE
-    // =========================
     const mapIdType = (type) => {
       switch (type) {
         case "aadhaar":
@@ -116,9 +90,6 @@ export const register = async (req, res) => {
       }
     };
 
-    // =========================
-    // ✅ CREATE USER
-    // =========================
     const candidate = await prisma.identity.candidate.create({
       data: {
         employee_id,
@@ -146,9 +117,6 @@ export const register = async (req, res) => {
       },
     });
 
-    // =========================
-    // ✅ REMOVE SENSITIVE DATA
-    // =========================
     const { password_hash, ...safeData } = candidate;
 
     return res.status(201).json({
@@ -159,9 +127,6 @@ export const register = async (req, res) => {
   } catch (err) {
     console.error("❌ ERROR:", err);
 
-    // =========================
-    // ✅ PRISMA UNIQUE ERROR
-    // =========================
     if (err.code === "P2002") {
       const target = err.meta?.target || [];
 
@@ -183,9 +148,6 @@ export const register = async (req, res) => {
       });
     }
 
-    // =========================
-    // ✅ GENERIC ERROR
-    // =========================
     return res.status(500).json({
       success: false,
       error: "Internal server error",

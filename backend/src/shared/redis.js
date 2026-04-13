@@ -16,9 +16,6 @@ redisClient.on("ready", () => {
   console.log("✅ Redis connected");
 });
 
-/**
- * Connect Redis
- */
 export const connectRedis = async () => {
   if (!redisClient.isOpen) {
     await redisClient.connect();
