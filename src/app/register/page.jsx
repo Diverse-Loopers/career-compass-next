@@ -15,7 +15,7 @@ const ID_FIELD_META = {
   aadhaar: {
     label: "Aadhaar number",
     placeholder: "XXXX XXXX XXXX",
-    maxLength: 14,
+    maxLength: 12,
     hint: "12-digit Aadhaar number",
     type: "text",
   },
@@ -51,14 +51,14 @@ const EDU_OPTIONS = [
 const EDU_FIELD_META = {
   "10th": {
     label: "10th Roll Number",
-    placeholder: "e.g. 1234567",
-    maxLength: 12,
+    placeholder: "e.g. 12345678",
+    maxLength: 8,
     hint: "Roll number printed on your 10th marksheet",
   },
   "12th": {
     label: "12th Roll Number",
-    placeholder: "e.g. 7654321",
-    maxLength: 12,
+    placeholder: "e.g. 76543212",
+    maxLength: 8,
     hint: "Roll number printed on your 12th marksheet",
   },
 };
@@ -227,6 +227,8 @@ export default function RegisterPage() {
   };
 
   const handleRegister = async () => {
+    if (registering) return;
+
     const errors = {};
 
     if (!eduLevel) errors.eduLevel = "Please select an education level.";
@@ -265,30 +267,25 @@ export default function RegisterPage() {
 
     if (Object.keys(errors).length === 0) {
       try {
+        setRegistering(true);
         const formData = new FormData();
 
-        // Basic Info
         formData.append("full_name", `${firstName} ${lastName}`);
         formData.append("email", email);
         formData.append("mobile", phone);
         formData.append("date_of_birth", dob);
 
-        // Education
         formData.append("education", eduLevel);
         formData.append("education_roll_no", eduRoll);
         if (eduFile) formData.append("eduFile", eduFile);
 
-        // Government ID
         formData.append("government_id_type", idType);
         formData.append(
           "government_id_number",
-          idType === "aadhaar"
-            ? idNumber.replace(/\s/g, "") // ✅ send clean value
-            : idNumber,
+          idType === "aadhaar" ? idNumber.replace(/\s/g, "") : idNumber,
         );
         if (uploadedFile) formData.append("idFile", uploadedFile);
 
-        // Password
         formData.append("password", password);
 
         const res = await fetch("http://localhost:5000/api/register", {
@@ -309,6 +306,8 @@ export default function RegisterPage() {
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        setRegistering(false);
       }
     }
   };
@@ -786,11 +785,18 @@ export default function RegisterPage() {
             </div>
 
             <button
-              className="btn-register"
+              className={`btn-register ${registering ? "btn-register--loading" : ""}`}
               onClick={handleRegister}
               type="button"
+              disabled={registering}
             >
-              Register →
+              {registering ? (
+                <>
+                  <span className="loader"></span> Registering...
+                </>
+              ) : (
+                "Register →"
+              )}
             </button>
             <button
               className="btn-back"

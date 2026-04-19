@@ -2,6 +2,7 @@ import { redisClient } from "../../../shared/redis.js";
 import { generateOtp } from "../../../shared/services.js";
 import { transporter } from "../configs/smtp.js";
 import { prisma } from "../../../shared/prisma.js";
+import { log } from "console";
 
 export const sendEmailOtp = async (req, res) => {
   try {
@@ -63,6 +64,8 @@ export const sendEmailOtp = async (req, res) => {
     await redisClient.set(`otp:${email}`, JSON.stringify({ otp, mobile }), {
       EX: 300,
     });
+
+    console.log(otp);
 
     await transporter.sendMail({
       from: `"SkillVerify" <${process.env.EMAIL_USER}>`,

@@ -1,0 +1,11 @@
+import rateLimit from "express-rate-limit";
+
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
+});
+
+export const registerLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+});
