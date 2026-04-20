@@ -39,7 +39,7 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link href="https://www.diverseloopers.com/" target="_blank" rel="noopener noreferrer" className="flex items-center transition-transform hover:scale-[1.02] active:scale-[0.98]">
               <Image
-                src="/Diverse LOOPERS (1) bg.png"
+                src="/DIVERSE LOOPERS (1) bg.png"
                 alt="Diverse Loopers Logo"
                 width={140}
                 height={50}

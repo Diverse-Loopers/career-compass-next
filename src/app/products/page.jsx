@@ -42,11 +42,13 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar__inner">
           <div className="flex items-center gap-2">
+           <a href="/" className="cursor-pointer">
             <img
               src="/images/logo.png"
               alt="Company Logo"
               className="h-12 object-contain"
             />
+            </a>
           </div>
 
           <div className="navbar__links">
