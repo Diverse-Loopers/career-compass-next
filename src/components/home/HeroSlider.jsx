@@ -52,7 +52,7 @@ export default function HeroSlider() {
   const [isPaused, setIsPaused] = useState(false);
   
   // Set the autoscroll slide duration here (in milliseconds)
-  const AUTOSCROLL_SPEED = 8000;
+  const AUTOSCROLL_SPEED = 4000;
 
   useEffect(() => {
     if (isPaused) return;
