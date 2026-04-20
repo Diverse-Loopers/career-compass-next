@@ -104,12 +104,14 @@ function HeroSection() {
           <div className="hero__actions">
             <button
               className="btn-primary"
-              onClick={() => router.push("/comming-soon")}
+              onClick={() => window.location.href = "/comming-soon"}
             >
               Get Your Verified ID
               <span className="material-symbols-outlined">arrow_forward</span>
             </button>
-            <button className="btn-secondary">How it Works</button>
+            <button className="btn-secondary"
+            onClick={() => window.location.href = "/comming-soon"}
+            >How it Works</button>
           </div>
         </div>
 

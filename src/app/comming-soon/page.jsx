@@ -123,7 +123,7 @@ export default function ComingSoon() {
 
           {/* Badge */}
           <span className="inline-block mb-4 px-4 py-1 text-sm font-semibold text-indigo-600 bg-indigo-100 rounded-full">
-            Launching Soon
+             Launching Soon
           </span>
 
           {/* Title */}
