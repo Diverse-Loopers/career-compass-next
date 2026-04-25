@@ -1,0 +1,32 @@
+{
+  "testId": "test_001",
+  "testTitle": "Technical Screening Assessment",
+  "instructions": "Answer each question to the best of your ability. Your responses will be reviewed by our engineering team. Write clearly and concisely — focus on demonstrating your reasoning process.",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Explain closures in JavaScript. Why are they useful, and can you describe a real-world scenario where you would use one?",
+      "type": "text"
+    },
+    {
+      "id": 2,
+      "question": "What is the difference between null and undefined in JavaScript? Give examples of when each might appear.",
+      "type": "text"
+    },
+    {
+      "id": 3,
+      "question": "Describe the event loop in Node.js. How does it handle asynchronous operations differently from a multi-threaded model?",
+      "type": "text"
+    },
+    {
+      "id": 4,
+      "question": "Given an array of integers, write a function that returns two numbers summing to a target. What is the time complexity of your solution?",
+      "type": "text"
+    },
+    {
+      "id": 5,
+      "question": "Explain the concept of database indexing. When would you add an index, and when might it actually hurt performance?",
+      "type": "text"
+    }
+  ]
+}

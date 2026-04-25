@@ -1,0 +1,5 @@
+{
+  "testDuration": 1800,
+  "warningThreshold": 300,
+  "autoSubmitOnExpiry": true
+}
