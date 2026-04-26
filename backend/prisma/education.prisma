@@ -7,3 +7,36 @@ generator client {
   provider = "prisma-client-js"
   output   = "../generated/education"
 }
+
+model education_claims {
+  entity_id            String   @id @db.VarChar(100)
+  employee_id          String   @db.VarChar(50)
+  institution_name     String   @db.VarChar(500)
+  university_email     String   @db.VarChar(255)
+  degree_name          String   @db.VarChar(255)
+  specialization       String   @db.VarChar(255)
+  passing_year         Int
+  documents            Json     @default("[]")
+  status               String   @default("SUBMITTED") @db.VarChar(50)
+  submission_timestamp DateTime @default(now()) @db.Timestamp(6)
+
+  @@index([employee_id], map: "idx_edu_claims_employee")
+  @@index([passing_year], map: "idx_edu_claims_passing_year")
+  @@index([status], map: "idx_edu_claims_status")
+}
+model education_claims {
+  entity_id            String   @id @db.VarChar(100)
+  employee_id          String   @db.VarChar(50)
+  institution_name     String   @db.VarChar(500)
+  university_email     String   @db.VarChar(255)
+  degree_name          String   @db.VarChar(255)
+  specialization       String   @db.VarChar(255)
+  passing_year         Int
+  documents            Json     @default("[]")
+  status               String   @default("SUBMITTED") @db.VarChar(50)
+  submission_timestamp DateTime @default(now()) @db.Timestamp(6)
+
+  @@index([employee_id], map: "idx_edu_claims_employee")
+  @@index([passing_year], map: "idx_edu_claims_passing_year")
+  @@index([status], map: "idx_edu_claims_status")
+}
