@@ -1,32 +1,17 @@
-/**
- * components/TestScreen.jsx
- *
- * The active test view rendered once the candidate clicks Begin.
- * Responsibilities:
- *   - Render all QuestionCards from testConfig.json
- *   - Auto-save answers to localStorage on every change
- *   - Show submission error if Supabase call fails
- *   - Render Submit button with loading / locked states
- *
- * Props:
- *   answers      — { [questionId]: string }
- *   onAnswer     — (questionId, value) => void
- *   onSubmit     — () => void
- *   submitting   — bool
- *   submitError  — string | null
- */
 
-import testConfig from "../../data/Testconfig.json";
+
+// import testConfig from "../../data/Testconfig.json";
+import { useEffect } from "react";
 
 // ── QuestionCard ──────────────────────────────────────────────────────────────
-function QuestionCard({ question, index, answer, onChange, locked }) {
+function QuestionCard({ question, index,total, answer, onChange, locked }) {
   return (
     <div className="bg-white border border-slate-100 rounded-2xl p-7 mb-5 hover:shadow-[0_2px_16px_rgba(99,102,241,0.08)] transition-shadow duration-200">
 
       {/* Q-number badge */}
       <div className="mb-3.5">
         <span className="font-mono text-[11px] font-semibold tracking-widest uppercase text-indigo-500 bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-md">
-          Q{index + 1} of {testConfig.questions.length}
+          Q{index + 1} of {total}
         </span>
       </div>
 
@@ -81,26 +66,48 @@ export default function TestScreen({
   onSubmit,
   submitting,
   submitError,
+  questions,
+   onWarning,
+    warnings,
+    testTitle
 }) {
+
+// useEffect(() => {
+//   const handleVisibility = () => {
+//     if (document.hidden) onWarning?.()
+//   }
+//   document.addEventListener("visibilitychange", handleVisibility)
+//   return () => document.removeEventListener("visibilitychange", handleVisibility)
+// }, [onWarning])
+
+
   return (
     <main className="max-w-[740px] mx-auto px-6 pt-12 pb-24 animate-fadeIn">
 
       {/* Section heading */}
       <div className="mb-8">
         <h2 className="text-[22px] font-bold text-[#1a1a2e] tracking-tight mb-1.5">
-          {testConfig.testTitle}
+          {testTitle}
         </h2>
         <p className="text-[13px] text-slate-400">
-          Answer all {testConfig.questions.length} questions. Your progress is saved automatically.
+          Answer all {questions.length} questions. Your progress is saved automatically.
         </p>
       </div>
+     
+     {warnings > 0 && (
+  <div className="mb-5 px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-[13px] font-medium">
+    ⚠ Tab switch detected — warning {warnings} of 3. Your test auto-submits on the 3rd warning.
+  </div>
+)}
+
 
       {/* Question cards */}
-      {testConfig.questions.map((q, i) => (
+      {questions.map((q, i) => (
         <QuestionCard
           key={q.id}
           question={q}
           index={i}
+          total={questions.length}
           answer={answers[q.id] || ""}
           onChange={onAnswer}
           locked={submitting}

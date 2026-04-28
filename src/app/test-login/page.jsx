@@ -1,21 +1,14 @@
 "use client";
 
-/**
- * LoginScreen.jsx
- *
- * Centered login card — fixed 380px width, border, subtle shadow.
- * Pure white background, no gradient noise.
- *
- * To replace hardcoded auth:
- *   Remove VALID_USER_ID / VALID_PASSWORD, swap the credential
- *   check in handleSubmit with a real API call. Nothing else changes.
- */
+
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase"
 
-const VALID_USER_ID  = "1234";
-const VALID_PASSWORD = "Asses@123";
+
+// const VALID_USER_ID  = "1234";
+// const VALID_PASSWORD = "Asses@123";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -38,19 +31,30 @@ export default function LoginScreen() {
     setError("");
 
     if (!userId.trim() || !password.trim()) {
-      triggerError("Please enter both User ID and Password.");
+      triggerError("Please enter both Email and Password.");
       return;
     }
 
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 700));
+    // await new Promise((r) => setTimeout(r, 700));
 
-    if (userId.trim() === VALID_USER_ID && password === VALID_PASSWORD) {
-      router.push("/test");
-    } else {
-      setLoading(false);
-      triggerError("Invalid User ID or Password.");
-    }
+    // if (userId.trim() === VALID_USER_ID && password === VALID_PASSWORD) {
+    //   router.push("/test");
+    // } else {
+    //   setLoading(false);
+    //   triggerError("Invalid User ID or Password.");
+    // }
+    const { error: authError } = await supabase.auth.signInWithPassword({
+  email: userId.trim(),
+  password: password,
+});
+
+if (authError) {
+  setLoading(false);
+  triggerError("Invalid Email or Password.");
+} else {
+  router.push("/test");
+}
   }
 
   function triggerError(msg) {
@@ -137,13 +141,13 @@ export default function LoginScreen() {
                 htmlFor="userId"
                 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400"
               >
-                User ID
+                Email
               </label>
               <input
                 id="userId"
                 type="text"
                 autoComplete="username"
-                placeholder="Enter your User ID"
+                placeholder="Enter your Email"
                 value={userId}
                 onChange={(e) => { setUserId(e.target.value); setError(""); }}
                 disabled={loading}

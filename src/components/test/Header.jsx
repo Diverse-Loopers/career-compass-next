@@ -8,7 +8,7 @@
  *   isWarning    — bool   → true when < warningThreshold seconds
  */
 
-import { CANDIDATE_NAME, formatTime } from "../../lib/utils";
+import {formatTime } from "../../lib/utils";
 
 // ── Company Logo ──────────────────────────────────────────────────────────────
 function CompanyLogo() {
@@ -62,22 +62,20 @@ function TimerBadge({ timeLeft, isWarning }) {
 }
 
 // ── Candidate Avatar ──────────────────────────────────────────────────────────
-function CandidateAvatar() {
-  const initials = CANDIDATE_NAME.split(" ").map((n) => n[0]).join("");
+function CandidateAvatar({ name }) {
+  const initials = name ? name.split(" ").map((n) => n[0]).join("") : "?";
   return (
     <div className="flex items-center gap-2.5">
       <div className="w-8 h-8 rounded-full bg-indigo-100 border-[1.5px] border-indigo-200 flex items-center justify-center text-[12px] font-bold text-indigo-700 shrink-0">
         {initials}
       </div>
-      <span className="text-[14px] font-medium text-[#1a1a2e] tracking-tight">
-        {CANDIDATE_NAME}
-      </span>
+      <span className="text-[14px] font-medium text-[#1a1a2e] tracking-tight">{name}</span>
     </div>
   );
 }
 
 // ── Main Header Export ────────────────────────────────────────────────────────
-export default function Header({ testStarted, timeLeft, isWarning }) {
+export default function Header({ testStarted, timeLeft, isWarning, candidateName, warnings }) {
   return (
     <header className="sticky top-0 z-50 w-full h-[60px] flex items-center justify-between px-8 bg-white/90 backdrop-blur-md border-b border-slate-100">
       {/* Left — logo */}
@@ -86,7 +84,14 @@ export default function Header({ testStarted, timeLeft, isWarning }) {
       {/* Right — Candidate info + Timer */}
       <div className="flex items-center gap-5">
        
-        <CandidateAvatar />
+        {/* <CandidateAvatar /> */}
+        <CandidateAvatar name={candidateName} />
+        {warnings > 0 && (
+  <span className="text-[12px] font-semibold text-red-500 bg-red-50 border border-red-200 px-2.5 py-1 rounded-lg">
+    {warnings}/3 warnings
+  </span>
+)}
+
         {testStarted && (
           <TimerBadge timeLeft={timeLeft} isWarning={isWarning} />
         )}
