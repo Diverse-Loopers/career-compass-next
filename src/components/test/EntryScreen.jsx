@@ -66,9 +66,45 @@ export default function EntryScreen({
         </h1>
 
         {/* Instructions */}
-        <p className="text-[15px] text-slate-500 leading-relaxed max-w-[440px] mx-auto mb-10">
+        {/* <p className="text-[15px] text-slate-500 leading-relaxed max-w-[440px] mx-auto mb-10">
           {instructions}
-        </p>
+        </p> */}
+        {/* Instructions */}
+{(() => {
+  const parts = instructions.split("\n\nImportant:");
+
+  const mainInstruction = parts[0];
+  const importantPart = parts[1];
+
+  return (
+    <>
+      {/* Main instruction */}
+      <p className="text-[15px] text-slate-500 leading-relaxed max-w-[440px] mx-auto mb-8">
+        {mainInstruction}
+      </p>
+
+      {/* Important Guidelines Box */}
+      {importantPart && (
+        <div className="text-left bg-amber-50 border border-amber-200 rounded-xl p-5 mb-10">
+          <p className="text-[13px] font-semibold text-amber-800 mb-3">
+            Important Guidelines
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-[13px] text-amber-700">
+            {importantPart
+              .split("\n")
+              .filter(line => line.trim())
+              .map((line, i) => (
+                <li key={i}>
+                  {line.replace("•", "").trim()}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
+    </>
+  );
+})()}
 
         {/* Meta strip */}
         <div className="flex items-center justify-center gap-8 mb-10 flex-wrap">

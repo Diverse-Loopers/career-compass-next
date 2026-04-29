@@ -1,5 +1,5 @@
 {
-  "testDuration": 1800,
+  "testDuration": 3600,
   "warningThreshold": 300,
   "autoSubmitOnExpiry": true,
   "examStartTime": "2026-04-30T10:00:00+05:30"

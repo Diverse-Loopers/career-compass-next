@@ -2,28 +2,48 @@
   "testId": "test_001",
   "default": {
     "testTitle": "General Screening Assessment",
-    "instructions": "Answer each question to the best of your ability."
+    "instructions": "Answer each question clearly and honestly. Focus on demonstrating your thinking process and what you know.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
   },
   "jobs": {
-    "Frontend Development Intern": {
-      "testTitle": "Frontend Development Intern Assessment",
-      "instructions": "Answer each question clearly. Focus on demonstrating your frontend knowledge."
-    },
-    "UI/UX Design Intern": {
-      "testTitle": "UI/UX Design Intern Assessment",
-      "instructions": "Answer each question clearly. Focus on your design thinking and process."
-    },
-    "MERN Stack Intern": {
-      "testTitle": "MERN Stack Intern Assessment",
-      "instructions": "Answer each question clearly. Demonstrate your full stack knowledge."
+    "Automation Engineer Intern": {
+      "testTitle": "Automation Engineer Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on demonstrating your thinking process and what you know.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
     },
     "AI Engineer Intern": {
       "testTitle": "AI Engineer Intern Assessment",
-      "instructions": "Answer each question clearly. Focus on your AI and ML knowledge."
+      "instructions": "Answer each question clearly and honestly. Focus on demonstrating your understanding of AI concepts and your practical thinking.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
     },
-    "Automation Engineer Intern": {
-      "testTitle": "Automation Engineer Intern Assessment",
-      "instructions": "Answer each question clearly. Focus on your automation expertise."
+    "Frontend Development Intern": {
+      "testTitle": "Frontend Development Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on demonstrating your thinking process and what you know.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "UI/UX Design Intern": {
+      "testTitle": "UI/UX Design Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on your design thinking process — we care more about how you think than perfect answers.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "MERN Stack Intern": {
+      "testTitle": "MERN Stack Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on demonstrating your thinking process and what you know.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "Banner & Poster Designer Intern": {
+      "testTitle": "Banner & Poster Designer Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on your creative process and design thinking — explain your decisions.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "Marketing Intern": {
+      "testTitle": "Marketing Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on demonstrating your thinking process and what you know.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "HR Intern (Human Resources)": {
+      "testTitle": "HR Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on your understanding of people, processes and how you would handle real HR situations.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "Content Creator Intern": {
+      "testTitle": "Content Creator Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Show your writing ability, creative thinking and understanding of content strategy.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
+    },
+    "Social Media Handler Intern": {
+      "testTitle": "Social Media Handler Intern Assessment",
+      "instructions": "Answer each question clearly and honestly. Focus on your understanding of social platforms, strategy and your ability to think creatively.\n\nImportant:\n• Do not switch tabs, minimize the screen, or exit fullscreen during the assessment.\n• Any such activity may lead to automatic submission or disqualification.\n• Ensure a stable internet connection before starting."
     }
   }
 }
