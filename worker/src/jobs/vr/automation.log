@@ -1,0 +1,38 @@
+
+> vr@1.0.0 dev
+> node src/server.js
+
+◇ injected env (19) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+[Queue] Initialized: verification-request-queue
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+[DB] Warning: PROJECTCLAIM_DB_URL is not defined in environment variables.
+◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+[Worker] 👂 Listening for jobs on verification-request-queue...
+
+[Server] Starting Verification Automation System...
+----------------------------------------------------
+[Server] Verifying 8 Database Connections...
+(node:40194) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[Redis] Connected to Redis successfully
+[DB] ✅ IDENTITY database connected
+[DB] ✅ EMPLOYMENTCLAIM database connected
+[DB] ✅ VERIFICATION database connected
+[DB] ✅ AUTOMATIONQUEUE database connected
+[DB] ✅ EDUCATIONCLAIM database connected
+[DB] ✅ WORKFLOW database connected
+[DB] ✅ VERIFICATIONEVIDENCE database connected
+[DB] ✅ EXCEPTION database connected
+----------------------------------------------------
+[Server] 🚀 System is running on port 3000
+[Server] 🏥 Health check: http://localhost:3000/health
+----------------------------------------------------
+
