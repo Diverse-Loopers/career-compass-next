@@ -1,6 +1,8 @@
 const { verificationQueue } = require('../queues/verificationQueue');
+const pools = require('../config/db');
+
 const addJob = async (entity_id, entity_type) => {
-  const name = `${entity_type} Verification Test`;
+  const name = `${entity_type} Verification Request`;
   const data = { entity_id, entity_type };
   
   try {
@@ -12,24 +14,47 @@ const addJob = async (entity_id, entity_type) => {
     throw error;
   }
 };
-const addTestJobs = async () => {
-  console.log('\n[Producer] Adding test jobs to queue...');
 
-  const testJobs = [
-    { entity_id: 'EDU-1001', entity_type: 'EDUCATION' },
-    { entity_id: 'EMP-2001', entity_type: 'EMPLOYMENT' }
-  ];
+const pollJobsFromPostgres = async () => {
+  try {
+    const result = await pools.automationQueue.query(`
+      SELECT job_id, entity_id, entity_type
+      FROM jobs
+      WHERE status = 'PENDING'
+    `);
 
-  for (const job of testJobs) {
-    await addJob(job.entity_id, job.entity_type);
+    const jobs = result.rows;
+    if (jobs.length > 0) {
+      console.log(`[Poller] Found ${jobs.length} pending jobs in PostgreSQL.`);
+    }
+
+    for (const job of jobs) {
+      await addJob(job.entity_id, job.entity_type);
+      
+      // Update status to QUEUED so we don't process it again
+      await pools.automationQueue.query(`
+        UPDATE jobs SET status = 'QUEUED' WHERE job_id = $1
+      `, [job.job_id]);
+    }
+  } catch (error) {
+    console.error('[Poller] ❌ Error polling jobs:', error.message);
   }
+};
 
+const runPollerScript = async () => {
+  console.log('\n[Producer] Polling pending jobs from PostgreSQL...');
+  await pollJobsFromPostgres();
+  try {
+    await verificationQueue.close();
+    const redisConn = require('../config/redis');
+    redisConn.disconnect();
+  } catch (e) {}
   process.exit(0);
 };
 
 // Run if called directly
 if (require.main === module) {
-  addTestJobs();
+  runPollerScript();
 }
 
-module.exports = { addJob };
+module.exports = { addJob, pollJobsFromPostgres };

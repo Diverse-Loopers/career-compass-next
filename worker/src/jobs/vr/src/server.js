@@ -36,6 +36,13 @@ async function startServer() {
       console.log(`[Server] 🚀 System is running on port ${PORT}`);
       console.log(`[Server] 🏥 Health check: http://localhost:${PORT}/health`);
       console.log('----------------------------------------------------\n');
+      
+      // 3. Start Automatic Database Polling
+      const { pollJobsFromPostgres } = require('./utils/producer');
+      setInterval(() => {
+        pollJobsFromPostgres().catch(err => console.error('[Server] Polling error:', err));
+      }, 10000);
+      console.log('[Server] 🔄 Automatic PostgreSQL polling started (every 10s)');
     });
 
   } catch (error) {

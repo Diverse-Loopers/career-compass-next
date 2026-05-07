@@ -22,16 +22,19 @@ const sendVerificationEmail = async (entity_id, claimData, token) => {
   const isEducation = claimData.entity_type === 'EDUCATION';
   const isEmployment = claimData.entity_type === 'EMPLOYMENT';
 
-  const subject = isEducation 
+  const subject = isEducation
     ? `Verification Request: ${claimData.university_name}`
     : `Verification Request: ${claimData.company_name}`;
 
   const detailsHtml = isEducation
     ? `
       <ul>
+        <li><strong>Student Name:</strong> ${claimData.student_name}</li>
         <li><strong>University:</strong> ${claimData.university_name}</li>
         <li><strong>Degree:</strong> ${claimData.degree_name}</li>
         ${claimData.specialization ? `<li><strong>Specialization:</strong> ${claimData.specialization}</li>` : ''}
+        <li><strong>Passing Year:</strong> ${claimData.passing_year}</li>
+        
       </ul>
     `
     : `
@@ -60,7 +63,7 @@ const sendVerificationEmail = async (entity_id, claimData, token) => {
   try {
     const info = await transporter.sendMail(mailOptions);
     console.log(`[EmailService] ✅ Email sent to ${testRecipient}: ${info.messageId}`);
-    
+
     await logVerificationCommunication(
       info.messageId,
       token,

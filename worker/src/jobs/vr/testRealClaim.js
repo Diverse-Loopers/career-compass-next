@@ -18,7 +18,15 @@ async function runTest() {
     console.log('[Test] Job added successfully. Check worker logs for progress.');
     
     // Keep process alive for a bit to ensure job is sent to Redis
-    setTimeout(() => process.exit(0), 1000);
+    setTimeout(async () => {
+      try {
+        const { verificationQueue } = require('./src/queues/verificationQueue');
+        await verificationQueue.close();
+        const redisConn = require('./src/config/redis');
+        redisConn.disconnect();
+      } catch (e) {}
+      process.exit(0);
+    }, 1000);
   } catch (error) {
     console.error('[Test] Error adding job:', error.message);
     process.exit(1);
