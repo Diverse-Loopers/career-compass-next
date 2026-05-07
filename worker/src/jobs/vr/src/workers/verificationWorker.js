@@ -7,18 +7,18 @@ const worker = new Worker(
   QUEUE_NAME,
   async (job) => {
     const { entity_id, entity_type } = job.data;
-    
+
     try {
       return await runVerificationWorkflow(job.id, entity_id, entity_type);
     } catch (error) {
       if (error.code === 'CLAIM_DATA_NOT_FOUND') {
-        console.error(`[Worker] 🛑 Fatal error for Job ${job.id}: ${error.message}. Stopping retries.`);
+        console.error(`[Worker] Fatal error for Job ${job.id}: ${error.message}. Stopping retries.`);
         throw new UnrecoverableError(error.message);
       }
       throw error;
     }
   },
-  { 
+  {
     connection,
     concurrency: 5
   }
@@ -34,6 +34,16 @@ worker.on('completed', (job, result) => {
 
 worker.on('failed', (job, err) => {
   console.error(`[Worker] 🆘 Job ${job.id} FAILED:`, err.message);
+});
+
+worker.on('error', (err) => {
+  if (err.code === 'ECONNRESET') {
+    console.warn('[Worker] Connection reset by peer (ECONNRESET)');
+  } else if (err.code === 'ENOTFOUND') {
+    console.warn(`[Worker] DNS lookup failed (ENOTFOUND): ${err.hostname}`);
+  } else {
+    console.error('[Worker] Unexpected error:', err.message || err);
+  }
 });
 
 console.log(`[Worker] 👂 Listening for jobs on ${QUEUE_NAME}...`);

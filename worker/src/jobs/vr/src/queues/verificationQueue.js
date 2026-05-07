@@ -17,6 +17,16 @@ const verificationQueue = new Queue(QUEUE_NAME, {
 
 console.log(`[Queue] Initialized: ${QUEUE_NAME}`);
 
+verificationQueue.on('error', (err) => {
+  if (err.code === 'ECONNRESET') {
+    console.warn('[Queue] Connection reset by peer (ECONNRESET)');
+  } else if (err.code === 'ENOTFOUND') {
+    console.warn(`[Queue] DNS lookup failed (ENOTFOUND): ${err.hostname}`);
+  } else {
+    console.error('[Queue] Unexpected error:', err.message || err);
+  }
+});
+
 module.exports = {
   verificationQueue,
   QUEUE_NAME,

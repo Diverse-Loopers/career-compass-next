@@ -20,20 +20,20 @@ const pollJobsFromPostgres = async () => {
     const result = await pools.automationQueue.query(`
       SELECT job_id, entity_id, entity_type
       FROM jobs
-      WHERE status = 'PENDING'
+      WHERE status = 'WAITING'
     `);
 
     const jobs = result.rows;
     if (jobs.length > 0) {
-      console.log(`[Poller] Found ${jobs.length} pending jobs in PostgreSQL.`);
+      console.log(`[Poller] Found ${jobs.length} waiting jobs in PostgreSQL.`);
     }
 
     for (const job of jobs) {
       await addJob(job.entity_id, job.entity_type);
       
-      // Update status to QUEUED so we don't process it again
+      // Update status to ACTIVE so we don't process it again
       await pools.automationQueue.query(`
-        UPDATE jobs SET status = 'QUEUED' WHERE job_id = $1
+        UPDATE jobs SET status = 'ACTIVE' WHERE job_id = $1
       `, [job.job_id]);
     }
   } catch (error) {
