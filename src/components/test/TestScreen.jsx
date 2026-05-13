@@ -27,6 +27,9 @@ function QuestionCard({ question, index,total, answer, onChange, locked }) {
         value={answer}
         onChange={(e) => onChange(question.id, e.target.value)}
         placeholder="Write your answer here…"
+        onCopy={(e)  => e.preventDefault()}
+  onPaste={(e) => e.preventDefault()}
+  onCut={(e)   => e.preventDefault()}
         className={`w-full text-[14px] leading-relaxed text-[#1a1a2e] placeholder:text-slate-300
           bg-slate-50 border border-slate-200 rounded-lg px-4 py-3.5 resize-y outline-none
           focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100

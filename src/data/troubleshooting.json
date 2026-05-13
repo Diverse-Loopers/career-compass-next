@@ -1,0 +1,299 @@
+{
+  "quickFixes": [
+    "Refresh the page (Ctrl + Shift + R)",
+    "Logout and login again",
+    "Wait 5–15 minutes for system sync",
+    "Use Google Chrome browser",
+    "Disable extensions / ad blockers",
+    "Check internet connection"
+  ],
+  "categories": {
+    "student": [
+      {
+        "title": "Search bar returns no results",
+        "why": [
+          "Incorrect or too specific search keyword",
+          "Too many filters applied",
+          "Cached browser data",
+          "Wrong category selected"
+        ],
+        "fix": [
+          "Search using a simple keyword",
+          "Clear all filters",
+          "Hard refresh page",
+          "Browse categories manually"
+        ]
+      },
+      {
+        "title": "OTP not received",
+        "why": [
+          "Email in spam folder",
+          "Email delay",
+          "Incorrect email entered",
+          "Email blocked by firewall"
+        ],
+        "fix": [
+          "Check spam/promotions folder",
+          "Click resend OTP after 2 minutes",
+          "Verify email spelling",
+          "Use Gmail instead of work email"
+        ]
+      },
+      {
+        "title": "Payment successful but course not unlocked",
+        "why": [
+          "Enrollment sync delay",
+          "Session expired during payment",
+          "Backend processing delay"
+        ],
+        "fix": [
+          "Wait 15 minutes",
+          "Logout and login again",
+          "Check My Courses",
+          "Contact support if >30 min delay"
+        ]
+      },
+      {
+        "title": "Video not playing or buffering",
+        "why": [
+          "High video quality selected",
+          "Slow internet connection",
+          "Browser compatibility issue",
+          "Ad blocker blocking CDN"
+        ],
+        "fix": [
+          "Lower video quality to 480p",
+          "Use Chrome browser",
+          "Disable ad blocker",
+          "Turn off hardware acceleration"
+        ]
+      },
+      {
+        "title": "Course not opening / access denied",
+        "why": [
+          "Session expired",
+          "Course start date not reached",
+          "Enrollment issue"
+        ],
+        "fix": [
+          "Logout and login again",
+          "Check course start date",
+          "Verify enrollment status"
+        ]
+      },
+      {
+        "title": "Join Live Class button not visible",
+        "why": [
+          "Payment not confirmed",
+          "Wrong batch",
+          "Cached page"
+        ],
+        "fix": [
+          "Refresh page",
+          "Check enrollment",
+          "Login again"
+        ]
+      },
+      {
+        "title": "Join Live Class not working",
+        "why": [
+          "Class not started",
+          "Popup blocked",
+          "Wrong Google account"
+        ],
+        "fix": [
+          "Join within 10 min of start",
+          "Allow popups",
+          "Use correct Google account"
+        ]
+      },
+      {
+        "title": "Progress not updating",
+        "why": [
+          "Video not watched fully",
+          "Session expired",
+          "Cached data"
+        ],
+        "fix": [
+          "Watch 80% of video",
+          "Refresh page",
+          "Login again"
+        ]
+      },
+      {
+        "title": "Certificate not generated",
+        "why": [
+          "Course not fully completed",
+          "Pending assignments",
+          "Generation delay"
+        ],
+        "fix": [
+          "Complete all modules",
+          "Wait 24–48 hours",
+          "Check profile details"
+        ]
+      }
+    ],
+
+    "mentor": [
+      {
+        "title": "Mentor application stuck in review",
+        "why": [
+          "Documents unclear",
+          "High review load",
+          "Email missed"
+        ],
+        "fix": [
+          "Upload clear documents",
+          "Check spam email",
+          "Wait 3–7 days"
+        ]
+      },
+      {
+        "title": "Course not getting approved",
+        "why": [
+          "Poor course description",
+          "Misleading title",
+          "Incomplete curriculum"
+        ],
+        "fix": [
+          "Improve course description",
+          "Match title with content",
+          "Follow approval checklist"
+        ]
+      },
+      {
+        "title": "Course not visible in search",
+        "why": [
+          "Index delay",
+          "Wrong keywords",
+          "No reviews"
+        ],
+        "fix": [
+          "Wait 48 hours",
+          "Add keywords",
+          "Get reviews"
+        ]
+      },
+      {
+        "title": "Students not receiving meet link",
+        "why": [
+          "Late sharing",
+          "Notification not sent"
+        ],
+        "fix": [
+          "Share link 30 min before",
+          "Send via announcements"
+        ]
+      },
+      {
+        "title": "Screen share not visible",
+        "why": [
+          "Wrong window shared",
+          "Permissions blocked"
+        ],
+        "fix": [
+          "Share entire screen",
+          "Enable permissions"
+        ]
+      },
+      {
+        "title": "Recording not available",
+        "why": [
+          "Recording not started",
+          "Drive processing delay"
+        ],
+        "fix": [
+          "Start recording manually",
+          "Wait 2 hours",
+          "Check Google Drive"
+        ]
+      }
+    ],
+
+    "technical": [
+      {
+        "title": "Meet link opens in wrong account",
+        "why": [
+          "Multiple Google accounts logged in"
+        ],
+        "fix": [
+          "Logout all accounts",
+          "Login with correct account",
+          "Use separate Chrome profile"
+        ]
+      },
+      {
+        "title": "Camera not working",
+        "why": [
+          "Permission not granted",
+          "Camera used by another app"
+        ],
+        "fix": [
+          "Allow camera in Chrome",
+          "Close Zoom/Teams",
+          "Enable in system settings"
+        ]
+      },
+      {
+        "title": "Microphone not working",
+        "why": [
+          "Wrong mic selected",
+          "Permission blocked"
+        ],
+        "fix": [
+          "Select correct mic in Meet",
+          "Allow microphone access"
+        ]
+      },
+      {
+        "title": "Meet disconnecting",
+        "why": [
+          "Unstable internet",
+          "Background apps consuming bandwidth"
+        ],
+        "fix": [
+          "Use ethernet",
+          "Close background apps",
+          "Turn off video"
+        ]
+      },
+      {
+        "title": "Poor video quality",
+        "why": [
+          "Low bandwidth",
+          "Auto quality not adjusting"
+        ],
+        "fix": [
+          "Set 360p manually",
+          "Reduce network usage"
+        ]
+      }
+    ],
+    "sales":[
+        
+        {
+            "title": "Email notifications not received",
+            "why": [
+            "Email in spam folder",
+            "Notification settings off"
+            ],
+            "fix": [
+            "Check spam/promotions folder",
+            "Enable notifications in settings"
+            ]
+        },
+        {
+            "title": "Dashboard metrics not updating",
+            "why": [
+            "Data sync delay",
+            "Cached data"
+            ],
+            "fix": [
+            "Wait 10 minutes",
+            "Refresh dashboard"
+            ]
+        }
+    ]
+  }
+}

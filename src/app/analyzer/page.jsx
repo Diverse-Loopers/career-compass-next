@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import "./analyzer.css";
+import {supabase} from "@/lib/supabase";
+import LoginModal  from "@/components/LoginModal";
 import { initAnalyzerPage } from "@/lib/pages/analyzer";
 
 
@@ -11,6 +13,8 @@ export default function AnalyzerPage() {
   
   const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loginModal, setLoginModal] = useState(false);
   useEffect(() => {
      const applyTheme = () => {
     const dark = document.documentElement.classList.contains("dark");
@@ -29,6 +33,15 @@ export default function AnalyzerPage() {
   setMounted(true);
     initAnalyzerPage();
   }, []);
+
+async function checkLoginStatus() {
+  const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user) {
+      setUser(session.user);
+    }else{
+setLoginModal(true);
+    }
+  } 
 
   return (
     <>
@@ -293,11 +306,18 @@ export default function AnalyzerPage() {
                   </p>
                 </div>
 
+
+ {loginModal && (  
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+                      <LoginModal onClose={() => setLoginModal(false)} />
+                      </div>
+                  )}
                 <form id="analysis-form" className="space-y-8 md:space-y-10">
                   {/* ── hidden field so JS knows which payload to build ── */}
                   <input type="hidden" name="userType" value="student" />
 
                   {/* ── visible shared fields ── */}
+                 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -310,6 +330,7 @@ export default function AnalyzerPage() {
                         required
                         className="input-field"
                         placeholder="Full Name"
+                        onChange={checkLoginStatus}
                       />
                     </div>
                     <div className="space-y-2">

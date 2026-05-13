@@ -10,7 +10,7 @@ export default function LoginModal({ onClose }) {
           </svg>
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Login Required</h3>
-        <p className="text-gray-600 mb-6">You need to be logged in to apply for jobs. Please login or create an account to continue.</p>
+        <p className="text-gray-600 mb-6">You need to be logged in for this action. Please login or create an account to continue.</p>
         
         <div className="flex gap-3">
           <button

@@ -125,6 +125,8 @@ export default function App() {
 
       setCandidateInfo(info);
 
+      
+
       // ── Exam schedule gate ───────────────────────────────────────────────
       // FIX Cause 2: only lock if examStartTime exists AND is in the future
       if (examStartTime && Date.now() < new Date(examStartTime).getTime()) {
@@ -141,6 +143,19 @@ export default function App() {
         setMounted(true);
         return;
       }
+
+       // ── Load draft answers from DB ───────────────────────────────
+const { data: draft } = await client
+  .from("assessment_submissions")
+  .select("answers, is_draft")
+  .eq("applicant_email", email)
+  .eq("is_draft", true)
+  .maybeSingle();
+
+if (draft?.answers) {
+  setAnswers(draft.answers);
+  localStorage.setItem(LS_KEYS.answers, JSON.stringify(draft.answers));
+}
 
       // Restore mid-test state on page refresh
       const wasStarted = localStorage.getItem(LS_KEYS.started) === "true";
@@ -177,6 +192,25 @@ export default function App() {
   // ── 4. Double-submit guard ────────────────────────────────────────────────
   const hasSubmitted = useRef(false);
 
+  const saveDraftToSupabase = async (answers, candidateInfo) => {
+  try {
+    if (!candidateInfo?.email) return;
+
+    await supabase
+      .from("assessment_submissions")
+      .upsert({
+        applicant_email: candidateInfo.email,
+        answers: answers,
+        is_draft: true,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: "applicant_email"
+      });
+
+  } catch (err) {
+    console.error("Draft save failed:", err);
+  }
+};
   // ── 5. Submit handler ─────────────────────────────────────────────────────
   const handleSubmit = useCallback(async () => {
     if (hasSubmitted.current) return;
@@ -217,6 +251,13 @@ export default function App() {
   useEffect(() => {
     if (!mounted || !testStarted) return;
     localStorage.setItem(LS_KEYS.answers, JSON.stringify(answers));
+
+     // save to DB (debounced)
+  const timeout = setTimeout(() => {
+    saveDraftToSupabase(answers, candidateInfo);
+  }, 1000); // 1 sec delay
+
+  return () => clearTimeout(timeout);
   }, [answers, testStarted, mounted]);
 
   // ── 8. Warn before closing mid-test ───────────────────────────────────────
