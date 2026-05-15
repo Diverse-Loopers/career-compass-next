@@ -21,6 +21,7 @@ const pollJobsFromPostgres = async () => {
       SELECT job_id, entity_id, entity_type
       FROM jobs
       WHERE status = 'WAITING'
+      AND job_type IN ('EDU_VERIFICATION_REQUEST', 'EMP_VERIFICATION_REQUEST')
     `);
 
     const jobs = result.rows;
@@ -31,7 +32,7 @@ const pollJobsFromPostgres = async () => {
     for (const job of jobs) {
       await addJob(job.entity_id, job.entity_type);
       
-      // Update status to ACTIVE so we don't process it again
+      
       await pools.automationQueue.query(`
         UPDATE jobs SET status = 'ACTIVE' WHERE job_id = $1
       `, [job.job_id]);
